@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../../../services/global.service';
+import { AuthPocketbaseService } from '../../../services/auth-pocketbase.service';
 
 @Component({
   selector: 'app-top-navbar',
@@ -10,6 +11,7 @@ import { GlobalService } from '../../../services/global.service';
 })
 export class TopNavbarComponent {
   constructor (
+    public auth:AuthPocketbaseService,
     public global: GlobalService
   ){}
 }

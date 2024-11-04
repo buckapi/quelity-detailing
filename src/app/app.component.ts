@@ -4,14 +4,22 @@ import { HomeComponent } from './components/home/home.component';
 import { GlobalService } from './services/global.service';
 import { SidebarComponent } from "./components/ui/sidebar/sidebar.component";
 import { TopNavbarComponent } from './components/ui/top-navbar/top-navbar.component';
+import { RegisterComponent } from './components/register/register.component';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './components/login/login.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,
+  imports: [
+    
+    CommonModule,
+    RouterOutlet,
     HomeComponent, 
     SidebarComponent,
-  TopNavbarComponent],
+    TopNavbarComponent,
+    RegisterComponent,
+    LoginComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

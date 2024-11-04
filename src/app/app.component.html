@@ -1,7 +1,6 @@
-<app-sidebar ></app-sidebar>
-<!-- <app-top-navbar ></app-top-navbar>
- -->
- 	<app-home  [hidden]="global.activeRoute!='home'"></app-home>
+<app-sidebar *ngIf="global.activeRoute !== 'register' && global.activeRoute !== 'login'"></app-sidebar>
+	<app-top-navbar *ngIf="global.activeRoute !== 'register' && global.activeRoute !== 'login'"></app-top-navbar>
 
-   
-     
+<app-home [hidden]="global.activeRoute!='home'"></app-home>
+<app-register [hidden]="global.activeRoute!='register'"></app-register>
+<app-login [hidden]="global.activeRoute!='login'"></app-login>

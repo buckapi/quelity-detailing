@@ -9160,7 +9160,7 @@ button:focus {
 /* ===================== Dashboard Main wrapper css start ========================= */
 .dashboard-main-wrapper {
     margin-inline-start: 252px;
-    min-height: 100vh;
+    /* min-height: 100vh; */ 
     display: flex;
     flex-wrap: wrap;
     flex-flow: column;

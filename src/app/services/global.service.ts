@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class GlobalService {
-  activeRoute = 'home';
+  activeRoute = 'login';
   constructor() { }
   setRoute(route: string) {
     this.activeRoute = route;
