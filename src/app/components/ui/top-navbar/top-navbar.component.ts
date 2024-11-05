@@ -13,5 +13,8 @@ export class TopNavbarComponent {
   constructor (
     public auth:AuthPocketbaseService,
     public global: GlobalService
-  ){}
+  ){
+    this.auth.permision();
+
+  }
 }

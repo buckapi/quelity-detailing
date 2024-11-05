@@ -1,30 +1,18 @@
 import { Injectable } from '@angular/core';
 import PocketBase from 'pocketbase';
-import { Observable, from, tap, map } from 'rxjs';
+import { Observable, from, tap, map, BehaviorSubject } from 'rxjs';
 import { GlobalService } from './global.service';
-interface UserInterface {
-  id: string;
-  email: string;
-  address: string;
-  password: string;
-  full_name: string;
-  images: string[];
-  days: string[];
-  username:string;
-  created: string;
-  updated: string;
-  avatar: string;
-  status: string;
-  type: string;
-  biography?: string; 
+import { UserInterface } from '../interface/user-interface'; 
 
-}
 @Injectable({
   providedIn: 'root'
 })
 export class AuthPocketbaseService {
   private pb: PocketBase;
   complete: boolean = false;
+  private userTypeSubject = new BehaviorSubject<string | null>(this.getUserTypeFromStorage());
+  userType$ = this.userTypeSubject.asObservable();
+  
   constructor( 
     public global: GlobalService
    ) 
@@ -41,7 +29,30 @@ export class AuthPocketbaseService {
       throw error;
     }
   } */
-
+    private isLocalStorageAvailable(): boolean {
+      return typeof localStorage !== 'undefined';
+    }
+  
+    // Obtener el tipo de usuario desde el almacenamiento local
+    private getUserTypeFromStorage(): string | null {
+      if (this.isLocalStorageAvailable()) {
+        return localStorage.getItem('type');
+      }
+      return null;
+    }
+    setUserType(type: string): void {
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem('type', type);
+      }
+      this.userTypeSubject.next(type);
+    }
+  
+    clearUserType(): void {
+      if (this.isLocalStorageAvailable()) {
+        localStorage.removeItem('type');
+      }
+      this.userTypeSubject.next(null);
+    }
   isLogin() {
     return localStorage.getItem('isLoggedin');
   }
@@ -192,42 +203,32 @@ export class AuthPocketbaseService {
   permision() {
     const currentUser = this.getCurrentUser();
     if (!currentUser || !currentUser.type) {
-      console.warn('Usuario o tipo no definido, no se puede mostrar el perfil');
+      this.global.setRoute('login'); // Redirigir al usuario a la ruta 'home' si no hay tipo definido
       return;
     }
-
     // Llamar a la API para obtener información actualizada del usuario
     this.pb.collection('users').getOne(currentUser.id).then(updatedUser => {
-      switch (updatedUser["type"]) { 
+      switch (updatedUser["type"]) {
+        case 'admin':
+          this.global.setRoute('home'); // Redirigir al cliente a la página principal
+          break;
         case 'cliente':
-          this.complete = updatedUser["profilePicture"] && updatedUser["address"];
+          this.global.setRoute('home'); // Redirigir al cliente a la página principal
           break;
         case 'tecnico':
-          this.complete = updatedUser["certifications"] && updatedUser["experience"];
+          this.global.setRoute('dashboard-tecnico'); // Redirigir al panel de técnico
           break;
         case 'supervisor':
-          this.complete = updatedUser["department"] && updatedUser["teamMembers"];
+          this.global.setRoute('dashboard-supervisor'); // Redirigir al panel de supervisor
           break;
         default:
           console.warn('Tipo de usuario no reconocido');
-          this.complete = false;
+          this.global.setRoute('error');
       }
-      
-      // Mostrar el perfil en base a si está completo o no
-      if (this.complete) {
-        console.log('Perfil completo, listo para mostrar');
-        // Aquí puedes agregar cualquier lógica adicional para mostrar el perfil
-      } else {
-        console.log('Perfil incompleto, algunos campos faltan');
-        // Aquí puedes manejar la lógica si deseas resaltar los campos faltantes
-      }
-      
     }).catch(error => {
       console.error('Error al obtener la información del usuario:', error);
-      this.complete = false;
+      this.global.setRoute('home'); // Redirigir a 'home' en caso de error
     });
-}
-
- 
-
+  }
+  
 }

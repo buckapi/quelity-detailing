@@ -7,19 +7,21 @@ import { TopNavbarComponent } from './components/ui/top-navbar/top-navbar.compon
 import { RegisterComponent } from './components/register/register.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
+import { FormRequestComponent } from "./components/form-request/form-request.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    
     CommonModule,
     RouterOutlet,
-    HomeComponent, 
+    HomeComponent,
     SidebarComponent,
     TopNavbarComponent,
     RegisterComponent,
-    LoginComponent],
+    LoginComponent,
+    FormRequestComponent
+],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

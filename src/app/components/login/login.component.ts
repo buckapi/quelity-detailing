@@ -13,6 +13,7 @@ import { GlobalService } from '../../services/global.service';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  passwordVisible: boolean = false; // Variable para mostrar/ocultar la contraseña
   errorMessage: string | null = null;
 
   constructor(
@@ -26,7 +27,9 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
   // Método para manejar el envío del formulario de inicio de sesión
   onLogin() {
     if (this.loginForm.valid) {
@@ -34,9 +37,13 @@ export class LoginComponent {
       this.authService.loginUser(email, password).subscribe({
         next: (response) => {
           console.log('Inicio de sesión exitoso', response);
-          this.errorMessage = null;
-          this.global.setRoute('home')
-          // Redirigir o realizar alguna acción tras el inicio de sesión exitoso
+  
+          // Guardar el estado de login y el usuario actual en localStorage
+          localStorage.setItem('isLoggedin', 'true');
+          this.authService.setUser(response.user); // Suponiendo que `response.user` es el usuario
+  
+          // Redirigir según el tipo de usuario con `permision()`
+          this.authService.permision();
         },
         error: (error) => {
           console.error('Error en el inicio de sesión:', error);
@@ -47,4 +54,24 @@ export class LoginComponent {
       this.errorMessage = 'Por favor, completa los campos correctamente.';
     }
   }
+  
+  /* onLogin() {
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
+      this.authService.loginUser(email, password).subscribe({
+        next: (response) => {
+          console.log('Inicio de sesión exitoso', response);
+          localStorage.setItem('isLoggedin', 'true'); // Guardar el estado de login
+          const currentUser = this.authService.getCurrentUser();
+          this.authService.permision();
+        },
+        error: (error) => {
+          console.error('Error en el inicio de sesión:', error);
+          this.errorMessage = 'Credenciales incorrectas, intenta de nuevo.';
+        }
+      });
+    } else {
+      this.errorMessage = 'Por favor, completa los campos correctamente.';
+    }
+  } */
 }
