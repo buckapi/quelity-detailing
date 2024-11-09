@@ -10,35 +10,31 @@
     <div class="sidebar-menu-wrapper overflow-y-auto scroll-sm">
         <div class="p-20 pt-10">
             <ul class="sidebar-menu">
-                <!-- <li *ngIf="userType === 'admin' || userType === 'cliente'" class="sidebar-menu__item">
-                    <a class="sidebar-menu__link">
-                      <span class="icon"><i class="ph ph-users-three"></i></span>
-                      <span class="text">Requests</span>
-                    </a>
-                  </li> -->
-                  <li  class="sidebar-menu__item">
-                    <a style="cursor: pointer;" (click)="global.setRoute('form-request')" class="sidebar-menu__link">
-                        <span class="icon"><i class="ph ph-clipboard-text"></i></span>
-                        <span class="text">Requests</span>
-                    </a>
-                </li>
-                <li  class="sidebar-menu__item">
-                    <a  class="sidebar-menu__link">
+            
+               
+                <li (click)="global.setRoute('supervisors')" class="sidebar-menu__item">
+                    <a  style="cursor: pointer;" class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-users-three"></i></span>
-                        <span class="text">Supervisores</span>
+                        <span class="text">Supervisors</span>
                     </a>
                 </li>
                 <li  class="sidebar-menu__item">
-                    <a  class="sidebar-menu__link">
+                    <a style="cursor: pointer;"   class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-users-three"></i></span>
                         <span class="text">Technicals</span>
                     </a>
                 </li>
 
                 <li  class="sidebar-menu__item">
-                    <a  class="sidebar-menu__link">
+                    <a  style="cursor: pointer;"  class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-user"></i></span>
                         <span class="text">Customers</span>
+                    </a>
+                </li>
+                <li  class="sidebar-menu__item">
+                    <a style="cursor: pointer;" (click)="global.setRoute('form-request')" class="sidebar-menu__link">
+                        <span class="icon"><i class="ph ph-clipboard-text"></i></span>
+                        <span class="text">Work Instructions</span>
                     </a>
                 </li>
                 <li  class="sidebar-menu__item">

@@ -29,6 +29,49 @@ export class AuthPocketbaseService {
       throw error;
     }
   } */
+    generateRandomPassword(length: number = 8): string {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let password = '';
+      for (let i = 0; i < length; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return password;
+    }
+
+    addSupervisor(email: string, name: string, address: string, phone: string): Observable<any> {
+      const password = this.generateRandomPassword();
+      
+      const userData = {
+        email: email,
+        password: password,
+        passwordConfirm: password,
+        type: 'supervisor',
+        username: name,
+        name: name
+      };
+  
+      return from(
+        this.pb.collection('users').create(userData).then((user) => {
+          const supervisorData = {
+            name: name,
+            // address: address,
+            phone: phone,
+            email: email,
+            userId: user.id, // Asigna el userId devuelto por PocketBase
+            // status: 'active', // Estado del supervisor, puedes cambiarlo según tus necesidades
+            // otros campos que quieras agregar
+          };
+          return this.pb.collection('supervisors').create(supervisorData);
+        })
+      ).pipe(
+        map((response) => ({
+          supervisorData: response,
+          password: password // Devuelve la contraseña generada si necesitas mostrarla o guardarla
+        }))
+      );
+    }
+
+
     private isLocalStorageAvailable(): boolean {
       return typeof localStorage !== 'undefined';
     }
@@ -181,14 +224,30 @@ export class AuthPocketbaseService {
     localStorage.setItem('accessToken', token);
   }
 
-  getCurrentUser(): UserInterface {
-    const user = localStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null; // Devuelve el usuario actual o null si no existe
+  // getCurrentUser(): UserInterface {
+  //   const user = localStorage.getItem('currentUser');
+  //   return user ? JSON.parse(user) : null; 
+  // }
+  // getUserId(): string {
+  //   const userId = localStorage.getItem('userId');
+  //   return userId ? userId : '';
+  // }
+  getCurrentUser(): UserInterface | null {
+    if (this.isLocalStorageAvailable()) {
+      const user = localStorage.getItem('currentUser');
+      return user ? JSON.parse(user) : null; // Devuelve el usuario actual o null si no existe
+    }
+    return null; // Retorna null si no está en un entorno cliente
   }
+  
   getUserId(): string {
-    const userId = localStorage.getItem('userId');
-    return userId ? userId : ''; // Devuelve el usuario actual o null si no existe
+    if (this.isLocalStorageAvailable()) {
+      const userId = localStorage.getItem('userId');
+      return userId ? userId : ''; // Devuelve el usuario actual o null si no existe
+    }
+    return ''; // Retorna vacío si no está en un entorno cliente
   }
+  
   getFullName(): string {
     const userString = localStorage.getItem('currentUser');
     if (userString) {

@@ -8,11 +8,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { FormRequestComponent } from "./components/form-request/form-request.component";
+import { AuthPocketbaseService } from './services/auth-pocketbase.service';
+import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
+    SupervisorsComponent,
     CommonModule,
     RouterOutlet,
     HomeComponent,
@@ -29,6 +32,9 @@ import { FormRequestComponent } from "./components/form-request/form-request.com
 export class AppComponent {
   title = 'qualitydetailing';
   constructor (
-    public global: GlobalService
-  ){}
+    public global: GlobalService,
+    public auth:AuthPocketbaseService
+  ){
+    this.auth.permision();  
+  }
 }

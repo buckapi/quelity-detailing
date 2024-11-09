@@ -16,12 +16,14 @@ export class SidebarComponent {
 
   constructor (
     public global: GlobalService,
-    public aout: AuthPocketbaseService
-  ){}
+    public auth: AuthPocketbaseService
+  ){
+    this.auth.permision();
+  }
 
   ngOnInit(): void {
     // Suscribirse al observable userType$ del servicio de autenticación
-    this.aout.userType$.subscribe((type) => {
+    this.auth.userType$.subscribe((type) => {
       this.userType = type; // Asignar el tipo de usuario a la propiedad userType
     });
   }
