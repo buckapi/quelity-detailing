@@ -10,6 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FormRequestComponent } from "./components/form-request/form-request.component";
 import { AuthPocketbaseService } from './services/auth-pocketbase.service';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
+import { TechnicalsComponent } from './components/technicals/technicals.component';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,8 @@ import { SupervisorsComponent } from './components/supervisors/supervisors.compo
     TopNavbarComponent,
     RegisterComponent,
     LoginComponent,
-    FormRequestComponent
+    FormRequestComponent,
+    TechnicalsComponent
 ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',

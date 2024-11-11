@@ -71,6 +71,39 @@ export class AuthPocketbaseService {
       );
     }
 
+    addTechnical(email: string, name: string, address: string, phone: string): Observable<any> {
+      const password = this.generateRandomPassword();
+      
+      const userData = {
+        email: email,
+        password: password,
+        passwordConfirm: password,
+        type: 'tecnico',
+        username: name,
+        name: name
+      };
+  
+      return from(
+        this.pb.collection('users').create(userData).then((user) => {
+          const technicalData = {
+            name: name,
+            // address: address,
+            phone: phone,
+            email: email,
+            userId: user.id, // Asigna el userId devuelto por PocketBase
+            // status: 'active', // Estado del supervisor, puedes cambiarlo según tus necesidades
+            // otros campos que quieras agregar
+          };
+          return this.pb.collection('technicals').create(technicalData);
+        })
+      ).pipe(
+        map((response) => ({
+          technicalData: response,
+          password: password // Devuelve la contraseña generada si necesitas mostrarla o guardarla
+        }))
+      );
+    }
+
 
     private isLocalStorageAvailable(): boolean {
       return typeof localStorage !== 'undefined';
