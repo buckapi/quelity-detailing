@@ -11,7 +11,8 @@ import { FormRequestComponent } from "./components/form-request/form-request.com
 import { AuthPocketbaseService } from './services/auth-pocketbase.service';
 import { SupervisorsComponent } from './components/supervisors/supervisors.component';
 import { TechnicalsComponent } from './components/technicals/technicals.component';
-
+import { WorkInstructionsComponent } from './components/work-instructions/work-instructions.component';
+import { HttpClientModule } from '@angular/common/http'; 
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -25,8 +26,11 @@ import { TechnicalsComponent } from './components/technicals/technicals.componen
     RegisterComponent,
     LoginComponent,
     FormRequestComponent,
-    TechnicalsComponent
-],
+    TechnicalsComponent,
+    WorkInstructionsComponent,
+    HttpClientModule
+  ],
+ 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

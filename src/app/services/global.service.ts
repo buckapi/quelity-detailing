@@ -9,4 +9,5 @@ export class GlobalService {
   setRoute(route: string) {
     this.activeRoute = route;
   }
+  
 }
