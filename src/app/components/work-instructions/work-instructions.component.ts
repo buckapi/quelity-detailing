@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../../services/global.service';
 import { DataApiService, workInstructionsInterface } from '../../services/data-api.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { SupervisorService } from '../../services/supervisor.service';
+import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
 
 @Component({
   selector: 'app-work-instructions',
@@ -13,12 +15,17 @@ import Swal from 'sweetalert2';
   templateUrl: './work-instructions.component.html',
   styleUrl: './work-instructions.component.css',
 })
-export class WorkInstructionsComponent {
+export class WorkInstructionsComponent implements OnInit {
   workInstructionsForm: FormGroup;
+  supervisors: any[] = [];
+  
+
   constructor(
     public global: GlobalService,
     private fb: FormBuilder,
     private dataApiService: DataApiService,
+    private supervisorService: SupervisorService,
+    public realtimeSupervisors: RealtimeSupervisorsService
   ){ 
     this.workInstructionsForm = this.fb.group({
       companyName: ['', [Validators.required]],
@@ -29,11 +36,33 @@ export class WorkInstructionsComponent {
       email: ['', [Validators.required, Validators.email]],
       financeContactPosition: ['', [Validators.required]],
       financeContactNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      financeEmail: ['', [Validators.required, Validators.email]]
-  });}
+      financeEmail: ['', [Validators.required, Validators.email]],
+      supervisorId: ['', Validators.required],
+      customer: ['', [Validators.required]],
+      numberOfControl: ['', [Validators.required]],
+      area: ['', [Validators.required]],
+      partNumber: ['', [Validators.required]],
+      operation: ['', [Validators.required]],
+    });}
+
+  ngOnInit() {
+       this.realtimeSupervisors.supervisors$;
+
+    this.loadSupervisors();
+  }
+
+  loadSupervisors() {
+    this.realtimeSupervisors.supervisors$.subscribe(
+      (data: any) => {
+        this.supervisors = data;
+    },
+      (error: any) => {
+        console.error('Error loading supervisors:', error);
+      }
+    );
+  }
 
 
-  // Método para guardar la solicitud
 
   onSubmit() {
     if (this.workInstructionsForm.valid) {

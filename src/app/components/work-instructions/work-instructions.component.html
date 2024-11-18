@@ -13,7 +13,7 @@
           <div class="row gy-20">
             <div class="col-xxl-9 col-md-8 col-sm-7">
               <div class="row g-20">
-
+                <h3>Company information</h3>
                 <div class="col-sm-4">
                   <label for="companyName" class="h5 mb-8 fw-semibold font-heading">Name company
                     <span class="text-13 text-gray-400 fw-medium">(Required)</span>
@@ -31,6 +31,15 @@
                   <div class="position-relative">
                     <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="contactName" maxlength="100" id="contactName" placeholder=".">
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <label for="customer" class="h5 mb-8 fw-semibold font-heading">Customer
+                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                  </label>
+                  <div class="position-relative">
+                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                      formControlName="customer" maxlength="100" id="customer" placeholder=".">
                   </div>
                 </div>
 
@@ -71,6 +80,61 @@
                   <div class="position-relative">
                     <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="email" maxlength="100" id="email" placeholder=".">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <label for="numberOfControl" class="h5 mb-8 fw-semibold font-heading">No of control
+                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                  </label>
+                  <div class="position-relative">
+                    <input type="numberOfControl" class="text-counter placeholder-13 form-control py-11 pe-76"
+                      formControlName="numberOfControl" maxlength="100" id="numberOfControl" placeholder=".">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <label for="area" class="h5 mb-8 fw-semibold font-heading">Area
+                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                  </label>
+                  <div class="position-relative">
+                    <input type="area" class="text-counter placeholder-13 form-control py-11 pe-76"
+                      formControlName="area" maxlength="100" id="area" placeholder=".">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <label for="partNumber" class="h5 mb-8 fw-semibold font-heading">Part number
+                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                  </label>
+                  <div class="position-relative">
+                    <input type="partNumber" class="text-counter placeholder-13 form-control py-11 pe-76"
+                      formControlName="partNumber" maxlength="100" id="partNumber" placeholder=".">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <label for="operation" class="h5 mb-8 fw-semibold font-heading">Operation
+                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                  </label>
+                  <div class="position-relative">
+                    <input type="operation" class="text-counter placeholder-13 form-control py-11 pe-76"
+                      formControlName="operation" maxlength="100" id="operation" placeholder=".">
+                  </div>
+                </div>
+
+                <h3>Assignee supervisor</h3>
+
+                <div class="col-sm-6">
+                  <label for="supervisorId" class="h5 mb-8 fw-semibold font-heading">Supervisor
+                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                  </label>
+                  supervisors<div class="position-relative">
+                      <select id="supervisorId" 
+                             formControlName="supervisorId"
+                             class="form-select py-9 placeholder-13 text-15">
+                          <option value="" disabled selected>Select supervisor</option>
+                          <option *ngFor="let supervisor of realtimeSupervisors.supervisors$ | async" 
+                                  [value]="supervisor.id">
+                            {{supervisor.name}} 
+                          </option>
+                      </select>
                   </div>
                 </div>
 
