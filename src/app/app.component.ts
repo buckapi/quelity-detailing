@@ -13,6 +13,7 @@ import { SupervisorsComponent } from './components/supervisors/supervisors.compo
 import { TechnicalsComponent } from './components/technicals/technicals.component';
 import { WorkInstructionsComponent } from './components/work-instructions/work-instructions.component';
 import { HttpClientModule } from '@angular/common/http'; 
+import { WorkinstructiondetailComponent } from './components/workinstructiondetail/workinstructiondetail.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormRequestComponent,
     TechnicalsComponent,
     WorkInstructionsComponent,
-    HttpClientModule
+    HttpClientModule,
+    WorkinstructiondetailComponent
   ],
  
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

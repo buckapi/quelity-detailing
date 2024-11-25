@@ -265,8 +265,8 @@
 }
 
 .btn-main {
-    background-color: hsl(var(--main)) !important;
-    border-color: hsl(var(--main)) !important;
+    background-color: #ffc107 !important;
+    border-color: #ffc107 !important;
 }
 
 .btn-main:hover {

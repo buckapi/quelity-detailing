@@ -60,8 +60,9 @@
                     <div class="card-header">
                         <div class="mb-0 flex-between flex-wrap gap-8">
                             <h4 class="mb-0">Work Instructions</h4>
-                            <a 
-                                class="text-13 fw-medium text-main-600 hover-text-decoration-underline">See All</a>
+                            <!-- <a 
+                                class="text-13 fw-medium text-main-600 hover-text-decoration-underline" 
+                                >See All</a> -->
                         </div>
                     </div>
                     <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal">
@@ -79,9 +80,9 @@
                                         <div class="flex-align gap-8">
                                             <div
                                                 class="w-40 h-40 rounded-circle bg-main-600 flex-center flex-shrink-0">
-                                                <img src="assets/images/icons/course-name-icon1.png" alt="">
+                                                <img src="assets/images/icons/course-name-icon1.png" alt="" (click)="global.viewWorkInstruction(workInstruction)" style="cursor: pointer;">
                                             </div>
-                                            <div class="">
+                                            <div class="" >
                                                 <h6 class="mb-0">{{workInstruction.companyName}}</h6>
                                                 <div class="table-list">
                                                     <span class="text-13 text-gray-600">{{workInstruction.contactName}}</span>
@@ -109,9 +110,10 @@
                                                     class="w-6 h-6 bg-warning-600 rounded-circle flex-shrink-0"></span>
                                                 {{workInstruction.status}}
                                             </span>
-                                            <!-- <a (click)="viewWorkInstruction(+workInstruction.id)"
-                                                class="text-gray-900 hover-text-main-600 text-md d-flex cursor-pointer"><i
-                                                    class="ph ph-caret-right"></i></a> -->
+                                            <a 
+                                                class="text-gray-900 hover-text-main-600 text-md d-flex cursor-pointer"
+                                                (click)="global.viewWorkInstruction(workInstruction)">
+                                                    <i class="ph ph-eye"></i></a>
                                         </div>
                                     </td>
                                 </tr>

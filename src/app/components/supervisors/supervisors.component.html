@@ -19,35 +19,40 @@
         <div class="row g-20 pt-24" [hidden]="showForm">
           <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let supervisor of (realtimeSupervisors.supervisors$ | async)">
             <div class="mentor-card rounded-8 overflow-hidden">
-              <div class="mentor-card__cover position-relative">
-                <img src="assets/images/thumbs/mentor-cover-img1.png" alt="" class="cover-img">
-                <button type="button" class="follow-btn py-2 px-8 flex-align gap-4 text-13 fw-medium text-white border border-white rounded-pill position-absolute inset-block-start-0 inset-inline-end-0 mt-8 me-8 transition-1"> 
-                  <i class="ph ph-plus d-flex"></i> 
-                  <span class="text">Follow</span>
+              <div class="mentor-card__cover position-relative" style="background-color: black;">
+<!--                 <img src="assets/images/thumbs/mentor-cover-img1.png" alt="" class="cover-img">
+ -->            <button type="button" class="follow-btn py-2 px-8 flex-align gap-4 text-13 fw-medium text-white border border-white rounded-pill position-absolute inset-block-start-0 inset-inline-end-0 mt-8 me-8 transition-1" style="background: darkcyan;;"> 
+                  <i class="ph ph-pencil d-flex"></i> 
+                  <span class="text">Edit</span>
+                </button>
+                <button type="button" class="follow-btn py-2 px-8 flex-align gap-4 text-13 fw-medium text-white border border-white rounded-pill position-absolute inset-block-start-0 inset-inline-end-0 mt-8 me-8 transition-1" style="right: 65px; background: chocolate;"> 
+                  <i class="ph ph-trash d-flex"></i> 
+                  <span class="text">Delete</span>
                 </button>
               </div>
               <div class="mentor-card__content text-center">
-                <div class="w-56 h-56 rounded-circle overflow-hidden border border-white d-inline-block">
-                  <a href="setting.html">
+                <div class="w-56 h-56 rounded-circle overflow-hidden border border-white d-inline-block" >
+                  <a >
                     <img src="assets/images/thumbs/mentor-img1.png" alt="" class="mentor-card__img cover-img">
                   </a>
                 </div>
                 <h5 class="mb-0">
-                  <a href="setting.html">{{ supervisor.name }}</a>
+                  <a >{{ supervisor.name }}</a>
                 </h5>
                 <span class="text-13 text-gray-500">{{ supervisor.role }}</span>
-                <p class="mt-20 text-gray-600 text-14 text-line-2">{{ supervisor.description }}</p>
-                <div class="mentor-card__rating mt-20 border border-gray-100 px-8 py-6 rounded-8 flex-between flex-wrap">
+                <p class="mt-20 text-gray-600 text-14 text-line-2"><i class="ph-fill ph-envelope"></i> {{ supervisor.email }} </p>
+                <p class="mt-20 text-gray-600 text-14 text-line-2"><i class="ph-fill ph-phone"></i> {{ supervisor.phone }} </p>
+
+               <!--  <div class="mentor-card__rating mt-20 border border-gray-100 px-8 py-6 rounded-8 flex-between flex-wrap">
                   <div class="flex-align gap-4">
                     <span class="text-15 fw-normal text-main-600 d-flex"><i class="ph-fill ph-book-open"></i></span>
-                    <span class="text-13 fw-normal text-gray-600">{{ supervisor.tasks }} Tasks</span>
+                    <span class="text-13 fw-normal text-gray-600">{{ supervisor.email }} </span>
                   </div>
                   <div class="flex-align gap-4">
                     <span class="text-15 fw-normal text-warning-600 d-flex"><i class="ph-fill ph-star"></i></span>
-                    <span class="text-13 fw-normal text-gray-600">{{ supervisor.rating }}</span>
-                    <span class="text-13 fw-normal text-gray-600">({{ supervisor.reviews }} Reviews)</span>
+                    <span class="text-13 fw-normal text-gray-600">{{ supervisor.phone }}</span>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

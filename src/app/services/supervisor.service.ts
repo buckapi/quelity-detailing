@@ -25,4 +25,8 @@ export class SupervisorService {
   getSupervisors(): Observable<any[]> {
     return this.http.get<any[]>(`${this.pb.baseUrl}/supervisors`);
   }
+  getSupervisorName(supervisorId: string): Observable<string> {
+    // Hacer la llamada HTTP para obtener los datos del supervisor
+    return this.http.get<string>(`${this.pb.baseUrl}/supervisors/${supervisorId}/name`);
+  }
 }
