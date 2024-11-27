@@ -55,4 +55,8 @@ export class RealtimeWorkInstructionsService implements OnDestroy {
     // Desuscribirse cuando el servicio se destruye
     this.pb.collection('workInstructions').unsubscribe('*');
   }
+
+  getWorkInstructionCount(): number {
+    return this.workInstructionsSubject.value.length;
+  }
 }

@@ -4,6 +4,8 @@ export interface UserInterface {
     address: string;
     password: string;
     full_name: string;
+    name: string;
+    phone: string;
     images: string[];
     days: string[];
     username:string;

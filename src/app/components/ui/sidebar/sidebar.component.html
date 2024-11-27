@@ -17,38 +17,38 @@
                     </a>
                 </li>
                
-                <li (click)="global.setRoute('supervisors')" class="sidebar-menu__item">
+                <li (click)="global.setRoute('supervisors')" class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <a  style="cursor: pointer;" class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-users"></i></span>
                         <span class="text">Supervisors</span>
                     </a>
                 </li>
-                <li (click)="global.setRoute('technicals')" class="sidebar-menu__item">
+                <li (click)="global.setRoute('technicals')" class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin' || this.auth.getCurrentUser()?.type 'supervisors'">
                     <a style="cursor: pointer;"   class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-users-three"></i></span>
                         <span class="text">Technicals</span>
                     </a>
                 </li>
 
-                <li  class="sidebar-menu__item">
-                    <a  style="cursor: pointer;"  class="sidebar-menu__link">
+                <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
+                    <a  style="cursor: pointer;"  class="sidebar-menu__link"    >
                         <span class="icon"><i class="ph ph-user"></i></span>
                         <span class="text">Customers</span>
                     </a>
                 </li>
-                <li  class="sidebar-menu__item">
+                <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'customer' || this.auth.getCurrentUser()?.type === 'admin'">
                     <a style="cursor: pointer;" (click)="global.setRoute('work-instructions')" class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-clipboard-text"></i></span>
-                        <span class="text">Order services</span>
+                        <span class="text">New Order services</span>
                     </a>
                 </li>
-                <li  class="sidebar-menu__item">
+                <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <a  class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-bookmarks"></i></span>
                         <span class="text">Activity</span>
                     </a>
                 </li>
-                <li  class="sidebar-menu__item">
+                <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <a class="sidebar-menu__link">
                       <span class="icon"><i class="ph ph-chart-bar"></i></span>
                       <span class="text">Reports</span>

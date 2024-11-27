@@ -25,25 +25,7 @@ export class TechnicalsComponent {
   showForm: boolean = false;
   technicalForm: FormGroup;
   previewImage: string = 'assets/images/thumbs/setting-profile-img.jpg';
-  technicals: Technical[] = [
-    {
-      name: 'Maria Prova',
-      role: 'Content Writer',
-      description: 'Experienced content writer with a focus on UX writing.',
-      tasks: 45,
-      rating: 4.8,
-      reviews: 750
-    },
-    {
-      name: 'Alex John',
-      role: 'Web Developer',
-      description: 'Specialized in front-end development with Angular and React.',
-      tasks: 30,
-      rating: 4.7,
-      reviews: 500
-    },
-    // Agrega más supervisores según sea necesario
-  ];
+  technicals: Technical[] = [];
   constructor(
     public global: GlobalService,
     private fb: FormBuilder,

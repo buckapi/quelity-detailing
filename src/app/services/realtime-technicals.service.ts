@@ -55,4 +55,8 @@ export class RealtimeTechnicalsService implements OnDestroy {
     // Desuscribirse cuando el servicio se destruye
     this.pb.collection('technicals').unsubscribe('*');
   }
+
+  getTechnicialCount(): number {
+    return this.technicalsSubject.value.length;
+  }
 }

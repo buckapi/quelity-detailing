@@ -8,6 +8,7 @@ import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
 import { Router } from '@angular/router';
 import { WorkInstructionService } from '../../services/work-instruction.service';
+import { RealtimeTechnicalsService } from '../../services/realtime-technicals.service';
 
 interface WorkInstruction {
     id: string | number; 
@@ -33,43 +34,46 @@ interface WorkInstruction {
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent   {
+export class HomeComponent implements OnInit {
   workInstructions: WorkInstruction[] = [];
-
+  supervisorCount: number = 0;
+  technicialCount: number = 0;
+  workInstructionCount: number = 0;
   constructor(
     public global: GlobalService,
     public auth: AuthPocketbaseService,
     public realtimeWorkInstructions: RealtimeWorkInstructionsService,
     public realtimeSupervisors: RealtimeSupervisorsService,
+    public realtimeTechnicials: RealtimeTechnicalsService,
     private dataApiService: DataApiService,
     private router: Router,
-    private workInstructionService: WorkInstructionService
+    private workInstructionService: WorkInstructionService,
   ){     this.realtimeSupervisors.supervisors$;
-         /* this.loadWorkInstructions(); */
          this.realtimeWorkInstructions.workInstructions$;
-
+         this.realtimeTechnicials.technicals$;
    
   }
-  /* ngOnInit() {    
-    this.loadWorkInstructions();
+
+  /* async ngOnInit() {
+    this.loadSupervisorCount();
   }
 
-  loadWorkInstructions() {
-    this.workInstructionService.getWorkInstructions()
-      .subscribe({
-        next: (data) => {
-          this.workInstructions = data;
-        },
-        error: (error) => {
-          console.error('Error loading work instructions:', error);
-        }
+  async loadSupervisorCount() {
+    this.supervisorCount = await this.realtimeSupervisors.getSupervisorCount();
+  } */
+
+    ngOnInit() {
+      this.supervisorCount = this.realtimeSupervisors.getSupervisorCount();
+      this.technicialCount = this.realtimeTechnicials.getTechnicialCount();
+      this.workInstructionCount = this.realtimeWorkInstructions.getWorkInstructionCount();
+      this.realtimeSupervisors.supervisors$.subscribe((supervisors) => {
+        this.supervisorCount = supervisors.length;
       });
-  } */
-
-  
-
-  /* viewWorkInstruction(id: number) {
-    // Navega a la vista detallada de la instrucción de trabajo
-    this.router.navigate(['/work-instruction', id]);
-  } */
+      this.realtimeTechnicials.technicals$.subscribe((technicals) => {
+        this.technicialCount = technicals.length;
+      });
+      this.realtimeWorkInstructions.workInstructions$.subscribe((workInstructions) => {
+        this.workInstructionCount = workInstructions.length;
+      });
+    }
 }

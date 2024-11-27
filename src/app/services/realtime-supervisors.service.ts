@@ -56,4 +56,8 @@ export class RealtimeSupervisorsService implements OnDestroy {
     // Desuscribirse cuando el servicio se destruye
     this.pb.collection('supervisors').unsubscribe('*');
   }
+
+  getSupervisorCount(): number {
+    return this.supervisorsSubject.value.length;
+  }
 }

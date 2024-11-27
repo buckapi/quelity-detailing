@@ -153,7 +153,7 @@ export class AuthPocketbaseService {
     return userType === '"cliente"';
   }
 
-  registerUser(email: string, password: string, type: string, name: string, address: string // Añadimos el parámetro address
+  registerUser(email: string, password: string, type: string, name: string,  // Añadimos el parámetro address
     ): Observable<any> 
     {
     const userData = {
@@ -165,7 +165,7 @@ export class AuthPocketbaseService {
       name: name,
     };
 
-    // Crear usuario y luego crear el registro en clinics
+    // Create user
     return from(
       this.pb
         .collection('users')
@@ -173,15 +173,13 @@ export class AuthPocketbaseService {
         .then((user) => {
           const data = {
             full_name: name,
-            services: [{ "id": "", "name": "", "price": 0 }],
-            address: address, // Usamos el parámetro address aquí
             phone: '', // Agrega los campos correspondientes aquí
             userId: user.id, // Utiliza el ID del usuario recién creado
             status: 'pending', // Opcional, establece el estado del cliente
             images: {}, // Agrega los campos correspondientes aquí
           };
           if (type === 'cliente') {
-            return this.pb.collection('customer').create(data);
+            return this.pb.collection('customers').create(data);
           } else if (type === 'supervisor') {
             return this.pb.collection('supervisor').create(data);
           } else if (type === 'tecnico') {
@@ -190,7 +188,7 @@ export class AuthPocketbaseService {
             throw new Error('Tipo de usuario no válido');
           }
         })
-    );
+      );  
     }
   loginUser(email: string, password: string): Observable<any> {
     return from(this.pb.collection('users').authWithPassword(email, password))
@@ -200,8 +198,10 @@ export class AuthPocketbaseService {
           const user: UserInterface = {
             id: pbUser.id,
             email: pbUser['email'],
-            password: '', // No almacenamos la contraseña por seguridad
             full_name: pbUser['name'],
+            password: '', // No almacenamos la contraseña por seguridad
+            name: pbUser['name'],
+            phone: pbUser['phone'],
             days: pbUser['days'] || {},
             images: pbUser['images'] || {},
             type: pbUser['type'],
@@ -240,6 +240,7 @@ export class AuthPocketbaseService {
 
     this.pb.authStore.clear();
     this.global.setRoute('login');
+    
     // this.virtualRouter.routerActive = "home";
     return new Observable<any>((observer) => {
       observer.next(); // Indicar que la operación de cierre de sesión ha completado
@@ -292,7 +293,7 @@ export class AuthPocketbaseService {
   profileStatus() {
     return this.complete;
   }
-  permision() {
+  /* permision() {
     const currentUser = this.getCurrentUser();
     if (!currentUser || !currentUser.type) {
       this.global.setRoute('login'); // Redirigir al usuario a la ruta 'home' si no hay tipo definido
@@ -321,6 +322,39 @@ export class AuthPocketbaseService {
       console.error('Error al obtener la información del usuario:', error);
       this.global.setRoute('home'); // Redirigir a 'home' en caso de error
     });
+  } */
+  // ... existing code ...
+
+permision() {
+  const currentUser = this.getCurrentUser();
+  if (!currentUser || !currentUser.type) {
+    this.global.setRoute('login');
+    return;
   }
+
+  // Eliminar las comillas extras del tipo de usuario almacenado
+  const userType = currentUser.type.replace(/"/g, '');
+
+  // Manejar la redirección basada en el tipo de usuario sin llamada adicional a la API
+  switch (userType) {
+    case 'admin':
+      this.global.setRoute('home'); // Nueva ruta específica para admin
+      break;
+    case 'cliente':
+      this.global.setRoute('home'); // Nueva ruta específica para cliente
+      break;
+    case 'tecnico':
+      this.global.setRoute('home');
+      break;
+    case 'supervisor':
+      this.global.setRoute('home');
+      break;
+    default:
+      console.warn('Tipo de usuario no reconocido');
+      this.global.setRoute('login');
+  }
+}
+
+// ... existing code ...
   
 }

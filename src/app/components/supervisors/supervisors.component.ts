@@ -25,7 +25,7 @@ export class SupervisorsComponent {
   supervisorForm: FormGroup;
   previewImage: string = 'assets/images/thumbs/setting-profile-img.jpg';
   supervisors: Supervisor[] = [
-    {
+    /* {
       name: 'Maria Prova',
       role: 'Content Writer',
       description: 'Experienced content writer with a focus on UX writing.',
@@ -40,7 +40,7 @@ export class SupervisorsComponent {
       tasks: 30,
       rating: 4.7,
       reviews: 500
-    },
+    }, */
     // Agrega más supervisores según sea necesario
   ];
   constructor(
@@ -80,8 +80,8 @@ export class SupervisorsComponent {
     if (this.supervisorForm.invalid) {
       Swal.fire({
         icon: 'error',
-        title: 'Formulario inválido',
-        text: 'Por favor, completa todos los campos correctamente.'
+        title: 'Invalid form',
+        text: 'Please complete all fields correctly.'
       });
       return;
     }
@@ -94,8 +94,8 @@ export class SupervisorsComponent {
       next: (result) => {
         Swal.fire({
           icon: 'success',
-          title: 'Supervisor creado',
-          text: `Supervisor creado exitosamente. Contraseña generada: ${result.password}`
+          title: 'Supervisor created',
+          text: `Supervisor created successfully. Generated password: ${result.password}`
         });
         this.supervisorForm.reset();
         this.previewImage = 'assets/images/thumbs/setting-profile-img.jpg';
@@ -105,9 +105,9 @@ export class SupervisorsComponent {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Hubo un error al crear el supervisor.'
+          text: 'There was an error creating the supervisor.'
         });
-        console.error('Error al crear el supervisor:', error);
+        console.error('Error creating supervisor:', error);
       }
     });
   }

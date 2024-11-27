@@ -8,6 +8,7 @@ import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
 import { Router } from '@angular/router';
 import { WorkInstructionService } from '../../services/work-instruction.service';
+import { RealtimeTechnicalsService } from '../../services/realtime-technicals.service';
 
 @Component({
   selector: 'app-workinstructiondetail',
@@ -17,6 +18,8 @@ import { WorkInstructionService } from '../../services/work-instruction.service'
   styleUrl: './workinstructiondetail.component.css'
 })
 export class WorkinstructiondetailComponent implements OnInit {
+  technicials: any[] = [];
+
   constructor(
     public global: GlobalService,
     public auth: AuthPocketbaseService,
@@ -24,13 +27,18 @@ export class WorkinstructiondetailComponent implements OnInit {
     public realtimeSupervisors: RealtimeSupervisorsService,
     private dataApiService: DataApiService,
     private router: Router,
-    private workInstructionService: WorkInstructionService
+    private workInstructionService: WorkInstructionService,
+    public realtimeTechnicals: RealtimeTechnicalsService
   ){    
-
-   
+    this.loadTechnicials();
   }
 
   ngOnInit(): void {
     console.log(this.global.workInstructionSelected);
+    this.realtimeTechnicals.technicals$;
+  }
+
+  loadTechnicials() {
+    this.technicials = this.global.getTechnicials();
   }
 }

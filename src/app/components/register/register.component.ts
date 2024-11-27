@@ -23,7 +23,7 @@ constructor(
   public auth: AuthPocketbaseService
 ){}
 registerUser() {
-  this.auth.registerUser(this.email, this.password, 'tutor', this.name, this.address).subscribe(
+  this.auth.registerUser(this.email, this.password, 'cliente', this.name, ).subscribe(
     (response) => {
       console.log('Usuario registrado exitosamente', response);
       this.loginAfterRegistration(this.email, this.password);
@@ -35,10 +35,17 @@ registerUser() {
 }
 registerCustomer() {
   if (this.name && this.email && this.password) {
-    this.auth.registerUser(this.email, this.password, 'cliente', this.name,'').subscribe(
+    this.auth.registerUser(this.email, this.password, 'cliente', this.name,).subscribe(
       (response) => {
         console.log('Customer successfully registered ', response);
-        this.loginAfterRegistration(this.email, this.password);
+        Swal.fire({
+          title: 'Usuario registrado',
+          text: 'El usuario ha sido registrado exitosamente.',
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          this.global.setRoute('home'); // Redirigir al home después de cerrar el alert
+        });
       },
       (error) => {
         console.error('Error al registrar cliente', error);

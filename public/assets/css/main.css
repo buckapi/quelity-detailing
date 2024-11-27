@@ -1388,7 +1388,7 @@ td.fc-header-center {
 }
 
 .table.style-two th {
-    background-color: var(--gray-50);
+    background-color: #dee2e6;
     border-bottom: 0;
 }
 
