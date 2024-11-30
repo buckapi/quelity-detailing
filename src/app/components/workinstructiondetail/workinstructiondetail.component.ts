@@ -68,7 +68,7 @@ export class WorkinstructiondetailComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Por favor, seleccione un técnico.'
+          text: 'Please select a technician.'
         });
         return;
       }
@@ -77,7 +77,7 @@ export class WorkinstructiondetailComponent implements OnInit {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'No hay instrucción de trabajo seleccionada.'
+          text: 'No work instruction selected.'
         });
         return;
       }
@@ -88,7 +88,7 @@ export class WorkinstructiondetailComponent implements OnInit {
         technicalId: this.selectedtechnicalId
       };
 
-      console.log('Actualizando instrucción de trabajo:', updatedWorkInstruction);
+      console.log('Updating work instructions:', updatedWorkInstruction);
       
       const response = await this.workInstructionsPb.updateWorkInstruction(
         this.global.workInstructionSelected.id,
@@ -99,18 +99,18 @@ export class WorkinstructiondetailComponent implements OnInit {
       Swal.fire({
         icon: 'success',
         title: '¡Éxito!',
-        text: 'Técnico asignado exitosamente.'
+        text: 'Technician successfully assigned.'
       });
       
       this.selectedtechnicalId = '';
       this.global.workInstructionSelected = { ...updatedWorkInstruction };
       
     } catch (error: any) {
-      console.error('Error en la actualización:', error);
+      console.error('Error in the update:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Hubo un problema al asignar el técnico. Detalles: ' + (error.message || error)
+        text: 'There was a problem assigning the technician. Details: ' + (error.message || error)
       });
     }
   }

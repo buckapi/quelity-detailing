@@ -2,11 +2,15 @@
     
     <div class="dashboard-body">
         <div class="row gy-4">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <!-- Grettings Box Start -->
-                <div 
+               <!--  <div 
                     class="grettings-box position-relative rounded-16 bg-main-600 overflow-hidden gap-16 flex-wrap z-1"
-                    style="background: linear-gradient(45deg, #5e68ec, #7045bb) !important;">
+                    style="background: linear-gradient(45deg, #5e68ec, #7045bb) !important;"> -->
+                    <div class="grettings-box position-relative rounded-16 bg-main-600 overflow-hidden gap-16 flex-wrap z-1">
+                        <img src="assets/images/bg/grettings-pattern.png" alt=""
+                            class="position-absolute inset-block-start-0 inset-inline-start-0 z-n1 w-100 h-100 opacity-6">
+                    
                     <div class="row gy-4">
                         <div class="col-sm-7">
                             <div class="grettings-box__content py-xl-4">
@@ -16,7 +20,7 @@
                         </div>
                         <div class="col-sm-5 d-sm-block d-none">
                             <div class="text-center h-100 d-flex justify-content-center align-items-end ">
-                                <img src="assets/images/thumbs/gretting-img.png" alt="">
+                                <img src="assets/images/thumbs/auth-img1.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -313,11 +317,10 @@
                 <!-- Table End -->
 
             </div>
-            <div class="col-lg-3">
+           <!--  <div class="col-lg-3">
 
                 
 
-                <!-- Donut Chart Start -->
                 <div class="card mt-24" *ngIf="this.auth.getCurrentUser()?.type === 'supervisor' || this.auth.getCurrentUser()?.type === 'admin'">
                     <div class="card-header border-bottom border-gray-100 flex-between gap-8 flex-wrap" >
                         <h5 class="mb-0">Proceso de actividades</h5>
@@ -373,9 +376,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Donut Chart End -->
 
-                <!-- Community Groups card Start -->
                 <div class="card mt-24" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <div class="card-body">
                         <div class="mb-20 flex-between flex-wrap gap-8">
@@ -428,9 +429,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Community Groups card End -->
 
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="dashboard-footer">
