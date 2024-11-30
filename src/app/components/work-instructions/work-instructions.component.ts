@@ -2,16 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { GlobalService } from '../../services/global.service';
 import { DataApiService, workInstructionsInterface } from '../../services/data-api.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { SupervisorService } from '../../services/supervisor.service';
 import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
+import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
+import { RealtimeWorkInstructionsService } from '../../services/realtime-work-instructions.service';
 
 @Component({
   selector: 'app-work-instructions',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './work-instructions.component.html',
   styleUrl: './work-instructions.component.css',
 })
@@ -19,13 +21,14 @@ export class WorkInstructionsComponent implements OnInit {
   workInstructionsForm: FormGroup;
   supervisors: any[] = [];
   
-
   constructor(
     public global: GlobalService,
     private fb: FormBuilder,
     private dataApiService: DataApiService,
     private supervisorService: SupervisorService,
-    public realtimeSupervisors: RealtimeSupervisorsService
+    public realtimeSupervisors: RealtimeSupervisorsService,
+    public realtimeWorkInstructions: RealtimeWorkInstructionsService,
+    public http: HttpClient
   ){ 
     this.workInstructionsForm = this.fb.group({
       companyName: ['', [Validators.required]],
@@ -37,7 +40,8 @@ export class WorkInstructionsComponent implements OnInit {
       financeContactPosition: ['', [Validators.required]],
       financeContactNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       financeEmail: ['', [Validators.required, Validators.email]],
-      supervisorId: ['', Validators.required],
+      supervisorId: ['', Validators.required],  
+      // technicianId: ['', Validators.required],
       customer: ['', [Validators.required]],
       numberOfControl: ['', [Validators.required]],
       area: ['', [Validators.required]],
@@ -95,5 +99,49 @@ export class WorkInstructionsComponent implements OnInit {
       );
     }
   }
- 
+
+  validateForm(): boolean {
+    if (this.workInstructionsForm.invalid) {
+      const invalidFields: string[] = [];
+      
+      Object.keys(this.workInstructionsForm.controls).forEach(key => {
+        const control = this.workInstructionsForm.get(key);
+        if (control?.invalid) {
+          invalidFields.push(this.getFieldLabel(key));
+        }
+      });
+
+      Swal.fire({
+        title: 'Formulario Inválido',
+        html: `Por favor, complete correctamente los siguientes campos:<br><br>${invalidFields.join('<br>')}`,
+        icon: 'error',
+        confirmButtonText: 'Entendido'
+      });
+      
+      return false;
+    }
+    return true;
+  }
+
+  private getFieldLabel(fieldName: string): string {
+    const fieldLabels: { [key: string]: string } = {
+      companyName: 'Nombre de la compañía',
+      contactName: 'Nombre de contacto',
+      customer: 'Cliente',
+      billingAddress: 'Dirección de facturación',
+      cityStateCountryZip: 'Ciudad, Estado, País, Código postal',
+      mobile: 'Móvil',
+      email: 'Correo electrónico',
+      numberOfControl: 'Número de control',
+      area: 'Área',
+      partNumber: 'Número de parte',
+      operation: 'Operación',
+      supervisorId: 'Supervisor',
+      financeContactPosition: 'Posición del contacto financiero',
+      financeContactNumber: 'Número de contacto financiero',
+      financeEmail: 'Correo electrónico financiero'
+    };
+    
+    return fieldLabels[fieldName] || fieldName;
+  }
 }

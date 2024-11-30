@@ -4,14 +4,13 @@
         <div class="row gy-4">
             <div class="col-lg-9">
                 <!-- Grettings Box Start -->
-                <div
-                    class="grettings-box position-relative rounded-16 bg-main-600 overflow-hidden gap-16 flex-wrap z-1">
-                    <img src="assets/images/bg/grettings-pattern.png" alt=""
-                        class="position-absolute inset-block-start-0 inset-inline-start-0 z-n1 w-100 h-100 opacity-6">
+                <div 
+                    class="grettings-box position-relative rounded-16 bg-main-600 overflow-hidden gap-16 flex-wrap z-1"
+                    style="background: linear-gradient(45deg, #5e68ec, #7045bb) !important;">
                     <div class="row gy-4">
                         <div class="col-sm-7">
                             <div class="grettings-box__content py-xl-4">
-                                <h2 class="text-white mb-0">Welcome! {{this.auth.getCurrentUser()?.full_name}}</h2>
+                                <h2 class="text-white mb-0">Welcome! {{this.auth.getCurrentUser()?.name}}</h2>
                                 <p class="text-15 fw-light mt-4 text-white">Quality Detailing Automotive LLC</p>
                             </div>
                         </div>
@@ -37,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-3 col-sm-6" *ngIf="this.auth.getCurrentUser()?.type === 'admin' || this.auth.getCurrentUser()?.type === 'supervisor'">
+                    <div class="col-xxl-3 col-sm-6" *ngIf="this.auth.getCurrentUser()?.type === 'admin' ">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mb-2">{{technicialCount}}</h4>
@@ -49,7 +48,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-3 col-sm-6" *ngIf="this.auth.getCurrentUser()?.type === 'admin' || this.auth.getCurrentUser()?.type === 'supervisor'">
+                    <div class="col-xxl-3 col-sm-6" *ngIf="this.auth.getCurrentUser()?.type === 'admin' ">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="mb-2">{{workInstructionCount}}</h4>
@@ -64,8 +63,8 @@
                     <div class="col-xxl-3 col-sm-6" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="mb-2">.</h4>
-                                <span class="text-gray-600">Customer service requests</span>
+                                <h4 class="mb-2">{{customerCount}}</h4>
+                                <span class="text-gray-600">Customers</span>
                                 <div class="flex-between gap-8 mt-16">
                                     <span class="flex-shrink-0 w-48 h-48 flex-center rounded-circle bg-warning-600 text-white text-2xl"><i class="ph-fill ph-users-three"></i></span>
                                     <div id="community-support" class="remove-tooltip-title rounded-tooltip-value"></div>
@@ -75,7 +74,9 @@
                     </div>
                 </div>
                 <!-- Table Start -->
-                <div class="card mt-24 overflow-hidden" *ngIf="this.auth.getCurrentUser()?.type === 'supervisor' || this.auth.getCurrentUser()?.type === 'admin'">
+                <div class="card mt-24 overflow-hidden" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
+
+                    <!-- holasaaa! -->
                     <div class="card-header">
                         <div class="mb-0 flex-between flex-wrap gap-8">
                             <h4 class="mb-0" style="text-align: center;">Work Instructions</h4>
@@ -84,11 +85,20 @@
                                 >See All</a> -->
                         </div>
                     </div>
-                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal">
+                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+                        [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length !== 0"
+                    >
+                        <div class="text-center p-4">
+                            <p class="text-15 text-gray-600 fw-medium">Loading, please wait ...</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+                        [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length === 0"
+                    >
                         <table class="table style-two mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-center">Company Name</th>
+                                    <th class="text-center">Company Information</th>
                                     <th class="text-center">Progress</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -103,6 +113,165 @@
                                             </div>
                                             <div class="" >
                                                 <h6 class="mb-0">{{workInstruction.companyName}}</h6>
+                                                <div class="table-list">
+                                                    <span class="text-13 text-gray-600">{{workInstruction.contactName}}</span>
+                                                    <span class="text-13 text-gray-600">{{workInstruction.mobile}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex-align gap-8 mt-12">
+                                            <div class="progress w-100px  bg-main-100 rounded-pill h-4"
+                                                role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="workInstruction.progress"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar bg-main-600 rounded-pill"
+                                                    [style.width]="workInstruction.progress + '%'"></div>
+                                            </div>
+                                            <span class="text-main-600 flex-shrink-0 text-13 fw-medium">{{workInstruction.progress}}%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex-align justify-content-center gap-16">
+                                            <span
+                                                class="text-13 py-2 px-8 bg-warning-50 text-warning-600 d-inline-flex align-items-center gap-8 rounded-pill">
+                                                <span
+                                                    class="w-6 h-6 bg-warning-600 rounded-circle flex-shrink-0"></span>
+                                                {{workInstruction.status}}
+                                            </span>
+                                            <a 
+                                                class="text-gray-900 hover-text-main-600 text-md d-flex cursor-pointer"
+                                                (click)="global.viewWorkInstruction(workInstruction)">
+                                                    <i class="ph ph-eye"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card mt-24 overflow-hidden" *ngIf="this.auth.getCurrentUser()?.type === 'supervisor' ">
+
+                    <!-- HEllo {{this.auth.getSupervisorData()?.id}} ! -->
+                    <div class="card-header" >
+                        <div class="mb-0 flex-between flex-wrap gap-8">
+                            <h4 class="mb-0" style="text-align: center;">Work Instructions</h4>
+                            <!-- <a 
+                                class="text-13 fw-medium text-main-600 hover-text-decoration-underline" 
+                                >See All</a> -->
+                        </div>
+                    </div>
+                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+                        [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length !== 0"        
+                    >
+                        <div class="text-center p-4">
+                            <p class="text-15 text-gray-600 fw-medium">Loading, please wait ...</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+                        [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length === 0"
+                    >
+                        <table class="table style-two mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Company Information</th>
+                                    <th class="text-center">Progress</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let workInstruction of (realtimeWorkInstructions.workInstructions$ | async)" [hidden]="workInstruction.supervisorId !== this.auth.getSupervisorData()?.id">
+                                    <td>
+                                        <div class="flex-align gap-8">
+                                            <div
+                                                class="w-40 h-40 rounded-circle bg-main-600 flex-center flex-shrink-0">
+                                                <img src="assets/images/icons/course-name-icon1.png" alt="" (click)="global.viewWorkInstruction(workInstruction)" style="cursor: pointer;">
+                                            </div>
+                                            <div class="" >
+                                                <h6 class="mb-0">{{workInstruction.companyName}}</h6>
+                                                <div class="table-list">
+                                                    <span class="text-13 text-gray-600">{{workInstruction.contactName}}</span>
+                                                    <span class="text-13 text-gray-600">{{workInstruction.mobile}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex-align gap-8 mt-12">
+                                            <div class="progress w-100px  bg-main-100 rounded-pill h-4"
+                                                role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="workInstruction.progress"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                <div class="progress-bar bg-main-600 rounded-pill"
+                                                    [style.width]="workInstruction.progress + '%'"></div>
+                                            </div>
+                                            <span class="text-main-600 flex-shrink-0 text-13 fw-medium">{{workInstruction.progress}}%</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="flex-align justify-content-center gap-16">
+                                            <span
+                                                class="text-13 py-2 px-8 bg-warning-50 text-warning-600 d-inline-flex align-items-center gap-8 rounded-pill">
+                                                <span
+                                                    class="w-6 h-6 bg-warning-600 rounded-circle flex-shrink-0"></span>
+                                                {{workInstruction.status}}
+                                            </span>
+                                            <a 
+                                                class="text-gray-900 hover-text-main-600 text-md d-flex cursor-pointer"
+                                                (click)="global.viewWorkInstruction(workInstruction)">
+                                                    <i class="ph ph-eye"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card mt-24 overflow-hidden" *ngIf="this.auth.getCurrentUser()?.type === 'tecnico' ">
+
+                    <!-- HEllo {{this.auth.getSupervisorData()?.id}} ! -->
+                    <div class="card-header">
+                        <div class="mb-0 flex-between flex-wrap gap-8">
+                            <h4 class="mb-0" style="text-align: center;">Work Instructions</h4>
+
+                            <!-- <a 
+                                class="text-13 fw-medium text-main-600 hover-text-decoration-underline" 
+                                >See All</a> -->
+                                <!-- {{this.auth.getTechnicalData()?.id}} -->
+                        </div>
+                    </div>
+                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+                        [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length !== 0"
+                    >
+                        <div class="text-center p-4">
+                            <p class="text-15 text-gray-600 fw-medium">Loading, please wait ...</p>
+                        </div>
+                    </div>
+                    <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+                        [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length === 0"
+                        >
+                        <table class="table style-two mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Company Information</th>
+                                    <th class="text-center">Progress</th>
+                                    <th class="text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let workInstruction of (realtimeWorkInstructions.workInstructions$ | async)"
+                                [hidden]="workInstruction.technicalId !== this.auth.getTechnicalData()?.id"
+                                >
+                                    <td >
+                                        <div class="flex-align gap-8">
+                                            <div
+                                                class="w-40 h-40 rounded-circle bg-main-600 flex-center flex-shrink-0">
+                                                <img src="assets/images/icons/course-name-icon1.png" alt="" (click)="global.viewWorkInstruction(workInstruction)" style="cursor: pointer;">
+                                            </div>
+                                            <div class="" >
+                                                <h6 class="mb-0">{{workInstruction.companyName}}</h6>
+                                                 tecnico {{workInstruction.technicalId}}
                                                 <div class="table-list">
                                                     <span class="text-13 text-gray-600">{{workInstruction.contactName}}</span>
                                                     <span class="text-13 text-gray-600">{{workInstruction.mobile}}</span>

@@ -1,0 +1,45 @@
+<div class="dashboard-main-wrapper">
+    <div class="card mt-24">        
+      <div class="card-body">
+        
+        <!-- Header y botón de agregar -->
+        <div class="d-flex align-items-center justify-content-between">
+          <h4 class="mb-20">Customers</h4>
+          
+        </div>
+  
+        <!-- Tarjetas de Supervisores -->
+        <div class="row g-20 pt-24" >
+          <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let customer of (realtimeCustomers.customers$ | async)">
+            <div class="mentor-card rounded-8 overflow-hidden">
+              <div class="mentor-card__cover position-relative" style="background-color: black;">
+<!--                 <img src="assets/images/thumbs/mentor-cover-img1.png" alt="" class="cover-img">
+ -->           <!--  <button type="button" class="follow-btn py-2 px-8 flex-align gap-4 text-13 fw-medium text-white border border-white rounded-pill position-absolute inset-block-start-0 inset-inline-end-0 mt-8 me-8 transition-1" style="background: darkcyan;;"> 
+                  <i class="ph ph-pencil d-flex"></i> 
+                  <span class="text">Edit</span>
+                </button>
+                <button type="button" class="follow-btn py-2 px-8 flex-align gap-4 text-13 fw-medium text-white border border-white rounded-pill position-absolute inset-block-start-0 inset-inline-end-0 mt-8 me-8 transition-1" style="right: 65px; background: chocolate;"> 
+                  <i class="ph ph-trash d-flex"></i> 
+                  <span class="text">Delete</span>
+                </button> -->
+              </div>
+              <div class="mentor-card__content text-center">
+                <div class="w-56 h-56 rounded-circle overflow-hidden border border-white d-inline-block" >
+                  <a >
+                    <img src="assets/images/thumbs/mentor-img1.png" alt="" class="mentor-card__img cover-img">
+                  </a>
+                </div>
+                <h5 class="mb-0">
+                  <a >{{ customer.name }}</a>
+                </h5>
+                <p class="mt-20 text-gray-600 text-14 text-line-2"><i class="ph-fill ph-envelope"></i> {{ customer.email }} </p>
+                <p class="mt-20 text-gray-600 text-14 text-line-2"><i class="ph-fill ph-phone"></i> {{ customer.phone }} </p>
+
+               
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+

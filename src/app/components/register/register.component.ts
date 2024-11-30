@@ -18,37 +18,39 @@ export class RegisterComponent {
   email: string = '';
   password: string = '';
   address: string = '';
+  company: string = '';
+  username: string = '';
 constructor(
   public global: GlobalService,
   public auth: AuthPocketbaseService
 ){}
 registerUser() {
-  this.auth.registerUser(this.email, this.password, 'cliente', this.name, ).subscribe(
+  this.auth.registerUser(this.email, this.password, 'cliente', this.name, this.username, this.company).subscribe(
     (response) => {
-      console.log('Usuario registrado exitosamente', response);
+      console.log('User registered successfully', response);
       this.loginAfterRegistration(this.email, this.password);
     },
     (error) => {
-      console.error('Error al registrar usuario', error);
+      console.error('Error registering user', error);
     }
   );
 }
 registerCustomer() {
-  if (this.name && this.email && this.password) {
-    this.auth.registerUser(this.email, this.password, 'cliente', this.name,).subscribe(
+  if (this.name && this.email && this.password && this.name && this.company ) {
+    this.auth.registerUser(this.email, this.password, 'cliente', this.name, this.username, this.company).subscribe(
       (response) => {
         console.log('Customer successfully registered ', response);
         Swal.fire({
-          title: 'Usuario registrado',
-          text: 'El usuario ha sido registrado exitosamente.',
+          title: 'Success',
+          text: 'The user has been registered successfully.',
           icon: 'success',
-          confirmButtonText: 'Aceptar'
+          confirmButtonText: 'Accept'
         }).then(() => {
           this.global.setRoute('home'); // Redirigir al home después de cerrar el alert
         });
       },
       (error) => {
-        console.error('Error al registrar cliente', error);
+        console.error('Error registering user', error);
       }
     );
   } else {
@@ -59,11 +61,11 @@ registerCustomer() {
  loginAfterRegistration(email: string, password: string) {
   this.auth.loginUser(email, password).subscribe(
     (response) => {
-      console.log('Inicio de sesión exitoso', response);
+      console.log('Login successful', response);
       this.global.setRoute('home'); // O la ruta que desees después del inicio de sesión
     },
     (error) => {
-      console.error('Error al iniciar sesión después del registro', error);
+      console.error('Error logging in after registration', error);
       this.global.setRoute('login'); // Redirigir al login en caso de error
     }
   );

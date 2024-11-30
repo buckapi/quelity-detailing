@@ -3,18 +3,17 @@ export interface UserInterface {
     email: string;
     address: string;
     password: string;
-    full_name: string;
-    name: string;
+/*     full_name: string;
+ */    name: string;
     phone: string;
     images: string[];
-    days: string[];
     username:string;
     created: string;
     updated: string;
     avatar: string;
     status: string;
     type: string;
-    biography?: string; 
+    company?: string;
 
   }
   

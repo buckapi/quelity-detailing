@@ -14,16 +14,43 @@
              
                 <form (ngSubmit)="registerCustomer()" >
                     <div class="mb-24">
-                        <label for="username" class="form-label mb-8 h6">Username</label>
+                        <label for="fullName" class="form-label mb-8 h6">Name</label>
                         <div class="position-relative">
-                            <input type="text" class="form-control py-11 ps-40" id="username" placeholder="Type your username" 
-                                   [(ngModel)]="name" name="username" required >
+                            <input type="text" class="form-control py-11 ps-40" id="fullName" placeholder="Name" 
+                                   [(ngModel)]="name" name="fullName" required >
                             <span class="position-absolute top-50 translate-middle-y ms-16 text-gray-600 d-flex">
                                 <i class="ph ph-user"></i>
                             </span>
                            
                         </div>
                     </div>
+
+                    <div class="mb-24">
+                        <label for="username" class="form-label mb-8 h6">Username</label>
+                        <div class="position-relative">
+                            <input type="text" class="form-control py-11 ps-40" id="username" placeholder="Type your username" 
+                                   [(ngModel)]="username" name="username" required >
+                            <span class="position-absolute top-50 translate-middle-y ms-16 text-gray-600 d-flex">
+                                <i class="ph ph-user"></i>
+                            </span>
+                           
+                        </div>
+                    </div>
+
+
+                    <div class="mb-24">
+                        <label for="company" class="form-label mb-8 h6">Company</label>
+                        <div class="position-relative">
+                            <input type="text" class="form-control py-11 ps-40" id="company" placeholder="Type your company" 
+                                    [(ngModel)]="company" name="company" required >
+                            <span class="position-absolute top-50 translate-middle-y ms-16 text-gray-600 d-flex">
+                                <i class="ph ph-building"></i>
+                            </span>
+                           
+                        </div>
+                    </div>
+
+
                     
                     <div class="mb-24">
                         <label for="email" class="form-label mb-8 h6">Email</label>

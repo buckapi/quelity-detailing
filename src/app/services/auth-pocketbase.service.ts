@@ -153,7 +153,7 @@ export class AuthPocketbaseService {
     return userType === '"cliente"';
   }
 
-  registerUser(email: string, password: string, type: string, name: string,  // Añadimos el parámetro address
+  registerUser(email: string, password: string, type: string, name: string, username: string, company: string
     ): Observable<any> 
     {
     const userData = {
@@ -161,8 +161,9 @@ export class AuthPocketbaseService {
       password: password,
       passwordConfirm: password,
       type: type,
-      username: name,
+      username: username,
       name: name,
+      company: company,
     };
 
     // Create user
@@ -172,7 +173,7 @@ export class AuthPocketbaseService {
         .create(userData)
         .then((user) => {
           const data = {
-            full_name: name,
+            name: name,
             phone: '', // Agrega los campos correspondientes aquí
             userId: user.id, // Utiliza el ID del usuario recién creado
             status: 'pending', // Opcional, establece el estado del cliente
@@ -198,11 +199,9 @@ export class AuthPocketbaseService {
           const user: UserInterface = {
             id: pbUser.id,
             email: pbUser['email'],
-            full_name: pbUser['name'],
-            password: '', // No almacenamos la contraseña por seguridad
             name: pbUser['name'],
+            password: '', // No almacenamos la contraseña por seguridad
             phone: pbUser['phone'],
-            days: pbUser['days'] || {},
             images: pbUser['images'] || {},
             type: pbUser['type'],
             username: pbUser['username'],
@@ -211,7 +210,7 @@ export class AuthPocketbaseService {
             updated: pbUser['updated'],
             avatar: pbUser['avatar'] || '',
             status: pbUser['status'] || 'active',
-            biography: pbUser['biography'],
+            company: pbUser['company'] || '',
             // Añade aquí cualquier otro campo necesario
           };
           return { ...authData, user };
@@ -286,7 +285,7 @@ export class AuthPocketbaseService {
     const userString = localStorage.getItem('currentUser');
     if (userString) {
       const user = JSON.parse(userString);
-      return user.full_name || 'Usuario';
+      return user.name || 'Usuario';
     }
     return 'Usuario';
   }
@@ -332,27 +331,80 @@ permision() {
     return;
   }
 
-  // Eliminar las comillas extras del tipo de usuario almacenado
   const userType = currentUser.type.replace(/"/g, '');
 
-  // Manejar la redirección basada en el tipo de usuario sin llamada adicional a la API
   switch (userType) {
     case 'admin':
-      this.global.setRoute('home'); // Nueva ruta específica para admin
+      this.global.setRoute('home');
       break;
     case 'cliente':
-      this.global.setRoute('home'); // Nueva ruta específica para cliente
+      this.global.setRoute('home');
       break;
     case 'tecnico':
-      this.global.setRoute('home');
+      this.fetchTechnical(currentUser.id).subscribe(() => {
+        this.global.setRoute('home');
+      });
       break;
     case 'supervisor':
-      this.global.setRoute('home');
+      this.fetchSupervisor(currentUser.id).subscribe(() => {
+        this.global.setRoute('home');
+      });
       break;
     default:
       console.warn('Tipo de usuario no reconocido');
       this.global.setRoute('login');
   }
+}
+
+fetchSupervisor(userId: string): Observable<any> {
+  return from(
+    this.pb.collection('supervisors').getFirstListItem(`userId="${userId}"`, {
+      expand: 'userId',  // Expande la relación con la tabla users
+      fields: '*'  // Obtiene todos los campos
+    })
+  ).pipe(
+    map((supervisorData) => {
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem('supervisorData', JSON.stringify(supervisorData));
+      }
+      return supervisorData;
+    })
+  );
+}
+
+// Método auxiliar para obtener los datos del supervisor del localStorage
+getSupervisorData(): any | null {
+  if (this.isLocalStorageAvailable()) {
+    const supervisorData = localStorage.getItem('supervisorData');
+    return supervisorData ? JSON.parse(supervisorData) : null;
+  }
+  return null;
+}
+
+fetchTechnical(userId: string): Observable<any> {
+  return from(
+    this.pb.collection('technicals').getFirstListItem(`userId="${userId}"`, {
+      expand: 'userId',  // Expande la relación con la tabla users
+      fields: '*'  // Obtiene todos los campos
+    })
+  ).pipe(
+    map((technicalData) => {
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem('technicalData', JSON.stringify(technicalData));
+      }
+      return technicalData;
+    })
+  );
+}
+
+// Método auxiliar para obtener los datos del técnico del localStorage
+getTechnicalData(): any | null {
+  if (this.isLocalStorageAvailable()) {
+    const technicalData = localStorage.getItem('technicalData');
+    // alert(technicalData);
+    return technicalData ? JSON.parse(technicalData) : null;
+  }
+  return null;
 }
 
 // ... existing code ...

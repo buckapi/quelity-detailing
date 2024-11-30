@@ -14,6 +14,7 @@ import { TechnicalsComponent } from './components/technicals/technicals.componen
 import { WorkInstructionsComponent } from './components/work-instructions/work-instructions.component';
 import { HttpClientModule } from '@angular/common/http'; 
 import { WorkinstructiondetailComponent } from './components/workinstructiondetail/workinstructiondetail.component';
+import { CustomersComponent } from './components/customers/customers.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,7 +31,8 @@ import { WorkinstructiondetailComponent } from './components/workinstructiondeta
     TechnicalsComponent,
     WorkInstructionsComponent,
     HttpClientModule,
-    WorkinstructiondetailComponent
+    WorkinstructiondetailComponent,
+    CustomersComponent
   ],
  
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

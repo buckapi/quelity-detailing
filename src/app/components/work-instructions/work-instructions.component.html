@@ -87,7 +87,7 @@
                     <span class="text-13 text-gray-400 fw-medium">(Required)</span>
                   </label>
                   <div class="position-relative">
-                    <input type="numberOfControl" class="text-counter placeholder-13 form-control py-11 pe-76"
+                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="numberOfControl" maxlength="100" id="numberOfControl" placeholder=".">
                   </div>
                 </div>
@@ -96,7 +96,7 @@
                     <span class="text-13 text-gray-400 fw-medium">(Required)</span>
                   </label>
                   <div class="position-relative">
-                    <input type="area" class="text-counter placeholder-13 form-control py-11 pe-76"
+                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="area" maxlength="100" id="area" placeholder=".">
                   </div>
                 </div>
@@ -105,7 +105,7 @@
                     <span class="text-13 text-gray-400 fw-medium">(Required)</span>
                   </label>
                   <div class="position-relative">
-                    <input type="partNumber" class="text-counter placeholder-13 form-control py-11 pe-76"
+                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="partNumber" maxlength="100" id="partNumber" placeholder=".">
                   </div>
                 </div>
@@ -114,7 +114,7 @@
                     <span class="text-13 text-gray-400 fw-medium">(Required)</span>
                   </label>
                   <div class="position-relative">
-                    <input type="operation" class="text-counter placeholder-13 form-control py-11 pe-76"
+                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="operation" maxlength="100" id="operation" placeholder=".">
                   </div>
                 </div>
@@ -155,7 +155,7 @@
                     <span class="text-13 text-gray-400 fw-medium">(Required)</span>
                   </label>
                   <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                    <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
                       formControlName="financeContactNumber" maxlength="100" id="financeContactNumber" placeholder=".">
                   </div>
                 </div>
@@ -174,7 +174,12 @@
             </div>
             <div class="flex-align justify-content-end gap-8">
                <button type="button" class="btn btn-outline-main rounded-pill py-9" (click)="workInstructionsForm.reset()">Cancel</button>
-              <button type="submit" class="btn btn-main rounded-pill py-9" [disabled]="workInstructionsForm.invalid">Save</button>
+               <button type="submit" 
+                       class="btn btn-main rounded-pill py-9" 
+                       (click)="validateForm()"
+                       [disabled]="workInstructionsForm.invalid">
+                 Save
+               </button>
             </div>
           </div>
         </form>

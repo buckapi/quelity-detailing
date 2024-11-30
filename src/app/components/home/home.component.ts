@@ -9,6 +9,7 @@ import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.
 import { Router } from '@angular/router';
 import { WorkInstructionService } from '../../services/work-instruction.service';
 import { RealtimeTechnicalsService } from '../../services/realtime-technicals.service';
+import { RealtimeCustomersService } from '../../services/realtime-customers.service';
 
 interface WorkInstruction {
     id: string | number; 
@@ -21,13 +22,13 @@ interface WorkInstruction {
     updated: string;
     collectionId: string;
     expand: any;
+    technicalId: string;
 }
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    TopNavbarComponent,
     CommonModule, 
     
   ],
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit {
   supervisorCount: number = 0;
   technicialCount: number = 0;
   workInstructionCount: number = 0;
+  customerCount: number = 0;
   constructor(
     public global: GlobalService,
     public auth: AuthPocketbaseService,
@@ -48,6 +50,7 @@ export class HomeComponent implements OnInit {
     private dataApiService: DataApiService,
     private router: Router,
     private workInstructionService: WorkInstructionService,
+    public realtimeCustomers: RealtimeCustomersService
   ){     this.realtimeSupervisors.supervisors$;
          this.realtimeWorkInstructions.workInstructions$;
          this.realtimeTechnicials.technicals$;
@@ -66,6 +69,10 @@ export class HomeComponent implements OnInit {
       this.supervisorCount = this.realtimeSupervisors.getSupervisorCount();
       this.technicialCount = this.realtimeTechnicials.getTechnicialCount();
       this.workInstructionCount = this.realtimeWorkInstructions.getWorkInstructionCount();
+      this.customerCount = this.realtimeCustomers.getCustomerCount();
+      this.realtimeCustomers.customers$.subscribe((customers) => {
+        this.customerCount = customers.length;
+      });
       this.realtimeSupervisors.supervisors$.subscribe((supervisors) => {
         this.supervisorCount = supervisors.length;
       });

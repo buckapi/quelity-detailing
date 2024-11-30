@@ -25,7 +25,7 @@ export class RealtimeWorkInstructionsService implements OnDestroy {
       .authWithPassword('admin@email.com', 'admin1234');
 
     // Suscribirse a cambios en cualquier registro de la colección 'supervisors'
-    this.pb.collection('workInstructions').subscribe('*', (e) => {
+    this.pb.collection('tworkInstructions').subscribe('*', (e) => {
       this.handleRealtimeEvent(e);
     });
 
@@ -48,17 +48,6 @@ export class RealtimeWorkInstructionsService implements OnDestroy {
       .getFullList(200 /* cantidad máxima de registros */, {
         sort: '-created', // Ordenar por fecha de creación
       });
-    
-    // Agregar este log para inspeccionar la estructura
-    console.log('Estructura del primer registro:', records[0]['technicialId']);
-
-       // Modificar el log para ver la estructura completa del registro
-       console.log('Estructura completa del primer registro:', records[0]);
-       console.log('Campos disponibles:', Object.keys(records[0]));
-       // Si necesitas acceder al ID técnico específicamente:
-       console.log('ID técnico:', records[0]?.['technicalId']);
-     
-    
     this.workInstructionsSubject.next(records);
   }
 
@@ -69,17 +58,5 @@ export class RealtimeWorkInstructionsService implements OnDestroy {
 
   getWorkInstructionCount(): number {
     return this.workInstructionsSubject.value.length;
-  }
-
-  // Agregar este nuevo método para obtener los campos
-  public logRecordStructure(): void {
-    const currentRecords = this.workInstructionsSubject.value;
-    if (currentRecords.length > 0) {
-      const firstRecord = currentRecords[0];
-      console.log('Campos disponibles:', Object.keys(firstRecord));
-      console.log('Registro completo:', firstRecord);
-    } else {
-      console.log('No hay registros disponibles');
-    }
   }
 }
