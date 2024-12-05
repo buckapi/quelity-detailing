@@ -64,19 +64,24 @@
                     <ul class="nav common-tab style-two nav-pills mb-0" id="pills-tab" role="tablist">
                         
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Work Instruction</button>
+                          <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Work Instruction</button>
                         </li>
-                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-password-tab" data-bs-toggle="pill" data-bs-target="#pills-password" type="button" role="tab" aria-controls="pills-password" aria-selected="false" 
-                          [hidden]="auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'admin'"
-                          >Technicals</button>
-                        </li>
-                        
+                         
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-billing-tab" data-bs-toggle="pill" data-bs-target="#pills-billing" type="button" role="tab" aria-controls="pills-billing" aria-selected="false">Customer details</button>
+                            <button class="nav-link" id="supervisors-tab" data-bs-toggle="pill" data-bs-target="#supervisors" type="button" role="tab" aria-controls="pills-password" aria-selected="false" 
+                            [hidden]="auth.getCurrentUser()?.type !== 'admin'"
+                            >Supervisors</button>
+                          </li>
+                          <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-password-tab" data-bs-toggle="pill" data-bs-target="#pills-password" type="button" role="tab" aria-controls="pills-password" aria-selected="false" 
+                            [hidden]="auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'admin'"
+                            >Technicals</button>
+                          </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="pills-billing-tab" data-bs-toggle="pill" data-bs-target="#pills-billing" type="button" role="tab" aria-controls="pills-billing" aria-selected="false">Financial contact</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill" data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification" aria-selected="false">Activity</button>
+                          <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill" data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification" aria-selected="false">Activities technical</button>
                         </li>
                     </ul>
                 </div>
@@ -95,36 +100,53 @@
                         <div class="card mt-24">
                             <div class="card-body">
                                 <div class="row gy-4">
-                                    <div class="col-xxl-4 col-xl-6 col-md-4 col-sm-6">
+                                    <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-main-50">
                                             <span class="text-white bg-main-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-users-three"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Manager:</h4>
-                                                <span class="fw-medium text-main-600"> {{global.workInstructionSelected.mananger}}</span>
+                                                
+                                                <span class="fw-medium text-main-600 text-gray-300"  style="color: #000 !important;"> {{global.workInstructionSelected.mananger}}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-4 col-xl-6 col-md-4 col-sm-6">
+                                    <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-info-50">
                                             <span class="text-white bg-info-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-users-three"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Engineer:</h4>
-                                                <span class="fw-medium text-info-600">{{global.workInstructionSelected.engineer}}</span>
+                                                <span class="fw-medium text-info-600 "  style="color: #000 !important;">{{global.workInstructionSelected.engineer}}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xxl-4 col-xl-6 col-md-4 col-sm-6">
+                                    <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
                                             <span class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-thumbs-up"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Supervisor:</h4>
-                                                <span class="fw-medium text-purple-600">{{global.getSupervisorName(global.workInstructionSelected.supervisorId)}}</span>
+                                                <span class="fw-medium text-purple-600">{{ getSupervisorName(global.workInstructionSelected?.supervisorId) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
+                                        <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
+                                            <span class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-thumbs-up"></i></span>
+                                            <div>
+                                                <h4 class="mb-0">Technical:</h4>
+                                                <span class="fw-medium text-purple-600">{{ getTechnicalName(global.workInstructionSelected?.technicalId) }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="mt-24">
-                                    <h4 class="mb-8">Details Work Instruction</h4>
+                                    <div class="flex-between mb-16">
+                                        <h4 class="mb-8">Details Work Instruction</h4>
+                                        <button *ngIf="!isEditing" 
+                                                (click)="startEditing()" 
+                                                class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">
+                                            <i class="ph ph-pencil me-2"></i>Editar
+                                        </button>
+                                    </div>
                                     <div class="flex-align gap-8 flex-wrap mb-16">
                                         <span class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl"> 
                                             <i class="ph ph-number-circle-one"></i>
@@ -157,67 +179,185 @@
                                             <span>Operation: {{global.workInstructionSelected.operation}}</span>
                                         </div>
                                     </div>
+                                    
+                                </div>                              
+                                <div class="mt-24">
+                                    
+                                    <form *ngIf="isEditing" (ngSubmit)="updateWorkInstruction()" #workInstructionForm="ngForm">
+                                        <div class="row gy-4">
+                                            <div class="col-md-4">
+                                                <label class="form-label">Manager</label>
+                                                <input type="text" class="form-control" 
+                                                    [(ngModel)]="editForm.mananger" 
+                                                    name="mananger" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Engineer</label>
+                                                <input type="text" class="form-control" 
+                                                    [(ngModel)]="editForm.engineer" 
+                                                    name="engineer" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Area</label>
+                                                <input type="text" class="form-control" 
+                                                    [(ngModel)]="editForm.area" 
+                                                    name="area" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Number of Control</label>
+                                                <input type="text" class="form-control" 
+                                                    [(ngModel)]="editForm.numberOfControl" 
+                                                    name="numberOfControl" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Part Number</label>
+                                                <input type="text" class="form-control" 
+                                                    [(ngModel)]="editForm.partNumber" 
+                                                    name="partNumber" required>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Operation</label>
+                                                <input type="text" class="form-control" 
+                                                    [(ngModel)]="editForm.operation" 
+                                                    name="operation" required>
+                                            </div>
+                                            <div class="col-12 text-end mt-3">
+                                                <button type="button" 
+                                                        class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9 me-2" 
+                                                        (click)="cancelEditing()">
+                                                    Cancelar
+                                                </button>
+                                                <button type="submit" 
+                                                        class="btn btn-main rounded-pill py-9" 
+                                                        [disabled]="!workInstructionForm.form.valid">
+                                                    Guardar Cambios
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                       <!--  <div class="card mt-24">
-                            <div class="card-body">
-                                <h6 class="mb-12">About Me</h6>
-                                <div class="recent-post rounded-8 border border-gray-100 p-16 d-flex gap-12 mb-16">
-                                    <div class="d-inline-flex w-100 max-w-130 flex-shrink-0">
-                                        <img src="assets/images/thumbs/recent-post-img1.png" alt="" class="rounded-6 cover-img max-w-130">
-                                    </div>
-                                    <div>
-                                        <p class="text-gray-600 text-line-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo pellentesque massa tellus ac augue. Lectus arcu at in in rhoncus malesuada ipsum turpis.</p>
-                                        <div class="flex-align gap-8 mt-24">
-                                            <img src="assets/images/thumbs/user-img1.png" alt="" class="w-32 h-32 rounded-circle cover-img">
-                                            <span class="text-gray-600 text-13">Michel Bruice</span>
+                            <div class="card mt-24">
+                                <div class="card-header border-bottom">
+                                    <div class="flex-between flex-wrap  gap-16">
+                                        <div>
+                                            <h4 class="mb-4">Quality Detailing Automotive</h4>
+                                            <p class="text-gray-600 text-15">Work Instruction Activities</p>
+                                        </div>
+                                        <div class="flex-align flex-wrap justify-content-end gap-8">
+                                            <button type="button" class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add Activity</button>
+                                            <!-- <button type="button" class="btn btn-main rounded-pill py-9">Download All</button> -->
                                         </div>
                                     </div>
-                                </div>
-                                <div class="recent-post rounded-8 border border-gray-100 p-16 d-flex gap-12 mb-16">
-                                    <div class="d-inline-flex w-100 max-w-130 flex-shrink-0">
-                                        <img src="assets/images/thumbs/recent-post-img2.png" alt="" class="rounded-6 cover-img max-w-130">
-                                    </div>
-                                    <div>
-                                        <p class="text-gray-600 text-line-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Commodo pellentesque massa tellus ac augue. Lectus arcu at in in rhoncus malesuada ipsum turpis.</p>
-                                        <div class="flex-align gap-8 mt-24">
-                                            <img src="assets/images/thumbs/user-img2.png" alt="" class="w-32 h-32 rounded-circle cover-img">
-                                            <span class="text-gray-600 text-13">Sara Smith</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h6 class="mb-12 mt-24">Add New Post</h6>
-                                <div class="editor style-two">
-                                    <div id="editorTwo">
-                                        <p>Write something new...</p>
-                                    </div>
-                                </div>
-
-                                <div class="flex-between flex-wrap gap-8 mt-24">
-                                    <div class="flex-align flex-wrap gap-8">
-                                        <button type="button" class="flex-center w-26 h-26 text-gray-600 bg-gray-50 hover-bg-gray-100 rounded-circle text-md"> 
-                                            <i class="ph ph-smiley"></i>
-                                        </button>
-                                        <button type="button" class="flex-center w-26 h-26 text-gray-600 bg-gray-50 hover-bg-gray-100 rounded-circle text-md"> 
-                                            <i class="ph ph-camera"></i>
-                                        </button>
-                                        <button type="button" class="flex-center w-26 h-26 text-gray-600 bg-gray-50 hover-bg-gray-100 rounded-circle text-md"> 
-                                            <i class="ph ph-image"></i>
-                                        </button>
-                                        <button type="button" class="flex-center w-26 h-26 text-gray-600 bg-gray-50 hover-bg-gray-100 rounded-circle text-md"> 
-                                            <i class="ph ph-video-camera"></i>
-                                        </button>
-                                        <button type="button" class="flex-center w-26 h-26 text-gray-600 bg-gray-50 hover-bg-gray-100 rounded-circle text-md"> 
-                                            <i class="ph ph-google-drive-logo"></i>
-                                        </button>
-                                    </div>
-                                    <button type="submit" class="btn btn-main rounded-pill py-9"> Post Now</button>
                                 </div>
                                 
-                            </div>
-                        </div> -->
+                                <div class="card toggle-search-box border-bottom border-gray-100 rounded-0">
+                                    <div class="card-body">
+                                        <form class="search-input-form" (ngSubmit)="createActivityWorkinstruction()">
+                                            <div class="search-input">
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                       [(ngModel)]="activityFormWorkinstruction.number" 
+                                                       name="number"
+                                                       placeholder="Number"
+                                                       required>
+                                            </div>
+                                            <div class="search-input">
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                       [(ngModel)]="activityFormWorkinstruction.process" 
+                                                       name="process"
+                                                       placeholder="Process"
+                                                       required>
+                                            </div>
+                                            <div class="search-input">
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                       [(ngModel)]="activityFormWorkinstruction.description"
+                                                       name="description" 
+                                                       placeholder="Description"
+                                                       required>
+                                            </div>
+                                            <div class="search-input">
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                       [(ngModel)]="activityFormWorkinstruction.focusPoints"
+                                                       name="focusPoints" 
+                                                       placeholder="Focus Points"
+                                                       required>
+                                            </div>
+                                            <div class="search-input">
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                       [(ngModel)]="activityFormWorkinstruction.time"
+                                                       name="time" 
+                                                       placeholder="Time"
+                                                       required>
+                                            </div>
+                                            <div class="search-input">
+                                                <input type="file" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                       [(ngModel)]="activityFormWorkinstruction.visualAid"
+                                                       name="visualAid"
+                                                       placeholder="Visual Aid"
+                                                       required>
+                                            </div>
+                                            
+                                            <div class="search-input">
+                                                <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
+                                                    Save
+                                                </button>
+                                            </div>
+                                        </form>                    
+                                    </div>
+                                </div>
+            
+                                <div class="card-body p-0 overflow-x-auto">
+                                    <table id="studentTable" class="table table-lg table-striped w-100">
+                                        <thead>
+                                            <tr>
+                                                <th class="fixed-width w-40 h-40 ps-20">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input border-gray-200 rounded-4" type="checkbox" id="selectAll">
+                                                    </div>
+                                                </th>
+                                               
+                                              <!--   <th class="h6 text-gray-600 text-center">Number</th> -->
+                                                <th class="h6 text-gray-600 text-center">Process</th>
+                                                <th class="h6 text-gray-600 text-center">Description</th>
+                                                <th class="h6 text-gray-600 text-center">Focus Points</th>
+                                                <th class="h6 text-gray-600 text-center">Time</th>
+                                                <th class="h6 text-gray-600 text-center">Visual Aid</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let activity of realtimeActivitiesWorkInstructions.activitiesWorkInstructions$ | async" [hidden]="activity.workinstructionId !== global.workInstructionSelected.id">
+                                                
+                                                <td>
+                                                    <div class="flex-align gap-10">
+                                                        <div class="">
+                                                            <h6 class="mb-0">{{activity.number}}</h6>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="text-gray-600">{{activity.process}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="text-gray-600">{{activity.description}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="text-gray-600">{{activity.focusPoints}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="text-gray-600">{{activity.time}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span class="text-gray-600">{{activity.visualAid}}</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                               
+                            </div> 
+                        </div>
+                      
                     </div>
                 </div>
             </div>
@@ -273,7 +413,58 @@
                     </div>
                 </div>
             </div>
-            <!-- technical Tab End -->
+             <!-- technical Tab End -->
+             <!-- supervicor tab star -->
+             <div class="tab-pane fade" id="supervisors" role="tabpanel" aria-labelledby="supervisors-tab" tabindex="0">
+                <div class="card mt-24">
+                    <div class="card-header border-bottom">
+                        <h4 class="mb-4">Supervisors Assigned</h4>
+                        Supervisor: {{ getSupervisorName(global.workInstructionSelected?.supervisorId) }}
+
+                        <h4 class="mb-4">Assign Supervisor</h4>
+                        <p class="text-gray-600 text-15">Assign the supervisor to the work instruction</p>
+                  
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form (ngSubmit)="updateSupervisors()">
+                                    <div class="row gy-4">
+                                        <div class="col-12">
+                                            <label for="technician-select" class="form-label mb-8 h6">Select supervisor</label>
+                                            <div class="position-relative">
+                                                <select class="form-control py-11" id="supervisorId" 
+                                                            [(ngModel)]="selectedSupervisorId" 
+                                                            name="supervisorId"
+                                                            required>
+                                                    <option value="" disabled selected>Select a supervisor</option>
+                                                    <option *ngFor="let supervisor of realtimeSupervisors.supervisors$ | async" 
+                                                            [value]="supervisor.id">
+                                                        {{supervisor.name}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="flex-align justify-content-end gap-8">
+                                                <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9" 
+                                                        (click)="cancelUpdate()">
+                                                    Cancelar
+                                                </button>
+                                                <button type="submit" class="btn btn-main rounded-pill py-9" 
+                                                        [disabled]="!selectedSupervisorId">
+                                                    Guardar Cambios
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- supervicor Tab End -->
 
             <!-- customer Tab Start -->
             <div class="tab-pane fade" id="pills-billing" role="tabpanel" aria-labelledby="pills-billing-tab" tabindex="0">
@@ -325,49 +516,86 @@
                         <div class="card-header border-bottom">
                             <div class="flex-between flex-wrap  gap-16">
                                 <div>
-                                    <h4 class="mb-4">Billing History</h4>
-                                    <p class="text-gray-600 text-15">See the transaction you made</p>
+                                    <h4 class="mb-4">Recent Activities</h4>
+                                    <p class="text-gray-600 text-15">technical scanning</p>
                                 </div>
                                 <div class="flex-align flex-wrap justify-content-end gap-8">
-                                    <button type="button" class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add Filter</button>
-                                    <button type="button" class="btn btn-main rounded-pill py-9">Download All</button>
+                                    <button type="button" class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add Activity</button>
+                                    <!-- <button type="button" class="btn btn-main rounded-pill py-9">Download All</button> -->
                                 </div>
                             </div>
                         </div>
                         
                         <div class="card toggle-search-box border-bottom border-gray-100 rounded-0">
                             <div class="card-body">
-                                <form action="setting.html#" class="search-input-form">
+                                <form class="search-input-form" (ngSubmit)="createActivity()">
                                     <div class="search-input">
-                                        <select class="form-control form-select h6 rounded-4 mb-0 py-6 px-8">
-                                            <option value="" selected disabled>Invoice Type</option>
-                                            <option value="">Credit Invoice</option>
-                                            <option value="">Debit Invoice</option>
-                                            <option value="">Mixed Invoice</option>
-                                            <option value="">Commercial Invoice</option>
-                                        </select>
+                                        <input type="date" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [(ngModel)]="activityForm.date" 
+                                               name="date"
+                                               required>
                                     </div>
                                     <div class="search-input">
-                                        <select class="form-control form-select h6 rounded-4 mb-0 py-6 px-8">
-                                            <option value="" selected disabled>amount</option>
-                                            <option value="">1</option>
-                                            <option value="">2</option>
-                                            <option value="">3</option>
-                                        </select>
+                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [(ngModel)]="activityForm.partNumber"
+                                               name="partNumber" 
+                                               placeholder="Número de parte"
+                                               required>
                                     </div>
                                     <div class="search-input">
-                                        <input type="date" class="form-control form-select h6 rounded-4 mb-0 py-6 px-8">
+                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [(ngModel)]="activityForm.hu"
+                                               name="hu" 
+                                               placeholder="HU"
+                                               required>
                                     </div>
                                     <div class="search-input">
-                                        <select class="form-control form-select h6 rounded-4 mb-0 py-6 px-8">
-                                            <option value="" selected disabled>plan</option>
-                                            <option value="">Basic Plan</option>
-                                            <option value="">Standard Plan</option>
-                                            <option value="">Premium Plan </option>
-                                        </select>
+                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [(ngModel)]="activityForm.serialNumber"
+                                               name="serialNumber" 
+                                               placeholder="Número de serie"
+                                               required>
                                     </div>
                                     <div class="search-input">
-                                        <button type="submit" class="btn btn-main rounded-pill py-9 w-100">Apply Filter</button>
+                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [(ngModel)]="activityForm.good"
+                                               name="good"
+                                               placeholder="Good"
+                                               (change)="calculateTotal()"
+                                               required>
+                                    </div>
+                                    <div class="search-input">
+                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [(ngModel)]="activityForm.damaged"
+                                               name="damaged"
+                                               placeholder="Damaged"
+                                               (change)="calculateTotal()"
+                                               required>
+                                    </div>
+                                   <!--  <div class="search-input">
+                                        <button type="button" 
+                                                class="btn btn-outline-main w-100 h6 rounded-4 mb-0 py-6 px-8"
+                                                (click)="openDefectsModal()">
+                                            Agregar Defectos ({{activityForm.defects.length}})
+                                        </button>
+                                    </div> -->
+                                    <div class="search-input">
+                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                               [ngModel]="activityForm.total"
+                                               name="total"
+                                               placeholder="Total" 
+                                               readonly>
+                                    </div>
+                                    <div class="search-input">
+                                        <textarea class="form-control h6 rounded-4 mb-0 py-6 px-8" 
+                                                  [(ngModel)]="activityForm.comments"
+                                                  name="comments"
+                                                  placeholder="Comentarios"></textarea>
+                                    </div>
+                                    <div class="search-input">
+                                        <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
+                                            Save
+                                        </button>
                                     </div>
                                 </form>                    
                             </div>
@@ -384,18 +612,21 @@
                                         </th>
                                         <th class="h6 text-gray-600">
                                             <span class="position-relative">
-                                                Invoices
+                                                Date
                                             </span>
                                         </th>
-                                        <th class="h6 text-gray-600 text-center">Amount</th>
-                                        <th class="h6 text-gray-600 text-center">Dates</th>
-                                        <th class="h6 text-gray-600 text-center">Status</th>
-                                        <th class="h6 text-gray-600 text-center">Plan</th>
-                                        <th class="h6 text-gray-600 text-center">Action</th>
+                                        <th class="h6 text-gray-600 text-center">Part number</th>
+                                        <th class="h6 text-gray-600 text-center">HU</th>
+                                        <th class="h6 text-gray-600 text-center">Serial Number</th>
+                                        <th class="h6 text-gray-600 text-center">Good</th>
+                                        <th class="h6 text-gray-600 text-center">Damanaged</th>
+                                        <th class="h6 text-gray-600 text-center">Dimensions</th>
+                                        <th class="h6 text-gray-600 text-center">Total</th>
+                                        <th class="h6 text-gray-600 text-center">Comments</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let activity of realtimeActivities.activities$ | async" [hidden]="activity.workinstructionId !== global.workInstructionSelected.id">
                                         <td class="fixed-width w-40 h-40">
                                             <div class="form-check">
                                                 <input class="form-check-input border-gray-200 rounded-4" type="checkbox">
@@ -403,172 +634,45 @@
                                         </td>
                                         <td>
                                             <div class="flex-align gap-10">
-                                                <div class="w-32 h-32 bg-gray-50 flex-center rounded-circle p-2"> 
-                                                    <img src="assets/images/thumbs/invoice-logo1.png" alt="" class="">
-                                                </div>
                                                 <div class="">
-                                                    <h6 class="mb-0">Design Accesibility</h6>
-                                                    <span class="text-13 fw-medium text-gray-200">Edmate - #012500</span>
+                                                    <h6 class="mb-0">{{activity.date | date:'dd/MM/yyyy'}}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-gray-600">$180</span>
+                                            <span class="text-gray-600">{{activity.partNumber}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-gray-600">06/22/2024</span>
+                                            <span class="text-gray-600">{{activity.hu}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-success-600 bg-success-100 py-2 px-10 rounded-pill">Paid</span>
+                                            <span class="text-gray-600">{{activity.serialNumber}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-gray-600">Basic</span>
+                                            <span class="text-gray-600">{{activity.good}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-12">Download</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fixed-width w-40 h-40">
-                                            <div class="form-check">
-                                                <input class="form-check-input border-gray-200 rounded-4" type="checkbox">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="flex-align gap-10">
-                                                <div class="w-32 h-32 bg-gray-50 flex-center rounded-circle p-2"> 
-                                                    <img src="assets/images/thumbs/invoice-logo2.png" alt="" class="">
-                                                </div>
-                                                <div class="">
-                                                    <h6 class="mb-0">Design System</h6>
-                                                    <span class="text-13 fw-medium text-gray-200">Edmate - #012500</span>
-                                                </div>
-                                            </div>
+                                            <span class="text-gray-600">{{activity.damaged}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-gray-600">$250</span>
+                                            <span class="text-gray-600">{{activity.dimensions}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-gray-600">06/22/2024</span>
+                                            <span class="text-gray-600">{{activity.total}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-info-600 bg-info-100 py-2 px-10 rounded-pill">Unpaid</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">Professional</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-12">Download</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fixed-width w-40 h-40">
-                                            <div class="form-check">
-                                                <input class="form-check-input border-gray-200 rounded-4" type="checkbox">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="flex-align gap-10">
-                                                <div class="w-32 h-32 bg-gray-50 flex-center rounded-circle p-2"> 
-                                                    <img src="assets/images/thumbs/invoice-logo1.png" alt="" class="">
-                                                </div>
-                                                <div class="">
-                                                    <h6 class="mb-0">Frondend Develop</h6>
-                                                    <span class="text-13 fw-medium text-gray-200">Edmate - #012500</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">$128</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">06/22/2024</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-success-600 bg-success-100 py-2 px-10 rounded-pill">Paid</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">Basic</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-12">Download</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fixed-width w-40 h-40">
-                                            <div class="form-check">
-                                                <input class="form-check-input border-gray-200 rounded-4" type="checkbox">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="flex-align gap-10">
-                                                <div class="w-32 h-32 bg-gray-50 flex-center rounded-circle p-2"> 
-                                                    <img src="assets/images/thumbs/invoice-logo1.png" alt="" class="">
-                                                </div>
-                                                <div class="">
-                                                    <h6 class="mb-0">Design Usability</h6>
-                                                    <span class="text-13 fw-medium text-gray-200">Edmate - #012500</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">$132</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">06/22/2024</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-info-600 bg-info-100 py-2 px-10 rounded-pill">Unpaid</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">Basic</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-12">Download</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fixed-width w-40 h-40">
-                                            <div class="form-check">
-                                                <input class="form-check-input border-gray-200 rounded-4" type="checkbox">
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="flex-align gap-10">
-                                                <div class="w-32 h-32 bg-gray-50 flex-center rounded-circle p-2"> 
-                                                    <img src="assets/images/thumbs/invoice-logo4.png" alt="" class="">
-                                                </div>
-                                                <div class="">
-                                                    <h6 class="mb-0">Digital Marketing</h6>
-                                                    <span class="text-13 fw-medium text-gray-200">Edmate - #012500</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">$186</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">06/22/2024</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-success-600 bg-success-100 py-2 px-10 rounded-pill">Paid</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="text-gray-600">Advance</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-12">Download</button>
+                                            <span class="text-gray-600">{{activity.comments}}</span>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="card-footer border-top border-gray-100">
+                        <!-- <div class="card-footer border-top border-gray-100">
                             <div class="flex-align justify-content-end gap-8">
                                 <button type="reset" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Cancel</button>
                                 <button type="submit" class="btn btn-main rounded-pill py-9">Save  Changes</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

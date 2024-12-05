@@ -9,6 +9,7 @@ import { SupervisorService } from '../../services/supervisor.service';
 import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
 import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import { RealtimeWorkInstructionsService } from '../../services/realtime-work-instructions.service';
+import { WorkInstructionService } from '../../services/work-instruction.service';
 
 @Component({
   selector: 'app-work-instructions',
@@ -28,25 +29,27 @@ export class WorkInstructionsComponent implements OnInit {
     private supervisorService: SupervisorService,
     public realtimeSupervisors: RealtimeSupervisorsService,
     public realtimeWorkInstructions: RealtimeWorkInstructionsService,
-    public http: HttpClient
+    public http: HttpClient,
+    public auth: AuthPocketbaseService
   ){ 
     this.workInstructionsForm = this.fb.group({
       companyName: ['', [Validators.required]],
       contactName: ['', [Validators.required]],
       billingAddress: ['', [Validators.required]],
       cityStateCountryZip: ['', [Validators.required]],
-      mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      mobile: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       financeContactPosition: ['', [Validators.required]],
-      financeContactNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      financeEmail: ['', [Validators.required, Validators.email]],
+      financeContactNumber: ['', [Validators.required]],
+      financeEmail: ['', [Validators.required, Validators.email]],/* 
       supervisorId: ['', Validators.required],  
-      // technicianId: ['', Validators.required],
       customer: ['', [Validators.required]],
       numberOfControl: ['', [Validators.required]],
       area: ['', [Validators.required]],
       partNumber: ['', [Validators.required]],
       operation: ['', [Validators.required]],
+      mananger: ['', [Validators.required]],
+      engineer: ['', [Validators.required]] */
     });}
 
   ngOnInit() {
@@ -86,7 +89,7 @@ export class WorkInstructionsComponent implements OnInit {
           this.workInstructionsForm.reset(); // Reinicia el formulario
         },
         error => {
-          console.error('Error al guardar los datos:', error);
+          console.error('Error saving the data:', error);
 
           // Muestra el mensaje de error con SweetAlert2
           Swal.fire({
@@ -112,10 +115,10 @@ export class WorkInstructionsComponent implements OnInit {
       });
 
       Swal.fire({
-        title: 'Formulario Inválido',
-        html: `Por favor, complete correctamente los siguientes campos:<br><br>${invalidFields.join('<br>')}`,
+        title: 'Invalid Form',
+        html: `Please complete the following fields correctly:<br><br>${invalidFields.join('<br>')}`,
         icon: 'error',
-        confirmButtonText: 'Entendido'
+        confirmButtonText: 'Understood'
       });
       
       return false;
@@ -125,21 +128,23 @@ export class WorkInstructionsComponent implements OnInit {
 
   private getFieldLabel(fieldName: string): string {
     const fieldLabels: { [key: string]: string } = {
-      companyName: 'Nombre de la compañía',
-      contactName: 'Nombre de contacto',
-      customer: 'Cliente',
-      billingAddress: 'Dirección de facturación',
-      cityStateCountryZip: 'Ciudad, Estado, País, Código postal',
-      mobile: 'Móvil',
-      email: 'Correo electrónico',
-      numberOfControl: 'Número de control',
+      companyName: 'Company Name',
+      contactName: 'Contact Name',
+      customer: 'Customer',
+      billingAddress: 'Billing Address',
+      cityStateCountryZip: 'City, State, Country, Zip Code',
+      mobile: 'Mobile',
+      email: 'Email',
+      financeContactPosition: 'Finance Contact Position',
+      financeContactNumber: 'Finance Contact Number',
+      financeEmail: 'Finance Email',
+      /* numberOfControl: 'Número de control',
       area: 'Área',
       partNumber: 'Número de parte',
       operation: 'Operación',
-      supervisorId: 'Supervisor',
-      financeContactPosition: 'Posición del contacto financiero',
-      financeContactNumber: 'Número de contacto financiero',
-      financeEmail: 'Correo electrónico financiero'
+      supervisorId: 'Supervisor',      
+      mananger: 'Manager',
+      engineer: 'Engineer' */
     };
     
     return fieldLabels[fieldName] || fieldName;

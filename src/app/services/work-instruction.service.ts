@@ -32,4 +32,13 @@ export class WorkInstructionService {
         })
       );
   }
+  updateWorkInstruction(id: string, data: Partial<WorkInstruction>): Observable<WorkInstruction> {
+    return this.http.patch<WorkInstruction>(`${this.baseUrl}/collections/workInstructions/records/${id}`, data)
+      .pipe(
+        catchError(error => {
+          console.error('Error actualizando work instruction:', error);
+          return throwError(() => error);
+        })
+      );
+  }
 } 

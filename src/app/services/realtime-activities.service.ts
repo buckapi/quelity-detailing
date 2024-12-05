@@ -1,35 +1,35 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import PocketBase from 'pocketbase';
 import { BehaviorSubject, Observable } from 'rxjs';
-
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class RealtimeCustomersService implements OnDestroy {
+export class RealtimeActivitiesService implements OnDestroy {
   private pb: PocketBase;
-  private customersSubject = new BehaviorSubject<any[]>([]);
+  private activitiesSubject = new BehaviorSubject<any[]>([]);
 
   // Esta es la propiedad que expondrá el Observable para que los componentes puedan suscribirse a ella
-  public customers$: Observable<any[]> =
-    this.customersSubject.asObservable();
+  public activities$: Observable<any[]> =
+    this.activitiesSubject.asObservable();
 
   constructor() {
     this.pb = new PocketBase('https://db.buckapi.com:8095');
-    this.subscribeToCustomers();
+    this.subscribeToActivities();
   }
 
-  private async subscribeToCustomers() {
+  private async subscribeToActivities() {
     // (Opcional) Autenticación
     await this.pb
       .collection('users')
       .authWithPassword('admin@email.com', 'admin1234');
 
-    this.pb.collection('customers').subscribe('*', (e) => {
+    // Suscribirse a cambios en cualquier registro de la colección 'supervisors'
+    this.pb.collection('activities').subscribe('*', (e) => {
       this.handleRealtimeEvent(e);
     });
 
-    // Inicializar la lista de esustomeras
-    this.updateCustomersList();
+    // Inicializar la lista de esupervisoras
+    this.updateActivitiesList();
   }
 
   private handleRealtimeEvent(event: any) {
@@ -37,26 +37,26 @@ export class RealtimeCustomersService implements OnDestroy {
     console.log(event.action);
     console.log(event.record);
 
-    // Actualizar la lista de esustomeras
-    this.updateCustomersList();
+    // Actualizar la lista de esupervisoras
+    this.updateActivitiesList();
   }
 
-  private async updateCustomersList() {
-    // Obtener la lista actualizada de esustomeras
+  private async updateActivitiesList() {
+    // Obtener la lista actualizada de esupervisoras
     const records = await this.pb
-      .collection('customers')
+      .collection('activities')
       .getFullList(200 /* cantidad máxima de registros */, {
         sort: '-created', // Ordenar por fecha de creación
       });
-    this.customersSubject.next(records);
+    this.activitiesSubject.next(records);
   }
 
   ngOnDestroy() {
     // Desuscribirse cuando el servicio se destruye
-    this.pb.collection('customers').unsubscribe('*');
+    this.pb.collection('activities').unsubscribe('*');
   }
 
-  getCustomerCount(): number {
-    return this.customersSubject.value.length;
+  getActivitiesCount(): number {
+    return this.activitiesSubject.value.length;
   }
 }
