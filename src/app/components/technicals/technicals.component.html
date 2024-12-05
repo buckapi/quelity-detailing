@@ -19,12 +19,12 @@
         <div class="row g-20 pt-24" [hidden]="showForm">
           <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let technical of (realtimeTechnicals.technicals$ | async)">
             <div class="mentor-card rounded-8 overflow-hidden">
-              <div class="mentor-card__cover position-relative">
-                <img src="assets/images/thumbs/mentor-cover-img1.png" alt="" class="cover-img">
+              <div class="mentor-card__cover position-relative" style="background-color: black;">
+                <!-- <img src="assets/images/thumbs/mentor-cover-img1.png" alt="" class="cover-img">
                 <button type="button" class="follow-btn py-2 px-8 flex-align gap-4 text-13 fw-medium text-white border border-white rounded-pill position-absolute inset-block-start-0 inset-inline-end-0 mt-8 me-8 transition-1"> 
                   <i class="ph ph-plus d-flex"></i> 
                   <span class="text">Follow</span>
-                </button>
+                </button> -->
               </div>
               <div class="mentor-card__content text-center">
                 <div class="w-56 h-56 rounded-circle overflow-hidden border border-white d-inline-block">
@@ -36,16 +36,14 @@
                   <a >{{ technical.name }}</a>
                 </h5>
                 <span class="text-13 text-gray-500">{{ technical.role }}</span>
-                <p class="mt-20 text-gray-600 text-14 text-line-2">{{ technical.description }}</p>
                 <div class="mentor-card__rating mt-20 border border-gray-100 px-8 py-6 rounded-8 flex-between flex-wrap">
                   <div class="flex-align gap-4">
-                    <span class="text-15 fw-normal text-main-600 d-flex"><i class="ph-fill ph-book-open"></i></span>
-                    <span class="text-13 fw-normal text-gray-600">{{ technical.tasks }} Tasks</span>
+                    <span class="text-15 fw-normal text-main-600 d-flex"><i class="ph-fill ph-envelope"></i></span>
+                    <span class="text-13 fw-normal text-gray-600">{{ technical.email }} </span>
                   </div>
                   <div class="flex-align gap-4">
-                    <span class="text-15 fw-normal text-warning-600 d-flex"><i class="ph-fill ph-star"></i></span>
-                    <span class="text-13 fw-normal text-gray-600">{{ technical.rating }}</span>
-                    <span class="text-13 fw-normal text-gray-600">({{ technical.reviews }} Reviews)</span>
+                    <span class="text-15 fw-normal text-warning-600 d-flex"><i class="ph-fill ph-phone"></i></span>
+                    <span class="text-13 fw-normal text-gray-600">{{ technical.phone }}</span>
                   </div>
                 </div>
               </div>

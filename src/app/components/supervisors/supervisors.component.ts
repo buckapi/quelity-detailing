@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import Swal from 'sweetalert2';
 import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
+import { SupervisorService } from '../../services/supervisor.service';
 interface Supervisor {
   name: string;
   role: string;
@@ -47,7 +48,8 @@ export class SupervisorsComponent {
     public global: GlobalService,
     private fb: FormBuilder,
     public auth: AuthPocketbaseService,
-    public realtimeSupervisors: RealtimeSupervisorsService
+    public realtimeSupervisors: RealtimeSupervisorsService,
+    public supervisorService: SupervisorService
 
   ) { 
     this.realtimeSupervisors.supervisors$;
@@ -111,4 +113,34 @@ export class SupervisorsComponent {
       }
     });
   }
+ /*  async deleteSupervisor(id: string) {
+    try {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+        });
+
+        if (result.isConfirmed) {
+            await this.auth.deleteSupervisor(id);
+            Swal.fire(
+                '¡Deleted!',
+                'The supervisor has been deleted.',
+                'success'
+            );
+        }
+    } catch (error) {
+        console.error('Error deleting supervisor:', error);
+        Swal.fire(
+            'Error',
+            'Could not delete supervisor',
+            'error'
+        );
+    }
+}  */
 }

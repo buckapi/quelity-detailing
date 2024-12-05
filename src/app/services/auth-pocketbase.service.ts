@@ -292,37 +292,7 @@ export class AuthPocketbaseService {
   profileStatus() {
     return this.complete;
   }
-  /* permision() {
-    const currentUser = this.getCurrentUser();
-    if (!currentUser || !currentUser.type) {
-      this.global.setRoute('login'); // Redirigir al usuario a la ruta 'home' si no hay tipo definido
-      return;
-    }
-    // Llamar a la API para obtener información actualizada del usuario
-    this.pb.collection('users').getOne(currentUser.id).then(updatedUser => {
-      switch (updatedUser["type"]) {
-        case 'admin':
-          this.global.setRoute('home'); // Redirigir al cliente a la página principal
-          break;
-        case 'cliente':
-          this.global.setRoute('home'); // Redirigir al cliente a la página principal
-          break;
-        case 'tecnico':
-          this.global.setRoute('dashboard-tecnico'); // Redirigir al panel de técnico
-          break;
-        case 'supervisor':
-          this.global.setRoute('dashboard-supervisor'); // Redirigir al panel de supervisor
-          break;
-        default:
-          console.warn('Tipo de usuario no reconocido');
-          this.global.setRoute('error');
-      }
-    }).catch(error => {
-      console.error('Error al obtener la información del usuario:', error);
-      this.global.setRoute('home'); // Redirigir a 'home' en caso de error
-    });
-  } */
-  // ... existing code ...
+ 
 
 permision() {
   const currentUser = this.getCurrentUser();
@@ -407,6 +377,9 @@ getTechnicalData(): any | null {
   return null;
 }
 
-// ... existing code ...
+/* deleteSupervisor(id: string): Observable<any> {
+  return from(this.pb.collection('supervisors').delete(id));
+} */
+
   
 }
