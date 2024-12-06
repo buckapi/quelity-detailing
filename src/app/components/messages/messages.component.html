@@ -1,0 +1,60 @@
+<div class="dashboard-main-wrapper">
+    <div class="dashboard-body">
+        <div class="dashboard-body">
+
+            <div class="breadcrumb-with-buttons mb-24 flex-between flex-wrap gap-8">
+                <!-- Breadcrumb Start -->
+                <div class="breadcrumb mb-24">
+                    <ul class="flex-align gap-4">
+                        <li><a (click)="global.setRoute('home')" class="text-gray-200 fw-normal text-15 hover-text-main-600">Home</a>
+                        </li>
+                        <li> <span class="text-gray-500 fw-normal d-flex"><i class="ph ph-caret-right"></i></span> </li>
+                        <li><span class="text-main-600 fw-normal text-15">Messages</span></li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <div class="card overflow-hidden">
+                <div class="card-body p-0">
+                    <table id="assignmentTable" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <!-- <th class="fixed-width">
+                                    <div class="form-check">
+                                        <input class="form-check-input border-gray-200 rounded-4" type="checkbox"
+                                            id="selectAll">
+                                    </div>
+                                </th> -->
+                                <th class="h6 text-gray-300">Name</th>
+                                <th class="h6 text-gray-300">Email</th>
+                                <th class="h6 text-gray-300">Subject</th>
+                                <th class="h6 text-gray-300">Message</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr *ngFor="let message of realtimeMessages.messages$ | async">
+                                
+                                <td>
+                                    <span class="h6 mb-0 fw-medium text-gray-300">{{message.name}}</span>
+                                </td>
+                                <td>
+                                    <span class="h6 mb-0 fw-medium text-gray-300">{{message.email}}</span>
+                                </td>
+                                <td>
+                                    <span class="h6 mb-0 fw-medium text-gray-300">{{message.subject}}</span>
+                                </td>
+                                <td>
+                                    <span class="h6 mb-0 fw-medium text-gray-300">{{message.message}}</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

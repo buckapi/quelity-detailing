@@ -60,7 +60,14 @@
                       <span class="icon"><i class="ph ph-chart-bar"></i></span>
                       <span class="text">Reports</span>
                     </a>
-                </li>         
+                </li>
+                <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
+                    <a class="sidebar-menu__link" (click)="global.setRoute('messages')">
+                      <span class="icon"><i class="ph ph-envelope"></i></span>
+                      <span class="text">Messages</span>
+                    </a>
+                </li>    
+
                 
             </ul>
         </div>
