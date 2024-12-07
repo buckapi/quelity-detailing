@@ -81,7 +81,7 @@
                           <button class="nav-link" id="pills-billing-tab" data-bs-toggle="pill" data-bs-target="#pills-billing" type="button" role="tab" aria-controls="pills-billing" aria-selected="false">Financial contact</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill" data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification" aria-selected="false">Activities technical</button>
+                          <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill" data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification" aria-selected="false" [hidden]="auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'cliente'">Activities technical</button>
                         </li>
                     </ul>
                 </div>

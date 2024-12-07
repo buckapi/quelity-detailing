@@ -43,18 +43,18 @@
                     </a>
                 </li>
                 <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'cliente'">
-                    <a style="cursor: pointer;" (click)="global.setRoute('work-instructions')" class="sidebar-menu__link">
+                    <a style="cursor: pointer;" (click)="global.setRoute('home')" class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-list"></i></span>
                         <span class="text">My Orders</span>
                     </a>
                 </li>
-
+<!-- 
                 <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <a  class="sidebar-menu__link">
                         <span class="icon"><i class="ph ph-bookmarks"></i></span>
                         <span class="text">Activity</span>
                     </a>
-                </li>
+                </li> -->
                 <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <a class="sidebar-menu__link">
                       <span class="icon"><i class="ph ph-chart-bar"></i></span>

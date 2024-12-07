@@ -377,6 +377,30 @@ getTechnicalData(): any | null {
   return null;
 }
 
+getCustomerData(): any | null {
+  if (this.isLocalStorageAvailable()) {
+    const customerData = localStorage.getItem('customerData');
+    return customerData ? JSON.parse(customerData) : null;
+  }
+  return null;
+}
+
+fetchCustomer(userId: string): Observable<any> {
+  return from(
+    this.pb.collection('customers').getFirstListItem(`userId="${userId}"`, {
+      expand: 'userId',  // Expande la relación con la tabla users
+      fields: '*'  // Obtiene todos los campos
+    })
+  ).pipe(
+    map((customerData) => {
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem('customerData', JSON.stringify(customerData));
+      }
+      return customerData;
+    })
+  );
+}
+
 /* deleteSupervisor(id: string): Observable<any> {
   return from(this.pb.collection('supervisors').delete(id));
 } */
