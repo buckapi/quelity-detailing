@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { WorkinstructiondetailComponent } from './components/workinstructiondetail/workinstructiondetail.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { DefectsModalComponent } from './components/defects-modal/defects-modal.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -34,9 +35,9 @@ import { MessagesComponent } from './components/messages/messages.component';
     HttpClientModule,
     WorkinstructiondetailComponent,
     CustomersComponent,
-    MessagesComponent
+    MessagesComponent,
+    DefectsModalComponent,
   ],
- 
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

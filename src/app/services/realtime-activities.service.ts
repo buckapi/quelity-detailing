@@ -59,4 +59,29 @@ export class RealtimeActivitiesService implements OnDestroy {
   getActivitiesCount(): number {
     return this.activitiesSubject.value.length;
   }
+
+  async updateDefects(activityId: string, defects: any[]) {
+    try {
+      console.log('Actualizando defectos para actividad:', activityId);
+      console.log('Defectos a guardar:', defects);
+      
+      // Verificar si el registro existe antes de actualizarlo
+      const exists = await this.pb.collection('activities').getOne(activityId).catch(() => null);
+      
+      if (!exists) {
+        throw new Error(`No se encontró la actividad con ID: ${activityId}`);
+      }
+
+      // Realizar la actualización
+      const result = await this.pb.collection('activities').update(activityId, {
+        defects: defects
+      });
+
+      console.log('Actualización exitosa:', result);
+      return result;
+    } catch (error) {
+      console.error('Error al actualizar defectos:', error);
+      throw error;
+    }
+  }
 }

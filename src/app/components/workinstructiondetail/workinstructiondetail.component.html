@@ -1,23 +1,25 @@
 <div class="dashboard-main-wrapper">
 
 
-    
+
     <div class="dashboard-body">
         <!-- Breadcrumb Start -->
-<div class="breadcrumb mb-24">
-<ul class="flex-align gap-4">
-    <li><a (click)="global.setRoute('home')" class="text-gray-200 fw-normal text-15 hover-text-main-600">Home</a></li>
-    <li> <span class="text-gray-500 fw-normal d-flex"><i class="ph ph-caret-right"></i></span> </li>
-    <li><span class="text-main-600 fw-normal text-15">Work Instruction</span></li>
-</ul>
-</div>
-<!-- Breadcrumb End -->
-         
+        <div class="breadcrumb mb-24">
+            <ul class="flex-align gap-4">
+                <li><a (click)="global.setRoute('home')"
+                        class="text-gray-200 fw-normal text-15 hover-text-main-600">Home</a></li>
+                <li> <span class="text-gray-500 fw-normal d-flex"><i class="ph ph-caret-right"></i></span> </li>
+                <li><span class="text-main-600 fw-normal text-15">Work Instruction</span></li>
+            </ul>
+        </div>
+        <!-- Breadcrumb End -->
+
         <div class="card overflow-hidden">
             <div class="card-body p-0">
                 <div class="cover-img position-relative">
-<!--                     <label for="coverImageUpload" class="btn border-gray-200 text-gray-200 fw-normal hover-bg-gray-400 rounded-pill py-4 px-14 position-absolute inset-block-start-0 inset-inline-end-0 mt-24 me-24">Edit Cover</label>
- -->                    <div class="avatar-upload">
+                    <!--                     <label for="coverImageUpload" class="btn border-gray-200 text-gray-200 fw-normal hover-bg-gray-400 rounded-pill py-4 px-14 position-absolute inset-block-start-0 inset-inline-end-0 mt-24 me-24">Edit Cover</label>
+ -->
+                    <div class="avatar-upload">
                         <input type='file' id="coverImageUpload" accept=".png, .jpg, .jpeg">
                         <div class="avatar-preview">
                             <div id="coverImagePreview" style="
@@ -26,35 +28,42 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
 
-                <div class="setting-profile px-24" >
+                <div class="setting-profile px-24">
                     <div class="flex-between">
                         <div class="d-flex align-items-end flex-wrap mb-32 gap-24">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs4VzNPTA8izlJM_olcxD2dvfJK9dhnBv7Bex_DydZzKHvCA0ERfnRaGZu2AgdOOciqTo" alt="" class="w-120 h-120 rounded-circle border border-white">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs4VzNPTA8izlJM_olcxD2dvfJK9dhnBv7Bex_DydZzKHvCA0ERfnRaGZu2AgdOOciqTo"
+                                alt="" class="w-120 h-120 rounded-circle border border-white">
                             <div>
                                 <h4 class="mb-8">{{global.workInstructionSelected.companyName}}</h4>
-                              
+
                                 <div class="setting-profile__infos flex-align flex-wrap gap-16">
                                     <div class="flex-align gap-6">
                                         <span class="text-gray-600 d-flex text-lg"><i class="ph ph-user"></i></span>
-                                        <span class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.contactName}}</span>
+                                        <span
+                                            class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.contactName}}</span>
                                     </div>
                                     <div class="flex-align gap-6">
                                         <span class="text-gray-600 d-flex text-lg"><i class="ph ph-map-pin"></i></span>
-                                        <span class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.billingAddress}}</span>
+                                        <span
+                                            class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.billingAddress}}</span>
                                     </div>
                                     <div class="flex-align gap-6">
                                         <span class="text-gray-600 d-flex text-lg"><i class="ph ph-map-pin"></i></span>
-                                        <span class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.cityStateCountryZip}}</span>
+                                        <span
+                                            class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.cityStateCountryZip}}</span>
                                     </div>
                                     <div class="flex-align gap-6">
                                         <span class="text-gray-600 d-flex text-lg"><i class="ph ph-phone"></i></span>
-                                        <span class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.mobile}}</span>
+                                        <span
+                                            class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.mobile}}</span>
                                     </div>
                                     <div class="flex-align gap-6">
-                                        <span class="text-gray-600 d-flex text-lg"><i class="ph ph-envelope-simple"></i></span>
-                                        <span class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.email}}</span>
+                                        <span class="text-gray-600 d-flex text-lg"><i
+                                                class="ph ph-envelope-simple"></i></span>
+                                        <span
+                                            class="text-gray-600 d-flex text-15">{{global.workInstructionSelected.email}}</span>
                                     </div>
 
                                 </div>
@@ -62,31 +71,41 @@
                         </div>
                     </div>
                     <ul class="nav common-tab style-two nav-pills mb-0" id="pills-tab" role="tablist">
-                        
+
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">Work Instruction</button>
+                            <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                                aria-selected="true">Work Instruction</button>
                         </li>
-                         
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="supervisors-tab" data-bs-toggle="pill" data-bs-target="#supervisors" type="button" role="tab" aria-controls="pills-password" aria-selected="false" 
-                            [hidden]="auth.getCurrentUser()?.type !== 'admin'"
-                            >Supervisors</button>
-                          </li>
-                          <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-password-tab" data-bs-toggle="pill" data-bs-target="#pills-password" type="button" role="tab" aria-controls="pills-password" aria-selected="false" 
-                            [hidden]="auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'admin'"
-                            >Technicals</button>
-                          </li>
-                        <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-billing-tab" data-bs-toggle="pill" data-bs-target="#pills-billing" type="button" role="tab" aria-controls="pills-billing" aria-selected="false">Financial contact</button>
+                            <button class="nav-link" id="supervisors-tab" data-bs-toggle="pill"
+                                data-bs-target="#supervisors" type="button" role="tab" aria-controls="pills-password"
+                                aria-selected="false"
+                                [hidden]="auth.getCurrentUser()?.type !== 'admin'">Supervisors</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                          <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill" data-bs-target="#pills-notification" type="button" role="tab" aria-controls="pills-notification" aria-selected="false" [hidden]="auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'cliente'">Activities technical</button>
+                            <button class="nav-link" id="pills-password-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-password" type="button" role="tab" aria-controls="pills-password"
+                                aria-selected="false"
+                                [hidden]="auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'admin'">Technicals</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-billing-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-billing" type="button" role="tab" aria-controls="pills-billing"
+                                aria-selected="false">Financial contact</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="pills-notification-tab" data-bs-toggle="pill"
+                                data-bs-target="#pills-notification" type="button" role="tab"
+                                aria-controls="pills-notification" aria-selected="false"
+                                [hidden]="auth.getCurrentUser()?.type !== 'admin' && auth.getCurrentUser()?.type !== 'supervisor' && auth.getCurrentUser()?.type !== 'tecnico'">Activities
+                                technical</button>
                         </li>
                     </ul>
                 </div>
 
-                
+
 
 
             </div>
@@ -94,7 +113,8 @@
 
         <div class="tab-content" id="pills-tabContent">
             <!-- workinstruction Tab Start -->
-            <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
+                aria-labelledby="pills-profile-tab" tabindex="0">
                 <div class="row gy-4">
                     <div class="col-lg-12">
                         <div class="card mt-24">
@@ -102,38 +122,55 @@
                                 <div class="row gy-4">
                                     <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-main-50">
-                                            <span class="text-white bg-main-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-users-three"></i></span>
+                                            <span
+                                                class="text-white bg-main-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-users-three"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Manager:</h4>
-                                                
-                                                <span class="fw-medium text-main-600 text-gray-300"  style="color: #000 !important;"> {{global.workInstructionSelected.mananger}}</span>
+
+                                                <span class="fw-medium text-main-600 text-gray-300"
+                                                    style="color: #000 !important;">
+                                                    {{global.workInstructionSelected.mananger}}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-info-50">
-                                            <span class="text-white bg-info-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-users-three"></i></span>
+                                            <span
+                                                class="text-white bg-info-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-users-three"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Engineer:</h4>
-                                                <span class="fw-medium text-info-600 "  style="color: #000 !important;">{{global.workInstructionSelected.engineer}}</span>
+                                                <span class="fw-medium text-info-600 "
+                                                    style="color: #000 !important;">{{global.workInstructionSelected.engineer}}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
-                                        <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
-                                            <span class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-thumbs-up"></i></span>
+                                        <div
+                                            class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
+                                            <span
+                                                class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-thumbs-up"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Supervisor:</h4>
-                                                <span class="fw-medium text-purple-600">{{ getSupervisorName(global.workInstructionSelected?.supervisorId) }}</span>
+                                                <span class="fw-medium text-purple-600">{{
+                                                    getSupervisorName(global.workInstructionSelected?.supervisorId)
+                                                    }}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xxl-3 col-xl-6 col-md-3 col-sm-6">
-                                        <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
-                                            <span class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-thumbs-up"></i></span>
+                                        <div
+                                            class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
+                                            <span
+                                                class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-thumbs-up"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Technical:</h4>
-                                                <span class="fw-medium text-purple-600">{{ getTechnicalName(global.workInstructionSelected?.technicalId) }}</span>
+                                                <span class="fw-medium text-purple-600">{{
+                                                    getTechnicalName(global.workInstructionSelected?.technicalId)
+                                                    }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -141,22 +178,24 @@
                                 <div class="mt-24">
                                     <div class="flex-between mb-16">
                                         <h4 class="mb-8">Details Work Instruction</h4>
-                                        <button *ngIf="!isEditing" 
-                                                (click)="startEditing()" 
-                                                class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">
+                                        <button *ngIf="!isEditing" (click)="startEditing()"
+                                            class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">
                                             <i class="ph ph-pencil me-2"></i>Editar
                                         </button>
                                     </div>
                                     <div class="flex-align gap-8 flex-wrap mb-16">
-                                        <span class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl"> 
+                                        <span
+                                            class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl">
                                             <i class="ph ph-number-circle-one"></i>
                                         </span>
                                         <div class="flex-align gap-8 flex-wrap text-gray-600">
-                                            <span>Number of Control: {{global.workInstructionSelected.numberOfControl}}</span>
+                                            <span>Number of Control:
+                                                {{global.workInstructionSelected.numberOfControl}}</span>
                                         </div>
                                     </div>
                                     <div class="flex-align gap-8 flex-wrap mb-16">
-                                        <span class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl"> 
+                                        <span
+                                            class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl">
                                             <i class="ph ph-number-circle-two"></i>
                                         </span>
                                         <div class="flex-align gap-8 flex-wrap text-gray-600">
@@ -164,7 +203,8 @@
                                         </div>
                                     </div>
                                     <div class="flex-align gap-8 flex-wrap mb-16">
-                                        <span class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl"> 
+                                        <span
+                                            class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl">
                                             <i class="ph ph-number-circle-three"></i>
                                         </span>
                                         <div class="flex-align gap-8 flex-wrap text-gray-600">
@@ -172,64 +212,60 @@
                                         </div>
                                     </div>
                                     <div class="flex-align gap-8 flex-wrap mb-16">
-                                        <span class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl"> 
+                                        <span
+                                            class="flex-center w-36 h-36 text-main-600 bg-main-100 rounded-circle text-xl">
                                             <i class="ph ph-number-circle-four"></i>
                                         </span>
                                         <div class="flex-align gap-8 flex-wrap text-gray-600">
                                             <span>Operation: {{global.workInstructionSelected.operation}}</span>
                                         </div>
                                     </div>
-                                    
-                                </div>                              
+
+                                </div>
                                 <div class="mt-24">
-                                    
-                                    <form *ngIf="isEditing" (ngSubmit)="updateWorkInstruction()" #workInstructionForm="ngForm">
+
+                                    <form *ngIf="isEditing" (ngSubmit)="updateWorkInstruction()"
+                                        #workInstructionForm="ngForm">
                                         <div class="row gy-4">
                                             <div class="col-md-4">
                                                 <label class="form-label">Manager</label>
-                                                <input type="text" class="form-control" 
-                                                    [(ngModel)]="editForm.mananger" 
+                                                <input type="text" class="form-control" [(ngModel)]="editForm.mananger"
                                                     name="mananger" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Engineer</label>
-                                                <input type="text" class="form-control" 
-                                                    [(ngModel)]="editForm.engineer" 
+                                                <input type="text" class="form-control" [(ngModel)]="editForm.engineer"
                                                     name="engineer" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Area</label>
-                                                <input type="text" class="form-control" 
-                                                    [(ngModel)]="editForm.area" 
+                                                <input type="text" class="form-control" [(ngModel)]="editForm.area"
                                                     name="area" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Number of Control</label>
-                                                <input type="text" class="form-control" 
-                                                    [(ngModel)]="editForm.numberOfControl" 
-                                                    name="numberOfControl" required>
+                                                <input type="text" class="form-control"
+                                                    [(ngModel)]="editForm.numberOfControl" name="numberOfControl"
+                                                    required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Part Number</label>
-                                                <input type="text" class="form-control" 
-                                                    [(ngModel)]="editForm.partNumber" 
-                                                    name="partNumber" required>
+                                                <input type="text" class="form-control"
+                                                    [(ngModel)]="editForm.partNumber" name="partNumber" required>
                                             </div>
                                             <div class="col-md-4">
                                                 <label class="form-label">Operation</label>
-                                                <input type="text" class="form-control" 
-                                                    [(ngModel)]="editForm.operation" 
+                                                <input type="text" class="form-control" [(ngModel)]="editForm.operation"
                                                     name="operation" required>
                                             </div>
                                             <div class="col-12 text-end mt-3">
-                                                <button type="button" 
-                                                        class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9 me-2" 
-                                                        (click)="cancelEditing()">
+                                                <button type="button"
+                                                    class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9 me-2"
+                                                    (click)="cancelEditing()">
                                                     Cancelar
                                                 </button>
-                                                <button type="submit" 
-                                                        class="btn btn-main rounded-pill py-9" 
-                                                        [disabled]="!workInstructionForm.form.valid">
+                                                <button type="submit" class="btn btn-main rounded-pill py-9"
+                                                    [disabled]="!workInstructionForm.form.valid">
                                                     Guardar Cambios
                                                 </button>
                                             </div>
@@ -245,89 +281,81 @@
                                             <p class="text-gray-600 text-15">Work Instruction Activities</p>
                                         </div>
                                         <div class="flex-align flex-wrap justify-content-end gap-8">
-                                            <button type="button" class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add Activity</button>
+                                            <button type="button"
+                                                class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add
+                                                Activity</button>
                                             <!-- <button type="button" class="btn btn-main rounded-pill py-9">Download All</button> -->
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="card toggle-search-box border-bottom border-gray-100 rounded-0">
                                     <div class="card-body">
                                         <form class="search-input-form" (ngSubmit)="createActivityWorkinstruction()">
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                       [(ngModel)]="activityFormWorkinstruction.number" 
-                                                       name="number"
-                                                       placeholder="Number"
-                                                       required>
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                    [(ngModel)]="activityFormWorkinstruction.number" name="number"
+                                                    placeholder="Number" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                       [(ngModel)]="activityFormWorkinstruction.process" 
-                                                       name="process"
-                                                       placeholder="Process"
-                                                       required>
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                    [(ngModel)]="activityFormWorkinstruction.process" name="process"
+                                                    placeholder="Process" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                       [(ngModel)]="activityFormWorkinstruction.description"
-                                                       name="description" 
-                                                       placeholder="Description"
-                                                       required>
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                    [(ngModel)]="activityFormWorkinstruction.description"
+                                                    name="description" placeholder="Description" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                       [(ngModel)]="activityFormWorkinstruction.focusPoints"
-                                                       name="focusPoints" 
-                                                       placeholder="Focus Points"
-                                                       required>
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                    [(ngModel)]="activityFormWorkinstruction.focusPoints"
+                                                    name="focusPoints" placeholder="Focus Points" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                       [(ngModel)]="activityFormWorkinstruction.time"
-                                                       name="time" 
-                                                       placeholder="Time"
-                                                       required>
+                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                    [(ngModel)]="activityFormWorkinstruction.time" name="time"
+                                                    placeholder="Time" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="file" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                       [(ngModel)]="activityFormWorkinstruction.visualAid"
-                                                       name="visualAid"
-                                                       placeholder="Visual Aid"
-                                                       required>
+                                                <input type="file" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                    [(ngModel)]="activityFormWorkinstruction.visualAid" name="visualAid"
+                                                    placeholder="Visual Aid" required>
                                             </div>
-                                            
+
                                             <div class="search-input">
                                                 <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
                                                     Save
                                                 </button>
                                             </div>
-                                        </form>                    
+                                        </form>
                                     </div>
                                 </div>
-            
+
                                 <div class="card-body p-0 overflow-x-auto">
                                     <table id="studentTable" class="table table-lg table-striped w-100">
                                         <thead>
                                             <tr>
                                                 <th class="fixed-width w-40 h-40 ps-20">
                                                     <div class="form-check">
-                                                        <input class="form-check-input border-gray-200 rounded-4" type="checkbox" id="selectAll">
+                                                        <input class="form-check-input border-gray-200 rounded-4"
+                                                            type="checkbox" id="selectAll">
                                                     </div>
                                                 </th>
-                                               
-                                              <!--   <th class="h6 text-gray-600 text-center">Number</th> -->
+
+                                                <!--   <th class="h6 text-gray-600 text-center">Number</th> -->
                                                 <th class="h6 text-gray-600 text-center">Process</th>
                                                 <th class="h6 text-gray-600 text-center">Description</th>
                                                 <th class="h6 text-gray-600 text-center">Focus Points</th>
                                                 <th class="h6 text-gray-600 text-center">Time</th>
                                                 <th class="h6 text-gray-600 text-center">Visual Aid</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let activity of realtimeActivitiesWorkInstructions.activitiesWorkInstructions$ | async" [hidden]="activity.workinstructionId !== global.workInstructionSelected.id">
-                                                
+                                            <tr *ngFor="let activity of realtimeActivitiesWorkInstructions.activitiesWorkInstructions$ | async"
+                                                [hidden]="activity.workinstructionId !== global.workInstructionSelected.id">
+
                                                 <td>
                                                     <div class="flex-align gap-10">
                                                         <div class="">
@@ -354,17 +382,18 @@
                                         </tbody>
                                     </table>
                                 </div>
-                               
-                            </div> 
+
+                            </div>
                         </div>
-                      
+
                     </div>
                 </div>
             </div>
             <!-- workinstruction Tab End -->
 
             <!-- technical Tab Start -->
-            <div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab" tabindex="0">
+            <div class="tab-pane fade" id="pills-password" role="tabpanel" aria-labelledby="pills-password-tab"
+                tabindex="0">
                 <div class="card mt-24">
                     <div class="card-header border-bottom">
                         <h4 class="mb-4">Technicals Assigned</h4>
@@ -372,7 +401,7 @@
 
                         <h4 class="mb-4">Assign Technicals</h4>
                         <p class="text-gray-600 text-15">Assign the technicals to the work instruction</p>
-                  
+
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -380,15 +409,15 @@
                                 <form (ngSubmit)="updateTechnicals()">
                                     <div class="row gy-4">
                                         <div class="col-12">
-                                            <label for="technician-select" class="form-label mb-8 h6">Select technical</label>
+                                            <label for="technician-select" class="form-label mb-8 h6">Select
+                                                technical</label>
                                             <div class="position-relative">
-                                                <select class="form-control py-11" id="technicianId" 
-                                                            [(ngModel)]="selectedtechnicalId" 
-                                                            name="technicianId"
-                                                            required>
+                                                <select class="form-control py-11" id="technicianId"
+                                                    [(ngModel)]="selectedtechnicalId" name="technicianId" required>
                                                     <option value="" disabled selected>Seleccionar un técnico</option>
-                                                    <option *ngFor="let technical of realtimeTechnicals.technicals$ | async" 
-                                                            [value]="technical.id">
+                                                    <option
+                                                        *ngFor="let technical of realtimeTechnicals.technicals$ | async"
+                                                        [value]="technical.id">
                                                         {{technical.name}}
                                                     </option>
                                                 </select>
@@ -396,12 +425,13 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="flex-align justify-content-end gap-8">
-                                                <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9" 
-                                                        (click)="cancelUpdate()">
+                                                <button type="button"
+                                                    class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9"
+                                                    (click)="cancelUpdate()">
                                                     Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-main rounded-pill py-9" 
-                                                        [disabled]="!selectedtechnicalId">
+                                                <button type="submit" class="btn btn-main rounded-pill py-9"
+                                                    [disabled]="!selectedtechnicalId">
                                                     Guardar Cambios
                                                 </button>
                                             </div>
@@ -413,9 +443,9 @@
                     </div>
                 </div>
             </div>
-             <!-- technical Tab End -->
-             <!-- supervicor tab star -->
-             <div class="tab-pane fade" id="supervisors" role="tabpanel" aria-labelledby="supervisors-tab" tabindex="0">
+            <!-- technical Tab End -->
+            <!-- supervicor tab star -->
+            <div class="tab-pane fade" id="supervisors" role="tabpanel" aria-labelledby="supervisors-tab" tabindex="0">
                 <div class="card mt-24">
                     <div class="card-header border-bottom">
                         <h4 class="mb-4">Supervisors Assigned</h4>
@@ -423,7 +453,7 @@
 
                         <h4 class="mb-4">Assign Supervisor</h4>
                         <p class="text-gray-600 text-15">Assign the supervisor to the work instruction</p>
-                  
+
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -431,15 +461,15 @@
                                 <form (ngSubmit)="updateSupervisors()">
                                     <div class="row gy-4">
                                         <div class="col-12">
-                                            <label for="technician-select" class="form-label mb-8 h6">Select supervisor</label>
+                                            <label for="technician-select" class="form-label mb-8 h6">Select
+                                                supervisor</label>
                                             <div class="position-relative">
-                                                <select class="form-control py-11" id="supervisorId" 
-                                                            [(ngModel)]="selectedSupervisorId" 
-                                                            name="supervisorId"
-                                                            required>
+                                                <select class="form-control py-11" id="supervisorId"
+                                                    [(ngModel)]="selectedSupervisorId" name="supervisorId" required>
                                                     <option value="" disabled selected>Select a supervisor</option>
-                                                    <option *ngFor="let supervisor of realtimeSupervisors.supervisors$ | async" 
-                                                            [value]="supervisor.id">
+                                                    <option
+                                                        *ngFor="let supervisor of realtimeSupervisors.supervisors$ | async"
+                                                        [value]="supervisor.id">
                                                         {{supervisor.name}}
                                                     </option>
                                                 </select>
@@ -447,12 +477,13 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="flex-align justify-content-end gap-8">
-                                                <button type="button" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9" 
-                                                        (click)="cancelUpdate()">
+                                                <button type="button"
+                                                    class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9"
+                                                    (click)="cancelUpdate()">
                                                     Cancelar
                                                 </button>
-                                                <button type="submit" class="btn btn-main rounded-pill py-9" 
-                                                        [disabled]="!selectedSupervisorId">
+                                                <button type="submit" class="btn btn-main rounded-pill py-9"
+                                                    [disabled]="!selectedSupervisorId">
                                                     Guardar Cambios
                                                 </button>
                                             </div>
@@ -467,7 +498,8 @@
             <!-- supervicor Tab End -->
 
             <!-- customer Tab Start -->
-            <div class="tab-pane fade" id="pills-billing" role="tabpanel" aria-labelledby="pills-billing-tab" tabindex="0">
+            <div class="tab-pane fade" id="pills-billing" role="tabpanel" aria-labelledby="pills-billing-tab"
+                tabindex="0">
                 <div class="row gy-4">
                     <div class="col-lg-12">
                         <div class="card mt-24">
@@ -475,42 +507,53 @@
                                 <div class="row gy-4">
                                     <div class="col-xxl-4 col-xl-6 col-md-4 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-main-50">
-                                            <span class="text-white bg-main-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-users-three"></i></span>
+                                            <span
+                                                class="text-white bg-main-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-users-three"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Contact Position</h4>
-                                                <span class="fw-medium text-main-600"> {{global.workInstructionSelected.financeContactPosition}}</span>
+                                                <span class="fw-medium text-main-600">
+                                                    {{global.workInstructionSelected.financeContactPosition}}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-xl-6 col-md-4 col-sm-6">
                                         <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-info-50">
-                                            <span class="text-white bg-info-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-users-three"></i></span>
+                                            <span
+                                                class="text-white bg-info-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-users-three"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Contact Number:</h4>
-                                                <span class="fw-medium text-info-600">{{global.workInstructionSelected.financeContactNumber}}</span>
+                                                <span
+                                                    class="fw-medium text-info-600">{{global.workInstructionSelected.financeContactNumber}}</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-xxl-4 col-xl-6 col-md-4 col-sm-6">
-                                        <div class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
-                                            <span class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i class="ph ph-thumbs-up"></i></span>
+                                        <div
+                                            class="statistics-card p-xl-4 p-16 flex-align gap-10 rounded-8 bg-purple-50">
+                                            <span
+                                                class="text-white bg-purple-600 w-36 h-36 rounded-circle flex-center text-xl flex-shrink-0"><i
+                                                    class="ph ph-thumbs-up"></i></span>
                                             <div>
                                                 <h4 class="mb-0">Email:</h4>
-                                                <span class="fw-medium text-purple-600">{{global.workInstructionSelected.financeEmail}}</span>
+                                                <span
+                                                    class="fw-medium text-purple-600">{{global.workInstructionSelected.financeEmail}}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- customer Tab End -->
 
             <!-- Notification Tab Start -->
-            <div class="tab-pane fade" id="pills-notification" role="tabpanel" aria-labelledby="pills-notification-tab" tabindex="0">
+            <div class="tab-pane fade" id="pills-notification" role="tabpanel" aria-labelledby="pills-notification-tab"
+                tabindex="0">
                 <div class="card mt-24">
                     <div class="card mt-24">
                         <div class="card-header border-bottom">
@@ -520,94 +563,78 @@
                                     <p class="text-gray-600 text-15">technical scanning</p>
                                 </div>
                                 <div class="flex-align flex-wrap justify-content-end gap-8">
-                                    <button type="button" class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add Activity</button>
+                                    <button type="button"
+                                        class="toggle-search-btn btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Add
+                                        Activity</button>
                                     <!-- <button type="button" class="btn btn-main rounded-pill py-9">Download All</button> -->
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="card toggle-search-box border-bottom border-gray-100 rounded-0">
                             <div class="card-body">
                                 <form class="search-input-form" (ngSubmit)="createActivity()">
                                     <div class="search-input">
-                                        <input type="date" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [(ngModel)]="activityForm.date" 
-                                               name="date"
-                                               required>
+                                        <input type="date" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.date" name="date" required>
                                     </div>
                                     <div class="search-input">
-                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [(ngModel)]="activityForm.partNumber"
-                                               name="partNumber" 
-                                               placeholder="Número de parte"
-                                               required>
+                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.partNumber" name="partNumber"
+                                            placeholder="Número de parte" required>
                                     </div>
                                     <div class="search-input">
-                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [(ngModel)]="activityForm.hu"
-                                               name="hu" 
-                                               placeholder="HU"
-                                               required>
+                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.hu" name="hu" placeholder="HU" required>
                                     </div>
                                     <div class="search-input">
-                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [(ngModel)]="activityForm.serialNumber"
-                                               name="serialNumber" 
-                                               placeholder="Número de serie"
-                                               required>
+                                        <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.serialNumber" name="serialNumber"
+                                            placeholder="Número de serie" required>
                                     </div>
                                     <div class="search-input">
-                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [(ngModel)]="activityForm.good"
-                                               name="good"
-                                               placeholder="Good"
-                                               (change)="calculateTotal()"
-                                               required>
+                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.good" name="good" placeholder="Good"
+                                            (change)="calculateTotal()" required>
                                     </div>
                                     <div class="search-input">
-                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [(ngModel)]="activityForm.damaged"
-                                               name="damaged"
-                                               placeholder="Damaged"
-                                               (change)="calculateTotal()"
-                                               required>
+                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.damaged" name="damaged" placeholder="Damaged"
+                                            (change)="calculateTotal()" required>
                                     </div>
-                                   <!--  <div class="search-input">
-                                        <button type="button" 
-                                                class="btn btn-outline-main w-100 h6 rounded-4 mb-0 py-6 px-8"
-                                                (click)="openDefectsModal()">
+                                    <div class="search-input">
+                                        <button type="button"
+                                            class="btn btn-outline-main w-100 h6 rounded-4 mb-0 py-6 px-8"
+                                            (click)="openDefectsModal()">
                                             Agregar Defectos ({{activityForm.defects.length}})
                                         </button>
-                                    </div> -->
-                                    <div class="search-input">
-                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                               [ngModel]="activityForm.total"
-                                               name="total"
-                                               placeholder="Total" 
-                                               readonly>
                                     </div>
                                     <div class="search-input">
-                                        <textarea class="form-control h6 rounded-4 mb-0 py-6 px-8" 
-                                                  [(ngModel)]="activityForm.comments"
-                                                  name="comments"
-                                                  placeholder="Comentarios"></textarea>
+                                        <input type="number" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [ngModel]="activityForm.total" name="total" placeholder="Total" readonly>
+                                    </div>
+                                    <div class="search-input">
+                                        <textarea class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                            [(ngModel)]="activityForm.comments" name="comments"
+                                            placeholder="Comentarios"></textarea>
                                     </div>
                                     <div class="search-input">
                                         <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
                                             Save
                                         </button>
                                     </div>
-                                </form>                    
+                                </form>
                             </div>
                         </div>
-    
+
                         <div class="card-body p-0 overflow-x-auto">
                             <table id="studentTable" class="table table-lg table-striped w-100">
                                 <thead>
                                     <tr>
                                         <th class="fixed-width w-40 h-40 ps-20">
                                             <div class="form-check">
-                                                <input class="form-check-input border-gray-200 rounded-4" type="checkbox" id="selectAll">
+                                                <input class="form-check-input border-gray-200 rounded-4"
+                                                    type="checkbox" id="selectAll">
                                             </div>
                                         </th>
                                         <th class="h6 text-gray-600">
@@ -620,16 +647,18 @@
                                         <th class="h6 text-gray-600 text-center">Serial Number</th>
                                         <th class="h6 text-gray-600 text-center">Good</th>
                                         <th class="h6 text-gray-600 text-center">Damanaged</th>
-                                        <th class="h6 text-gray-600 text-center">Dimensions</th>
+                                        <th class="h6 text-gray-600 text-center">Defects</th>
                                         <th class="h6 text-gray-600 text-center">Total</th>
                                         <th class="h6 text-gray-600 text-center">Comments</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let activity of realtimeActivities.activities$ | async" [hidden]="activity.workinstructionId !== global.workInstructionSelected.id">
+                                    <tr *ngFor="let activity of realtimeActivities.activities$ | async"
+                                        [hidden]="activity.workinstructionId !== global.workInstructionSelected.id">
                                         <td class="fixed-width w-40 h-40">
                                             <div class="form-check">
-                                                <input class="form-check-input border-gray-200 rounded-4" type="checkbox">
+                                                <input class="form-check-input border-gray-200 rounded-4"
+                                                    type="checkbox">
                                             </div>
                                         </td>
                                         <td>
@@ -655,8 +684,14 @@
                                             <span class="text-gray-600">{{activity.damaged}}</span>
                                         </td>
                                         <td class="text-center">
-                                            <span class="text-gray-600">{{activity.dimensions}}</span>
+                                            <div class="d-flex align-items-center justify-content-center gap-2">
+                                                <span class="badge bg-danger">{{getTotalDefects(activity.defects)}} defects</span>
+                                                <button class="btn btn-sm btn-outline-main" (click)="openDefectsDetailsModal(activity.defects)">
+                                                    <i class="ph ph-eye"></i>
+                                                </button>
+                                            </div>
                                         </td>
+
                                         <td class="text-center">
                                             <span class="text-gray-600">{{activity.total}}</span>
                                         </td>
@@ -665,14 +700,10 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <!-- Donde muestras el listado de actividades -->
+                               
                             </table>
                         </div>
-                        <!-- <div class="card-footer border-top border-gray-100">
-                            <div class="flex-align justify-content-end gap-8">
-                                <button type="reset" class="btn btn-outline-main bg-main-100 border-main-100 text-main-600 rounded-pill py-9">Cancel</button>
-                                <button type="submit" class="btn btn-main rounded-pill py-9">Save  Changes</button>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>
@@ -680,5 +711,47 @@
 
         </div>
     </div>
-    
+
+</div>
+
+<!-- Modal de Detalles de Defectos -->
+<div class="modal fade" id="defectsDetailsModal" tabindex="-1" aria-labelledby="defectsDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="defectsDetailsModalLabel">Details of Defects</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let defect of selectedDefects">
+                                <td>{{defect.type}}</td>
+                                <td>{{defect.quantity}}</td>
+                                <td>{{defect.description}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="1"><strong>Total of Defects:</strong></td>
+                                <td><strong>{{getTotalDefects(selectedDefects)}}</strong></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,0 +1,53 @@
+<div class="modal-header">
+    <h4 class="modal-title">Agregar Defectos</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form #defectForm="ngForm">
+      <div class="mb-3">
+        <label class="form-label">Tipo de Defecto</label>
+        <input type="text" class="form-control" [(ngModel)]="newDefect.type" name="type" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Cantidad</label>
+        <input type="number" class="form-control" [(ngModel)]="newDefect.quantity" name="quantity" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Descripción</label>
+        <textarea class="form-control" [(ngModel)]="newDefect.description" name="description" required></textarea>
+      </div>
+      <button type="button" class="btn btn-main" (click)="addDefect()" [disabled]="!defectForm.valid">
+        Agregar Defecto
+      </button>
+    </form>
+
+    <div class="mt-4">
+      <h5>Defectos Agregados</h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let defect of defects; let i = index">
+            <td>{{defect.type}}</td>
+            <td>{{defect.quantity}}</td>
+            <td>{{defect.description}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="removeDefect(i)">
+                <i class="ph ph-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-main" (click)="activeModal.dismiss()">Cancelar</button>
+    <button type="button" class="btn btn-main" (click)="save()">Guardar</button>
+  </div>

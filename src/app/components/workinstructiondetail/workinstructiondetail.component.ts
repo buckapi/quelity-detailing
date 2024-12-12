@@ -14,15 +14,43 @@ import { WorkInstructionsPbService } from '../../services/work-instructions-pb.s
 import { RealtimeActivitiesService } from '../../services/realtime-activities.service';
 import { RealtimeActivitiesWorkInstructionsService } from '../../services/realtime-activitiesWorkInstruction.service';
 import PocketBase from 'pocketbase';
+import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DefectsModalComponent } from '../defects-modal/defects-modal.component';
 
+declare var bootstrap: any;
+
+interface Defect {
+  type: string;
+  quantity: number;
+  description: string;
+}
+interface ActivityForm {
+  partNumber: string;
+  date: string;
+  hu: string;
+  serialNumber: string;
+  good: number;
+  damaged: number;
+  dimensions: string;
+  total: number;
+  comments: string;
+  workinstructionId: string;
+  technicalId: string;
+  supervisorId: string;
+  defects: any[];
+}
 @Component({
   selector: 'app-workinstructiondetail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,DefectsModalComponent, NgbModule],
+  providers: [NgbModal],
   templateUrl: './workinstructiondetail.component.html',
   styleUrls: ['./workinstructiondetail.component.css'] // Corregido styleUrl a styleUrls
 })
 export class WorkinstructiondetailComponent implements OnInit {
+  
+  workinstructionId: string = '';
+  currentDefects: Defect[] = [];
   technicials: any[] = [];
   selectedtechnicalId: string = '';
   isUpdating: boolean = false;
@@ -36,10 +64,12 @@ export class WorkinstructiondetailComponent implements OnInit {
     financeContactNumber: '',
     financeEmail: ''
   };
+  selectedDefects: any[] = [];
+  private defectsModal: any = null;
   private pb = new PocketBase('https://db.buckapi.com:8095');
   
   // Modelo para el formulario
-  activityForm = {
+  activityForm: ActivityForm = {
     partNumber: '',
     date: '',
     hu: '',
@@ -51,7 +81,8 @@ export class WorkinstructiondetailComponent implements OnInit {
     comments: '',
     workinstructionId: '', // Se llenará con el ID actual
     technicalId: '',       // Se llenará con el técnico actual
-    supervisorId: ''       // Se llenará con el supervisor actual
+    supervisorId: '',       // Se llenará con el supervisor actual
+    defects: []
   };
   activityFormWorkinstruction = {
     number: '',
@@ -62,7 +93,8 @@ export class WorkinstructiondetailComponent implements OnInit {
     visualAid: '',
     workinstructionId: '', // Se llenará con el ID actual
     technicalId: '',       // Se llenará con el técnico actual
-    supervisorId: ''       // Se llenará con el supervisor actual
+    supervisorId: '',       // Se llenará con el supervisor actual
+    defects: []
   };
   constructor(
     public global: GlobalService,
@@ -71,11 +103,13 @@ export class WorkinstructiondetailComponent implements OnInit {
     public realtimeSupervisors: RealtimeSupervisorsService,
     private workInstructionsPb: WorkInstructionsPbService,
     private router: Router,
-    private workInstructionService: WorkInstructionService,
+    public workInstructionService: WorkInstructionService,
     public realtimeTechnicals: RealtimeTechnicalsService,
     public realtimeActivities: RealtimeActivitiesService,
-    public realtimeActivitiesWorkInstructions: RealtimeActivitiesWorkInstructionsService
+    public realtimeActivitiesWorkInstructions: RealtimeActivitiesWorkInstructionsService,
+    private modalService: NgbModal
   ) {}
+  
 
   async ngOnInit(): Promise<void> {
 
@@ -94,28 +128,43 @@ export class WorkinstructiondetailComponent implements OnInit {
 
     // Cargar técnicos iniciales desde el estado global
     this.loadTechnicials();
+    this.defectsModal = new bootstrap.Modal(document.getElementById('defectsDetailsModal'));
+
   }
   calculateTotal() {
     this.activityForm.total = this.activityForm.good + this.activityForm.damaged;
   }
   async createActivity() {
-    try {
-      this.activityForm.workinstructionId = this.global.workInstructionSelected.id;
-      this.activityForm.technicalId = this.global.workInstructionSelected.technicalId;
-      this.activityForm.supervisorId = this.global.workInstructionSelected.supervisorId;
-      const record = await this.pb.collection('activities').create(this.activityForm);
-      console.log('Success:', record);
-      
-      // Limpiar formulario después de crear
-      this.resetForm();
-      
-      // Opcional: Mostrar mensaje de éxito
-      alert('Successfully created');
-      
-    } catch (error) {
-      console.error('Error al crear actividad:', error);
-      alert('Error creating activity');
-    }
+      try {
+          // Preparamos el objeto completo incluyendo los defectos
+          const activityData = {
+              ...this.activityForm,
+              workinstructionId: this.global.workInstructionSelected.id,
+              technicalId: this.global.workInstructionSelected.technicalId,
+              supervisorId: this.global.workInstructionSelected.supervisorId,
+              defects: this.activityForm.defects || [] // Aseguramos que siempre haya un array
+          };
+
+          console.log('Datos de actividad a crear:', activityData);
+
+          const record = await this.pb.collection('activities').create(activityData);
+          console.log('Actividad creada exitosamente:', record);
+          
+          this.resetForm();
+          Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: 'Actividad creada correctamente'
+          });
+          
+      } catch (error) {
+          console.error('Error al crear actividad:', error);
+          Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Error al crear la actividad'
+          });
+      }
   }
   resetForm() {
     this.activityForm = {
@@ -130,9 +179,27 @@ export class WorkinstructiondetailComponent implements OnInit {
       comments: '',
       workinstructionId: this.global.workInstructionSelected.id,
       technicalId: this.global.workInstructionSelected.technicalId,
-      supervisorId: this.global.workInstructionSelected.supervisorId
+      supervisorId: this.global.workInstructionSelected.supervisorId,
+      defects: []
     };
   }
+  openDefectsModal() {
+    const modalRef = this.modalService.open(DefectsModalComponent);
+    modalRef.componentInstance.currentDefects = this.activityForm.defects || [];
+
+    modalRef.result.then(
+        (result) => {
+            if (result) {
+                // Actualizamos los defectos en el formulario de actividad
+                this.activityForm.defects = result;
+                console.log('Defectos actualizados en el formulario:', this.activityForm.defects);
+            }
+        },
+        (reason) => {
+            console.log('Modal cerrado con error:', reason);
+        }
+    );
+}
 
   async createActivityWorkinstruction() {
     try {
@@ -164,7 +231,8 @@ export class WorkinstructiondetailComponent implements OnInit {
       visualAid: '',
       workinstructionId: this.global.workInstructionSelected.id,
       technicalId: this.global.workInstructionSelected.technicalId,
-      supervisorId: this.global.workInstructionSelected.supervisorId
+      supervisorId: this.global.workInstructionSelected.supervisorId,
+      defects: []
     };
   }
   
@@ -395,4 +463,18 @@ export class WorkinstructiondetailComponent implements OnInit {
       this.startEditing();
     }
   }
+ // Método para formatear la cantidad de defectos
+ getTotalDefects(defects: Defect[]): number {
+  return defects?.reduce((total, defect) => total + defect.quantity, 0) || 0;
+}
+
+// Método para verificar si hay defectos
+hasDefects(defects: any[]): boolean {
+  return Array.isArray(defects) && defects.length > 0;
+}
+ 
+openDefectsDetailsModal(defects: any[]) {
+  this.selectedDefects = defects;
+  this.defectsModal?.show();
+}
 }
