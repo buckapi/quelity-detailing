@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { GlobalService } from '../../services/global.service';
 import { DataApiService } from '../../services/data-api.service';
 import { RealtimeWorkInstructionsService } from '../../services/realtime-work-instructions.service';
@@ -16,6 +16,8 @@ import { RealtimeActivitiesWorkInstructionsService } from '../../services/realti
 import PocketBase from 'pocketbase';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DefectsModalComponent } from '../defects-modal/defects-modal.component';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 declare var bootstrap: any;
 
@@ -107,7 +109,8 @@ export class WorkinstructiondetailComponent implements OnInit {
     public realtimeTechnicals: RealtimeTechnicalsService,
     public realtimeActivities: RealtimeActivitiesService,
     public realtimeActivitiesWorkInstructions: RealtimeActivitiesWorkInstructionsService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
   
 
@@ -128,8 +131,15 @@ export class WorkinstructiondetailComponent implements OnInit {
 
     // Cargar técnicos iniciales desde el estado global
     this.loadTechnicials();
-    this.defectsModal = new bootstrap.Modal(document.getElementById('defectsDetailsModal'));
-
+/*     this.defectsModal = new bootstrap.Modal(document.getElementById('defectsDetailsModal')); */
+    if (isPlatformBrowser(this.platformId)) {
+      const modalElement = document.getElementById('defectsDetailsModal');
+      if (modalElement) {
+        this.defectsModal = new bootstrap.Modal(modalElement);
+      } else {
+        console.warn('Elemento modal no encontrado en el DOM');
+      }
+    }
   }
   calculateTotal() {
     this.activityForm.total = this.activityForm.good + this.activityForm.damaged;
@@ -473,8 +483,18 @@ hasDefects(defects: any[]): boolean {
   return Array.isArray(defects) && defects.length > 0;
 }
  
-openDefectsDetailsModal(defects: any[]) {
+/* openDefectsDetailsModal(defects: any[]) {
   this.selectedDefects = defects;
   this.defectsModal?.show();
-}
+} */
+  openDefectsDetailsModal(defects: any[]) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.selectedDefects = defects;
+      if (this.defectsModal) {
+        this.defectsModal.show();
+      } else {
+        console.error('Modal no inicializado correctamente');
+      }
+    }
+  }
 }
