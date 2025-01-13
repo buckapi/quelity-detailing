@@ -10,11 +10,15 @@ import { AuthPocketbaseService } from '../../../services/auth-pocketbase.service
   styleUrl: './top-navbar.component.css'
 })
 export class TopNavbarComponent {
+  isMenuOpen: boolean = false;
+
   constructor (
     public auth:AuthPocketbaseService,
     public global: GlobalService
   ){
     this.auth.permision();
-
+  }
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 }
