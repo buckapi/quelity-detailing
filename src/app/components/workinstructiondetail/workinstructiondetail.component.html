@@ -293,42 +293,49 @@
                                     <div class="card-body">
                                         <form class="search-input-form" (ngSubmit)="createActivityWorkinstruction()">
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
-                                                    [(ngModel)]="activityFormWorkinstruction.number" name="number"
-                                                    placeholder="Number" required>
+                                              <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                [(ngModel)]="activityFormWorkinstruction.number" name="number"
+                                                placeholder="Number" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
-                                                    [(ngModel)]="activityFormWorkinstruction.process" name="process"
-                                                    placeholder="Process" required>
+                                              <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                [(ngModel)]="activityFormWorkinstruction.process" name="process"
+                                                placeholder="Process" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
-                                                    [(ngModel)]="activityFormWorkinstruction.description"
-                                                    name="description" placeholder="Description" required>
+                                              <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                [(ngModel)]="activityFormWorkinstruction.description"
+                                                name="description" placeholder="Description" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
-                                                    [(ngModel)]="activityFormWorkinstruction.focusPoints"
-                                                    name="focusPoints" placeholder="Focus Points" required>
+                                              <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                [(ngModel)]="activityFormWorkinstruction.focusPoints"
+                                                name="focusPoints" placeholder="Focus Points" required>
                                             </div>
                                             <div class="search-input">
-                                                <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
-                                                    [(ngModel)]="activityFormWorkinstruction.time" name="time"
-                                                    placeholder="Time" required>
+                                              <input type="text" class="form-control h6 rounded-4 mb-0 py-6 px-8"
+                                                [(ngModel)]="activityFormWorkinstruction.time" name="time"
+                                                placeholder="Time" required>
                                             </div>
+                                          
+                                            <!-- Cargador de imagen -->
                                             <div class="search-input">
-                                                <input type="file" class="form-control h6 rounded-4 mb-0 py-6 px-8"
-                                                    [(ngModel)]="activityFormWorkinstruction.visualAid" name="visualAid"
-                                                    placeholder="Visual Aid" required>
-                                            </div>
+                                                <input type="file" (change)="onImageSelect($event)" accept="image/*" />
 
-                                            <div class="search-input">
-                                                <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
-                                                    Save
-                                                </button>
+
                                             </div>
-                                        </form>
+                                          
+                                            <div *ngIf="imagePreview" class="search-input mt-2">
+                                              <img [src]="imagePreview" alt="Imagen previa" class="img-thumbnail" style="max-width: 150px;">
+                                            </div>
+                                          
+                                            <div class="search-input">
+                                              <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
+                                                Save
+                                              </button>
+                                            </div>
+                                          </form>
+                                          
                                     </div>
                                 </div>
 
@@ -336,14 +343,14 @@
                                     <table id="studentTable" class="table table-lg table-striped w-100">
                                         <thead>
                                             <tr>
-                                                <th class="fixed-width w-40 h-40 ps-20">
+                                                <!-- <th class="fixed-width w-40 h-40 ps-20">
                                                     <div class="form-check">
                                                         <input class="form-check-input border-gray-200 rounded-4"
                                                             type="checkbox" id="selectAll">
                                                     </div>
-                                                </th>
+                                                </th> -->
 
-                                                <!--   <th class="h6 text-gray-600 text-center">Number</th> -->
+                                                <th class="h6 text-gray-600 text-center fixed-width w-40 h-40 ps-20" >#</th>
                                                 <th class="h6 text-gray-600 text-center">Process</th>
                                                 <th class="h6 text-gray-600 text-center">Description</th>
                                                 <th class="h6 text-gray-600 text-center">Focus Points</th>
@@ -378,6 +385,7 @@
                                                 <td class="text-center">
                                                     <span class="text-gray-600">{{activity.visualAid}}</span>
                                                 </td>
+                                               
                                             </tr>
                                         </tbody>
                                     </table>

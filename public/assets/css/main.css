@@ -41,10 +41,10 @@
     --heading-six: 0.9375rem;
   /* Font Size End */
   /* template main color */
-    --main-h: 219;
-    --main-s: 94%;
-    --main-l: 61%;
-    --main: var(--main-h) var(--main-s) var(--main-l);
+  --main-h: 60;
+  --main-s: 90.4%;
+  --main-l: 45.1%;
+  --main: hsl(var(--main-h), var(--main-s), var(--main-l));
   /* template main color */
     --main-two-h: 166;
     --main-two-s: 68%;
@@ -8887,7 +8887,7 @@ button:focus {
 }
 
 .sidebar-menu__item.activePage .sidebar-menu__link {
-    background-color: hsl(var(--main));
+    background-color: var(--main);
     color: hsl(var(--white));
 }
 

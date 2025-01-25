@@ -1,0 +1,29 @@
+<div class="upload-container">
+    <input
+      type="file"
+      #fileInput
+      (change)="onFileSelected($event)"
+      accept="image/*"
+      [multiple]="allowMultiple"
+      style="display: none">
+    
+    <button 
+      class="btn btn-primary" 
+      (click)="fileInput.click()"
+      [disabled]="isUploading">
+      <i class="fas fa-upload me-2"></i>
+      {{ buttonText }}
+    </button>
+
+    @if (isUploading) {
+      <div class="spinner-border text-primary ms-2" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    }
+
+    @if (previewUrl) {
+      <div class="preview-image mt-3">
+        <img [src]="previewUrl" alt="Preview" class="img-thumbnail">
+      </div>
+    }
+  </div>

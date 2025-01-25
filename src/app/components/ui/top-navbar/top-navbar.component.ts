@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../../../services/global.service';
 import { AuthPocketbaseService } from '../../../services/auth-pocketbase.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-top-navbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './top-navbar.component.html',
   styleUrl: './top-navbar.component.css'
 })
