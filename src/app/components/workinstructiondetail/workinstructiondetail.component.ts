@@ -101,7 +101,7 @@ export class WorkinstructiondetailComponent implements OnInit {
     defects: []
   };
   imagePreview: string | null = null; // Para mostrar la vista previa de la imagen
-  selectedImageFile: File | null = null;
+  selectedFile: File | null = null;
 
   constructor(
     public global: GlobalService,
@@ -218,58 +218,33 @@ export class WorkinstructiondetailComponent implements OnInit {
     );
 }
 
- /*  async createActivityWorkinstruction() {
+ 
+async createActivityWorkinstruction() {
+  if (this.selectedFile) {
     try {
-      this.activityFormWorkinstruction.workinstructionId = this.global.workInstructionSelected.id;
-      this.activityFormWorkinstruction.technicalId = this.global.workInstructionSelected.technicalId;
-      this.activityFormWorkinstruction.supervisorId = this.global.workInstructionSelected.supervisorId;
-      const record = await this.pb.collection('activitiesWorkInstruction').create(this.activityFormWorkinstruction);
-      console.log('Activity WorkInstruction:', record);
+      const activityData = {
+        number: this.activityFormWorkinstruction.number,
+        process: this.activityFormWorkinstruction.process,
+        description: this.activityFormWorkinstruction.description,
+        focusPoints: this.activityFormWorkinstruction.focusPoints,
+        time: this.activityFormWorkinstruction.time,
+        workinstructionId: this.global.workInstructionSelected.id,
+        technicalId: this.global.workInstructionSelected.technicalId,
+        supervisorId: this.global.workInstructionSelected.supervisorId
+      };
       
-      // Limpiar formulario después de crear
-      this.resetFormWorkInstruction();
-      
-      // Opcional: Mostrar mensaje de éxito
-      alert('Successfully created');
-      
+      const result = await this.uploadService.createActivityWorkInstructionRecord(
+        this.selectedFile,
+        activityData
+      );
+      console.log('Record created successfully:', result);
+      alert('Activity created successfully!');
     } catch (error) {
-      console.error('Error al crear actividad:', error);
-      alert('Error creating activity');
+      console.error('Error creating record:', error);
     }
-  } */
-
-    async createActivityWorkinstruction() {
-      try {
-        // Asignar datos de la instrucción de trabajo seleccionada
-        this.activityFormWorkinstruction.workinstructionId = this.global.workInstructionSelected.id;
-        this.activityFormWorkinstruction.technicalId = this.global.workInstructionSelected.technicalId;
-        this.activityFormWorkinstruction.supervisorId = this.global.workInstructionSelected.supervisorId;
-    
-        // Verificar si se ha seleccionado una imagen y subirla
-        if (this.selectedImageFile) {
-          const activityData = {
-            technicalId: this.activityFormWorkinstruction.technicalId,
-            workinstructionId: this.activityFormWorkinstruction.workinstructionId
-          };
-          const imageUploadResponse = await this.uploadService.uploadToActivityWorkInstruction(this.selectedImageFile, activityData).toPromise();
-          this.activityFormWorkinstruction.visualAid = imageUploadResponse.url; // Guardar URL de la imagen
-        }
-    
-        // Crear la actividad en la base de datos
-        const record = await this.pb.collection('activitiesWorkInstruction').create(this.activityFormWorkinstruction);
-        console.log('Activity WorkInstruction:', record);
-    
-        // Limpiar formulario después de crear
-        this.resetFormWorkInstruction();
-        
-        // Mostrar mensaje de éxito
-        alert('Successfully created');
-      } catch (error) {
-        console.error('Error al crear actividad:', error);
-        alert('Error creating activity');
-      }
-    }
-    
+  }
+}
+  
     
   resetFormWorkInstruction() {
     this.activityFormWorkinstruction = {
@@ -537,7 +512,7 @@ hasDefects(defects: any[]): boolean {
       }
     }
   }
-  onImageSelect(event: Event): void {
+ /*  onImageSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       this.selectedImageFile = input.files[0];
@@ -547,16 +522,19 @@ hasDefects(defects: any[]): boolean {
       };
       reader.readAsDataURL(this.selectedImageFile);
     }
-  }
+  } */
+    onImageSelect(event: any) {
+      this.selectedFile = event.target.files[0];
+    }
 
   async uploadImageToServer(): Promise<{ url: string }> {
     try {
-      if (!this.selectedImageFile) {
+      if (!this.selectedFile) {
         throw new Error('No image selected');
       }
 
       const formData = new FormData();
-      formData.append('file', this.selectedImageFile);
+      formData.append('file', this.selectedFile);
 
       const response = await this.pb.collection('files').create(formData);
 
@@ -573,12 +551,12 @@ hasDefects(defects: any[]): boolean {
 
   async uploadImageToServerCorrected(): Promise<{ url: string }> {
     try {
-      if (!this.selectedImageFile) {
+      if (!this.selectedFile) {
         throw new Error('No image selected');
       }
 
       const formData = new FormData();
-      formData.append('file', this.selectedImageFile);
+      formData.append('file', this.selectedFile);
 
       const response = await this.pb.collection('files').create(formData);
 

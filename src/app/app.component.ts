@@ -17,6 +17,7 @@ import { WorkinstructiondetailComponent } from './components/workinstructiondeta
 import { CustomersComponent } from './components/customers/customers.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { DefectsModalComponent } from './components/defects-modal/defects-modal.component';
+import { ReportsComponent } from './components/reports/reports.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -37,6 +38,7 @@ import { DefectsModalComponent } from './components/defects-modal/defects-modal.
     CustomersComponent,
     MessagesComponent,
     DefectsModalComponent,
+    ReportsComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',

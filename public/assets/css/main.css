@@ -283,17 +283,17 @@
 .btn-outline-main:hover {
     background-color: hsl(var(--main)) !important;
     border-color: hsl(var(--main)) !important;
-    color: hsl(var(--white)) !important;
+    color: hsl(var(--black)) !important;
 }
 
 .btn-gray {
-    background-color: hsl(var(--main)) !important;
-    border-color: hsl(var(--main)) !important;
+    background-color: hsl(var(--gray-100)) !important;
+    border-color: hsl(var(--gray-100)) !important;
 }
 
 .btn-gray:hover {
-    background-color: var(--main-800) !important;
-    border-color: var(--main-800) !important;
+    background-color: var(--gray-200) !important;
+    border-color: var(--gray-200) !important;
 }
 
 .btn-outline-gray {

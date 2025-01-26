@@ -7,7 +7,7 @@ import { GlobalService } from './global.service';
   providedIn: 'root'
 })
 export class UploadService {
-  private pb: PocketBase;
+  public pb: PocketBase;
 
   constructor(
     public global: GlobalService
@@ -19,14 +19,14 @@ export class UploadService {
     return from(this.createActivityWorkInstructionRecord(file, activityData));
   }
 
-  private async createActivityWorkInstructionRecord(file: File, activityData: any): Promise<any> {
+  public async createActivityWorkInstructionRecord(file: File, activityData: any): Promise<any> {
     try {
       const formData = new FormData();
       
       // Agregar el archivo
       formData.append('file', file);
       
-      // Agregar los campos requeridos
+      // Agregar los campos del formulario
       formData.append('number', activityData.number || new Date().getTime().toString());
       formData.append('date', activityData.date || new Date().toISOString());
       formData.append('process', activityData.process || 'Image Upload');

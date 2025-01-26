@@ -321,7 +321,8 @@
                                             <!-- Cargador de imagen -->
                                             <div class="search-input">
                                                 <input type="file" (change)="onImageSelect($event)" accept="image/*" />
-                                                <app-upload-image></app-upload-image>
+
+                                                <!-- <app-upload-image></app-upload-image> -->
 
                                             </div>
                                           
@@ -383,7 +384,8 @@
                                                     <span class="text-gray-600">{{activity.time}}</span>
                                                 </td>
                                                 <td class="text-center">
-                                                    <span class="text-gray-600">{{activity.visualAid}}</span>
+                                                    <img [src]="activity.file.img" alt="" class="img-thumbnail" style="max-width: 150px;">
+                                                  <!--   <span class="text-gray-600">{{activity.file.img}}</span> -->
                                                 </td>
                                                
                                             </tr>
