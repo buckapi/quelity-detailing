@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { GlobalService } from '../../services/global.service';
-import { DataApiService } from '../../services/data-api.service';
 import { RealtimeWorkInstructionsService } from '../../services/realtime-work-instructions.service';
 import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import { RealtimeSupervisorsService } from '../../services/realtime-supervisors.service';
@@ -19,6 +18,8 @@ import { DefectsModalComponent } from '../defects-modal/defects-modal.component'
 import { PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { UploadImageComponent } from "../upload-image/upload-image.component";
+import { UploadService } from '../../services/upload.service';
 
 declare var bootstrap: any;
 
@@ -45,7 +46,7 @@ interface ActivityForm {
 @Component({
   selector: 'app-workinstructiondetail',
   standalone: true,
-  imports: [CommonModule, FormsModule,DefectsModalComponent, NgbModule],
+  imports: [CommonModule, FormsModule,  NgbModule, UploadImageComponent],
   providers: [NgbModal],
   templateUrl: './workinstructiondetail.component.html',
   styleUrls: ['./workinstructiondetail.component.css'] // Corregido styleUrl a styleUrls
@@ -115,6 +116,7 @@ export class WorkinstructiondetailComponent implements OnInit {
     public realtimeActivitiesWorkInstructions: RealtimeActivitiesWorkInstructionsService,
     private modalService: NgbModal,
     private http: HttpClient,
+    private uploadService: UploadService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
   
@@ -245,7 +247,11 @@ export class WorkinstructiondetailComponent implements OnInit {
     
         // Verificar si se ha seleccionado una imagen y subirla
         if (this.selectedImageFile) {
-          const imageUploadResponse = await this.uploadImageToServer();
+          const activityData = {
+            technicalId: this.activityFormWorkinstruction.technicalId,
+            workinstructionId: this.activityFormWorkinstruction.workinstructionId
+          };
+          const imageUploadResponse = await this.uploadService.uploadToActivityWorkInstruction(this.selectedImageFile, activityData).toPromise();
           this.activityFormWorkinstruction.visualAid = imageUploadResponse.url; // Guardar URL de la imagen
         }
     
@@ -535,53 +541,55 @@ hasDefects(defects: any[]): boolean {
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       this.selectedImageFile = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result; // For preview
+      };
+      reader.readAsDataURL(this.selectedImageFile);
     }
   }
-  
 
-  // Función que simula la carga de la imagen
   async uploadImageToServer(): Promise<{ url: string }> {
     try {
-      // Crear un objeto FormData para enviar la imagen al servidor
-      const formData = new FormData();
-      if (this.selectedImageFile) {
-        formData.append('file', this.selectedImageFile);
+      if (!this.selectedImageFile) {
+        throw new Error('No image selected');
       }
-  
-      // Realizar la solicitud HTTP POST para subir la imagen
-      const response = await this.http.post<{ url: string }>('/api/upload', formData).toPromise();
-      
-      // Asegurarse de que la respuesta tenga la propiedad 'url'
-      if (response && response.url) {
-        return response;
+
+      const formData = new FormData();
+      formData.append('file', this.selectedImageFile);
+
+      const response = await this.pb.collection('files').create(formData);
+
+      if (response && response['file']) {
+        return { url: this.pb.files.getUrl(response, response['file']) };
       } else {
-        throw new Error('No URL returned from image upload');
+        throw new Error('Failed to upload image');
       }
     } catch (error) {
-      console.error('Error al subir la imagen:', error);
-      throw new Error('Error uploading image');
+      console.error('Error uploading image:', error);
+      throw error;
     }
   }
-  
-  
- 
-  
- 
 
-  // Función para resetear el formulario
-  /* resetForm() {
-    this.activityFormWorkinstruction = {
-      number: '',
-      process: '',
-      description: '',
-      focusPoints: '',
-      time: '',
-      visualAid: '',
-      workinstructionId: '',
-      technicalId: '',
-      supervisorId: '',
-      defects: []
-    };
-    this.imagePreview = null; // Limpiar vista previa de imagen
-  } */
+  async uploadImageToServerCorrected(): Promise<{ url: string }> {
+    try {
+      if (!this.selectedImageFile) {
+        throw new Error('No image selected');
+      }
+
+      const formData = new FormData();
+      formData.append('file', this.selectedImageFile);
+
+      const response = await this.pb.collection('files').create(formData);
+
+      if (response && response['file']) {
+        return { url: this.pb.files.getUrl(response, response['file']) };
+      } else {
+        throw new Error('Failed to upload image');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  }
 }
