@@ -48,13 +48,13 @@
                         <span class="text">My Orders</span>
                     </a>
                 </li>
-<!-- 
+
                 <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
-                    <a  class="sidebar-menu__link">
+                    <a  class="sidebar-menu__link" (click)="global.setRoute('work-instructions')">
                         <span class="icon"><i class="ph ph-bookmarks"></i></span>
-                        <span class="text">Activity</span>
+                        <span class="text">Work Instructions</span>
                     </a>
-                </li> -->
+                </li>
                 <li  class="sidebar-menu__item" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
                     <a class="sidebar-menu__link" (click)="global.setRoute('reports')">
                       <span class="icon"><i class="ph ph-chart-bar"></i></span>

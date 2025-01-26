@@ -1,326 +1,412 @@
 <div class="dashboard-main-wrapper">
   <div class="dashboard-body">
-    <div class="card">
-      <div class="card-header border-bottom border-gray-100 flex-align gap-8">
-        <h5 class="mb-0">Work Instructions</h5>
-        <button type="button" class="text-main-600 text-md d-flex" data-bs-toggle="tooltip" data-bs-placement="top"
-          title="Solicitud de trabajo">
-          <i class="ph-fill ph-question"></i>
-        </button>
-      </div>
+    <div class="card mt-24">    
       <div class="card-body">
-        <form [formGroup]="workInstructionsForm" (ngSubmit)="onSubmit()" *ngIf="this.auth.getCurrentUser()?.type === 'admin'">
-          <div class="row gy-20">
-            <div class="col-xxl-9 col-md-8 col-sm-7">
-              <div class="row g-20">
-                <h3>Company information</h3>
-                <div class="col-sm-4">
-                  <label for="companyName" class="h5 mb-8 fw-semibold font-heading">Name company
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="companyName" maxlength="100" id="companyName" placeholder=".">
-                  </div>
-                </div>
+        <div class="card-header border-bottom border-gray-100 flex-align gap-8">
+            <h5 class="mb-0">Work Instructions</h5>
+            <button 
+              *ngIf="!showForm"
+              (click)="toggleForm()"
+              type="button"
+            class="btn btn-main text-sm btn-sm px-24 rounded-pill py-12 d-flex align-items-center gap-2">
+            <i class="ph ph-plus me-4"></i>
+            Add New Work Instruction
+          </button>
+        </div>
+        <div class="card mt-24 overflow-hidden" [hidden]="!showForm">
 
-                <div class="col-sm-4">
-                  <label for="contactName" class="h5 mb-8 fw-semibold font-heading">Contact name
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="contactName" maxlength="100" id="contactName" placeholder=".">
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <label for="customer" class="h5 mb-8 fw-semibold font-heading">Customer
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="customer" maxlength="100" id="customer" placeholder=".">
-                  </div>
-                </div>
+          <!-- HEllo {{this.auth.getSupervisorData()?.id}} ! -->
+          <div class="card-header" >
+              <div class="mb-0 flex-between flex-wrap gap-8">
+                  <h4 class="mb-0" style="text-align: center;">Work Instructions</h4>
+                  <!-- <a 
+                      class="text-13 fw-medium text-main-600 hover-text-decoration-underline" 
+                      >See All</a> -->
+              </div>
+          </div>
+          <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+              [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length !== 0"        
+          >
+              <div class="text-center p-4">
+                  <img src="https://cdn.pixabay.com/animation/2023/11/30/10/11/10-11-02-622_512.gif" alt="" style="width: 100px; height: 100px;">
 
-                <div class="col-sm-4">
-                  <label for="billingAddress" class="h5 mb-8 fw-semibold font-heading">Billing address street
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="billingAddress" maxlength="100" id="billingAddress" placeholder=".">
+                  <p class="text-15 text-gray-600 fw-medium">Loading, please wait ...</p>
+              </div>
+          </div>
+          <div class="card-body p-0 overflow-x-auto scroll-sm scroll-sm-horizontal"
+              [hidden]="((realtimeWorkInstructions.workInstructions$ | async) ?? []).length === 0"
+          >
+              <table class="table style-two mb-0">
+                  <thead>
+                      <tr>
+                          <th class="text-center">Company Information</th>
+                          <th class="text-center">Progress</th>
+                          <th class="text-center">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let workInstruction of (realtimeWorkInstructions.workInstructions$ | async)" >
+                          <td>
+                              <div class="flex-align gap-8">
+                                  <div
+                                      class="w-40 h-40 rounded-circle bg-main-600 flex-center flex-shrink-0">
+                                      <img src="assets/images/icons/course-name-icon1.png" alt="" (click)="global.viewWorkInstruction(workInstruction)" style="cursor: pointer;">
+                                  </div>
+                                  <div class="" >
+                                      <h6 class="mb-0">{{workInstruction.companyName}}</h6>
+                                      <div class="table-list">
+                                          <span class="text-13 text-gray-600">{{workInstruction.contactName}}</span>
+                                          <span class="text-13 text-gray-600">{{workInstruction.mobile}}</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </td>
+                          <td>
+                              <div class="flex-align gap-8 mt-12">
+                                  <div class="progress w-100px  bg-main-100 rounded-pill h-4"
+                                      role="progressbar" aria-label="Basic example" [attr.aria-valuenow]="workInstruction.progress"
+                                      aria-valuemin="0" aria-valuemax="100">
+                                      <div class="progress-bar bg-main-600 rounded-pill"
+                                          [style.width]="workInstruction.progress + '%'"></div>
+                                  </div>
+                                  <span class="text-main-600 flex-shrink-0 text-13 fw-medium">{{workInstruction.progress}}%</span>
+                              </div>
+                          </td>
+                          <td>
+                              <div class="flex-align justify-content-center gap-16">
+                                  <span
+                                      class="text-13 py-2 px-8 bg-warning-50 text-warning-600 d-inline-flex align-items-center gap-8 rounded-pill">
+                                      <span
+                                          class="w-6 h-6 bg-warning-600 rounded-circle flex-shrink-0"></span>
+                                      {{workInstruction.status}}
+                                  </span>
+                                  <a 
+                                      class="text-gray-900 hover-text-main-600 text-md d-flex cursor-pointer"
+                                      (click)="global.viewWorkInstruction(workInstruction)">
+                                          <i class="ph ph-eye"></i></a>
+                              </div>
+                          </td>
+                      </tr>
+                      
+                  </tbody>
+              </table>
+          </div>
+        </div>
+        <div class="card-body" *ngIf="showForm">
+          
+          <form [formGroup]="workInstructionsForm" (ngSubmit)="onSubmit()" *ngIf="this.auth.getCurrentUser()?.type === 'admin'" >
+            <div class="row gy-20">
+              <div class="col-xxl-9 col-md-8 col-sm-7">
+                <div class="row g-20">
+                  <h3>Company information</h3>
+                  <div class="col-sm-4">
+                    <label for="companyName" class="h5 mb-8 fw-semibold font-heading">Name company
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="companyName" maxlength="100" id="companyName" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-6">
-                  <label for="cityStateCountryZip" class="h5 mb-8 fw-semibold font-heading">City, State/ Province, Country, Zip code
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="cityStateCountryZip" maxlength="100" id="cityStateCountryZip" placeholder=".">
+                  <div class="col-sm-4">
+                    <label for="contactName" class="h5 mb-8 fw-semibold font-heading">Contact name
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="contactName" maxlength="100" id="contactName" placeholder=".">
+                    </div>
                   </div>
-                </div>
+                  <div class="col-sm-4">
+                    <label for="customer" class="h5 mb-8 fw-semibold font-heading">Customer
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="customer" maxlength="100" id="customer" placeholder=".">
+                    </div>
+                  </div>
 
-                <div class="col-sm-3">
-                  <label for="mobile" class="h5 mb-8 fw-semibold font-heading">Mobile
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="mobile" maxlength="100" id="mobile" placeholder=".">
+                  <div class="col-sm-4">
+                    <label for="billingAddress" class="h5 mb-8 fw-semibold font-heading">Billing address street
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="billingAddress" maxlength="100" id="billingAddress" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-3">
-                  <label for="email" class="h5 mb-8 fw-semibold font-heading">Email
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="email" maxlength="100" id="email" placeholder=".">
+                  <div class="col-sm-6">
+                    <label for="cityStateCountryZip" class="h5 mb-8 fw-semibold font-heading">City, State/ Province, Country, Zip code
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="cityStateCountryZip" maxlength="100" id="cityStateCountryZip" placeholder=".">
+                    </div>
                   </div>
-                </div>
-                <!-- <h3>Work instructions</h3>
-                <div class="col-sm-3">
-                  <label for="numberOfControl" class="h5 mb-8 fw-semibold font-heading">No of control
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="numberOfControl" maxlength="100" id="numberOfControl" placeholder=".">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <label for="area" class="h5 mb-8 fw-semibold font-heading">Area
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="area" maxlength="100" id="area" placeholder=".">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <label for="partNumber" class="h5 mb-8 fw-semibold font-heading">Part number
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="partNumber" maxlength="100" id="partNumber" placeholder=".">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <label for="operation" class="h5 mb-8 fw-semibold font-heading">Operation
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="operation" maxlength="100" id="operation" placeholder=".">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <label for="mananger" class="h5 mb-8 fw-semibold font-heading">Mananger
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="mananger" maxlength="100" id="mananger" placeholder=".">
-                  </div>
-                </div>
-                <div class="col-sm-3">
-                  <label for="engineer" class="h5 mb-8 fw-semibold font-heading">Enginner
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="engineer" maxlength="100" id="engineer" placeholder=".">
-                  </div>
-                </div>
 
-                <h3>Assignee supervisor</h3>
-
-                <div class="col-sm-6">
-                  <label for="supervisorId" class="h5 mb-8 fw-semibold font-heading">Supervisor
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  supervisors<div class="position-relative">
-                      <select id="supervisorId" 
-                             formControlName="supervisorId"
-                             class="form-select py-9 placeholder-13 text-15">
-                          <option value="" disabled selected>Select supervisor</option>
-                          <option *ngFor="let supervisor of realtimeSupervisors.supervisors$ | async" 
-                                  [value]="supervisor.id">
-                            {{supervisor.name}} 
-                          </option>
-                      </select>
+                  <div class="col-sm-3">
+                    <label for="mobile" class="h5 mb-8 fw-semibold font-heading">Mobile
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="mobile" maxlength="100" id="mobile" placeholder=".">
+                    </div>
                   </div>
-                </div> -->
 
-                <h3>Finance contact</h3>
-
-                <div class="col-sm-3">
-                  <label for="financeContactPosition" class="h5 mb-8 fw-semibold font-heading">Position
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="financeContactPosition" maxlength="100" id="financeContactPosition" placeholder=".">
+                  <div class="col-sm-3">
+                    <label for="email" class="h5 mb-8 fw-semibold font-heading">Email
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="email" maxlength="100" id="email" placeholder=".">
+                    </div>
                   </div>
+                  <!-- <h3>Work instructions</h3>
+                  <div class="col-sm-3">
+                    <label for="numberOfControl" class="h5 mb-8 fw-semibold font-heading">No of control
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="numberOfControl" maxlength="100" id="numberOfControl" placeholder=".">
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="area" class="h5 mb-8 fw-semibold font-heading">Area
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="area" maxlength="100" id="area" placeholder=".">
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="partNumber" class="h5 mb-8 fw-semibold font-heading">Part number
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="partNumber" maxlength="100" id="partNumber" placeholder=".">
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="operation" class="h5 mb-8 fw-semibold font-heading">Operation
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="operation" maxlength="100" id="operation" placeholder=".">
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="mananger" class="h5 mb-8 fw-semibold font-heading">Mananger
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="mananger" maxlength="100" id="mananger" placeholder=".">
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <label for="engineer" class="h5 mb-8 fw-semibold font-heading">Enginner
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="engineer" maxlength="100" id="engineer" placeholder=".">
+                    </div>
+                  </div>
+
+                  <h3>Assignee supervisor</h3>
+
+                  <div class="col-sm-6">
+                    <label for="supervisorId" class="h5 mb-8 fw-semibold font-heading">Supervisor
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    supervisors<div class="position-relative">
+                        <select id="supervisorId" 
+                              formControlName="supervisorId"
+                              class="form-select py-9 placeholder-13 text-15">
+                            <option value="" disabled selected>Select supervisor</option>
+                            <option *ngFor="let supervisor of realtimeSupervisors.supervisors$ | async" 
+                                    [value]="supervisor.id">
+                              {{supervisor.name}} 
+                            </option>
+                        </select>
+                    </div>
+                  </div> -->
+
+                  <h3>Finance contact</h3>
+
+                  <div class="col-sm-3">
+                    <label for="financeContactPosition" class="h5 mb-8 fw-semibold font-heading">Position
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="financeContactPosition" maxlength="100" id="financeContactPosition" placeholder=".">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <label for="financeContactNumber" class="h5 mb-8 fw-semibold font-heading">Contact number
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="financeContactNumber" maxlength="100" id="financeContactNumber" placeholder=".">
+                    </div>
+                  </div>
+
+                  <div class="col-sm-3">
+                    <label for="financeEmail" class="h5 mb-8 fw-semibold font-heading">Email address
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="financeEmail" maxlength="100" id="financeEmail" placeholder=".">
+                    </div>
+                  </div>
+
                 </div>
-
-                <div class="col-sm-3">
-                  <label for="financeContactNumber" class="h5 mb-8 fw-semibold font-heading">Contact number
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="financeContactNumber" maxlength="100" id="financeContactNumber" placeholder=".">
-                  </div>
-                </div>
-
-                <div class="col-sm-3">
-                  <label for="financeEmail" class="h5 mb-8 fw-semibold font-heading">Email address
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="financeEmail" maxlength="100" id="financeEmail" placeholder=".">
-                  </div>
-                </div>
-
+              </div>
+              <div class="flex-align justify-content-end gap-8">
+                <button type="button" class="btn btn-outline-main rounded-pill py-9" (click)="workInstructionsForm.reset()">Cancel</button>
+                <button type="submit" 
+                        class="btn btn-main rounded-pill py-9" 
+                        (click)="validateForm()"
+                        [disabled]="workInstructionsForm.invalid">
+                  Save
+                </button>
               </div>
             </div>
-            <div class="flex-align justify-content-end gap-8">
-               <button type="button" class="btn btn-outline-main rounded-pill py-9" (click)="workInstructionsForm.reset()">Cancel</button>
-               <button type="submit" 
-                       class="btn btn-main rounded-pill py-9" 
-                       (click)="validateForm()"
-                       [disabled]="workInstructionsForm.invalid">
-                 Save
-               </button>
-            </div>
-          </div>
-        </form>
-        <form [formGroup]="workInstructionsForm" (ngSubmit)="onSubmitFromClient()" *ngIf="this.auth.getCurrentUser()?.type === 'cliente'">
-          <div class="row gy-20">
-            <div class="col-xxl-9 col-md-8 col-sm-7">
-              <div class="row g-20">
-                <h3>Company information</h3>
-                <div class="col-sm-4">
-                  <label for="companyName" class="h5 mb-8 fw-semibold font-heading">Name company
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="companyName" maxlength="100" id="companyName" placeholder=".">
+          </form>
+          <form [formGroup]="workInstructionsForm" (ngSubmit)="onSubmitFromClient()" *ngIf="this.auth.getCurrentUser()?.type === 'cliente'">
+            <div class="row gy-20">
+              <div class="col-xxl-9 col-md-8 col-sm-7">
+                <div class="row g-20">
+                  <h3>Company information</h3>
+                  <div class="col-sm-4">
+                    <label for="companyName" class="h5 mb-8 fw-semibold font-heading">Name company
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="companyName" maxlength="100" id="companyName" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-4">
-                  <label for="contactName" class="h5 mb-8 fw-semibold font-heading">Contact name
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="contactName" maxlength="100" id="contactName" placeholder=".">
+                  <div class="col-sm-4">
+                    <label for="contactName" class="h5 mb-8 fw-semibold font-heading">Contact name
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="contactName" maxlength="100" id="contactName" placeholder=".">
+                    </div>
                   </div>
-                </div>
-                <div class="col-sm-4">
-                  <label for="customer" class="h5 mb-8 fw-semibold font-heading">Customer
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="customer" maxlength="100" id="customer" placeholder=".">
+                  <div class="col-sm-4">
+                    <label for="customer" class="h5 mb-8 fw-semibold font-heading">Customer
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="customer" maxlength="100" id="customer" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-4">
-                  <label for="billingAddress" class="h5 mb-8 fw-semibold font-heading">Billing address street
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="billingAddress" maxlength="100" id="billingAddress" placeholder=".">
+                  <div class="col-sm-4">
+                    <label for="billingAddress" class="h5 mb-8 fw-semibold font-heading">Billing address street
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="billingAddress" maxlength="100" id="billingAddress" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-6">
-                  <label for="cityStateCountryZip" class="h5 mb-8 fw-semibold font-heading">City, State/ Province, Country, Zip code
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="cityStateCountryZip" maxlength="100" id="cityStateCountryZip" placeholder=".">
+                  <div class="col-sm-6">
+                    <label for="cityStateCountryZip" class="h5 mb-8 fw-semibold font-heading">City, State/ Province, Country, Zip code
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="cityStateCountryZip" maxlength="100" id="cityStateCountryZip" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-3">
-                  <label for="mobile" class="h5 mb-8 fw-semibold font-heading">Mobile
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="mobile" maxlength="100" id="mobile" placeholder=".">
+                  <div class="col-sm-3">
+                    <label for="mobile" class="h5 mb-8 fw-semibold font-heading">Mobile
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="mobile" maxlength="100" id="mobile" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-3">
-                  <label for="email" class="h5 mb-8 fw-semibold font-heading">Email
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="email" maxlength="100" id="email" placeholder=".">
+                  <div class="col-sm-3">
+                    <label for="email" class="h5 mb-8 fw-semibold font-heading">Email
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="email" maxlength="100" id="email" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <h3>Finance contact</h3>
+                  <h3>Finance contact</h3>
 
-                <div class="col-sm-3">
-                  <label for="financeContactPosition" class="h5 mb-8 fw-semibold font-heading">Position
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="financeContactPosition" maxlength="100" id="financeContactPosition" placeholder=".">
+                  <div class="col-sm-3">
+                    <label for="financeContactPosition" class="h5 mb-8 fw-semibold font-heading">Position
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="text" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="financeContactPosition" maxlength="100" id="financeContactPosition" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-3">
-                  <label for="financeContactNumber" class="h5 mb-8 fw-semibold font-heading">Contact number
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="financeContactNumber" maxlength="100" id="financeContactNumber" placeholder=".">
+                  <div class="col-sm-3">
+                    <label for="financeContactNumber" class="h5 mb-8 fw-semibold font-heading">Contact number
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="number" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="financeContactNumber" maxlength="100" id="financeContactNumber" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
-                <div class="col-sm-3">
-                  <label for="financeEmail" class="h5 mb-8 fw-semibold font-heading">Email address
-                    <span class="text-13 text-gray-400 fw-medium">(Required)</span>
-                  </label>
-                  <div class="position-relative">
-                    <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
-                      formControlName="financeEmail" maxlength="100" id="financeEmail" placeholder=".">
+                  <div class="col-sm-3">
+                    <label for="financeEmail" class="h5 mb-8 fw-semibold font-heading">Email address
+                      <span class="text-13 text-gray-400 fw-medium">(Required)</span>
+                    </label>
+                    <div class="position-relative">
+                      <input type="email" class="text-counter placeholder-13 form-control py-11 pe-76"
+                        formControlName="financeEmail" maxlength="100" id="financeEmail" placeholder=".">
+                    </div>
                   </div>
-                </div>
 
+                </div>
+              </div>
+              <div class="flex-align justify-content-end gap-8">
+                <button type="button" class="btn btn-outline-main rounded-pill py-9" (click)="workInstructionsForm.reset()">Cancel</button>
+                <button type="submit" 
+                        class="btn btn-main rounded-pill py-9" 
+                        (click)="validateForm()"
+                        [disabled]="workInstructionsForm.invalid">
+                  Save
+                </button>
               </div>
             </div>
-            <div class="flex-align justify-content-end gap-8">
-               <button type="button" class="btn btn-outline-main rounded-pill py-9" (click)="workInstructionsForm.reset()">Cancel</button>
-               <button type="submit" 
-                       class="btn btn-main rounded-pill py-9" 
-                       (click)="validateForm()"
-                       [disabled]="workInstructionsForm.invalid">
-                 Save
-               </button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -86,4 +86,13 @@ export class RealtimeActivitiesWorkInstructionsService implements OnDestroy {
   async refreshList(): Promise<void> {
     await this.updateActivitiesWorkInstructionsList();
   }
+  async getActivities() {
+    try {
+      const records = await this.pb.collection('activitiesWorkInstruction').getList(1, 50); // Adjust the pagination as needed
+      return records.items;
+    } catch (error) {
+      console.error('Error fetching activities:', error);
+      throw error;
+    }
+  }
 }

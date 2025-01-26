@@ -21,7 +21,8 @@ import { WorkInstructionService } from '../../services/work-instruction.service'
 export class WorkInstructionsComponent implements OnInit {
   workInstructionsForm: FormGroup;
   supervisors: any[] = [];
-  
+  showForm: boolean = true; // Inicializa la propiedad
+
   constructor(
     public global: GlobalService,
     private fb: FormBuilder,
@@ -59,6 +60,10 @@ export class WorkInstructionsComponent implements OnInit {
     this.initForm();
     this.setClientId();
   }
+  toggleForm(): void {
+    this.showForm = !this.showForm; // Cambia el estado de showForm
+  }
+  
   private initForm() {
     this.workInstructionsForm = this.fb.group({
       customerId: [''], // Nuevo campo para el ID del cliente
