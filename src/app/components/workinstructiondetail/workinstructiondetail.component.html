@@ -33,7 +33,7 @@
                 <div class="setting-profile px-24">
                     <div class="flex-between">
                         <div class="d-flex align-items-end flex-wrap mb-32 gap-24">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRs4VzNPTA8izlJM_olcxD2dvfJK9dhnBv7Bex_DydZzKHvCA0ERfnRaGZu2AgdOOciqTo"
+                            <img src="assets/images/thumbs/cover-img1.png"
                                 alt="" class="w-120 h-120 rounded-circle border border-white">
                             <div>
                                 <h4 class="mb-8">{{global.workInstructionSelected.companyName}}</h4>
@@ -321,14 +321,12 @@
                                             <!-- Cargador de imagen -->
                                             <div class="search-input">
                                                 <input type="file" (change)="onImageSelect($event)" accept="image/*" />
+                                                <img [src]="imagePreview" alt="Imagen previa" class="img-thumbnail" style="max-width: 150px;" *ngIf="imagePreview">
 
                                                 <!-- <app-upload-image></app-upload-image> -->
 
                                             </div>
                                           
-                                            <div *ngIf="imagePreview" class="search-input mt-2">
-                                              <img [src]="imagePreview" alt="Imagen previa" class="img-thumbnail" style="max-width: 150px;">
-                                            </div>
                                           
                                             <div class="search-input">
                                               <button type="submit" class="btn btn-main rounded-pill py-9 w-100">
@@ -344,12 +342,6 @@
                                     <table id="studentTable" class="table table-lg table-striped w-100">
                                         <thead>
                                             <tr>
-                                                <!-- <th class="fixed-width w-40 h-40 ps-20">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input border-gray-200 rounded-4"
-                                                            type="checkbox" id="selectAll">
-                                                    </div>
-                                                </th> -->
 
                                                 <th class="h6 text-gray-600 text-center fixed-width w-40 h-40 ps-20" >#</th>
                                                 <th class="h6 text-gray-600 text-center">Process</th>
@@ -383,10 +375,9 @@
                                                 <td class="text-center">
                                                     <span class="text-gray-600">{{activity.time}}</span>
                                                 </td>
-                                                <td class="text-center">
-                                                    <img [src]="activity.file.img" alt="" class="img-thumbnail" style="max-width: 150px;">
-                                                  <!--   <span class="text-gray-600">{{activity.file.img}}</span> -->
-                                                </td>
+                                                <div *ngIf="activity.file"> 
+                                                    <img [src]="activity.file" alt="Imagen de la actividad" class="img-thumbnail" style="max-width: 100px;">
+                                                </div>
                                                
                                             </tr>
                                         </tbody>

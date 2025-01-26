@@ -42,6 +42,7 @@ interface ActivityForm {
   technicalId: string;
   supervisorId: string;
   defects: any[];
+  file: string;
 }
 @Component({
   selector: 'app-workinstructiondetail',
@@ -86,7 +87,8 @@ export class WorkinstructiondetailComponent implements OnInit {
     workinstructionId: '', // Se llenará con el ID actual
     technicalId: '',       // Se llenará con el técnico actual
     supervisorId: '',       // Se llenará con el supervisor actual
-    defects: []
+    defects: [],
+    file: '',
   };
   activityFormWorkinstruction = {
     number: '',
@@ -94,7 +96,7 @@ export class WorkinstructiondetailComponent implements OnInit {
     description: '',
     focusPoints: '',
     time: '',
-    visualAid: '', // Almacenará la URL o ruta de la imagen
+    file: '', // Almacenará la URL o ruta de la imagen
     workinstructionId: '', // Se llenará con el ID actual
     technicalId: '',       // Se llenará con el técnico actual
     supervisorId: '',       // Se llenará con el supervisor actual
@@ -194,6 +196,7 @@ export class WorkinstructiondetailComponent implements OnInit {
       dimensions: '',
       total: 0,
       comments: '',
+      file: '',
       workinstructionId: this.global.workInstructionSelected.id,
       technicalId: this.global.workInstructionSelected.technicalId,
       supervisorId: this.global.workInstructionSelected.supervisorId,
@@ -218,7 +221,6 @@ export class WorkinstructiondetailComponent implements OnInit {
     );
 }
 
- 
 async createActivityWorkinstruction() {
   if (this.selectedFile) {
     try {
@@ -239,11 +241,44 @@ async createActivityWorkinstruction() {
       );
       console.log('Record created successfully:', result);
       alert('Activity created successfully!');
+      
+      // Restablecer el formulario y el cargador de imágenes
+      this.resetFormWorkInstruction();
+      this.selectedFile = null;
+      this.imagePreview = null;
     } catch (error) {
       console.error('Error creating record:', error);
     }
   }
 }
+/* async createActivityWorkinstruction() {
+  if (this.selectedFile) {
+    try {
+      const activityData = {
+        number: this.activityFormWorkinstruction.number,
+        process: this.activityFormWorkinstruction.process,
+        description: this.activityFormWorkinstruction.description,
+        focusPoints: this.activityFormWorkinstruction.focusPoints,
+        time: this.activityFormWorkinstruction.time,
+        workinstructionId: this.global.workInstructionSelected.id,
+        technicalId: this.global.workInstructionSelected.technicalId,
+        supervisorId: this.global.workInstructionSelected.supervisorId
+      };
+      
+      const result = await this.uploadService.createActivityWorkInstructionRecord(
+        this.selectedFile,
+        activityData
+      );
+      console.log('Record created successfully:', result);
+      alert('Activity created successfully!');
+      this.resetFormWorkInstruction();
+      this.selectedFile = null;
+      this.imagePreview = null;
+    } catch (error) {
+      console.error('Error creating record:', error);
+    }
+  }
+} */
   
     
   resetFormWorkInstruction() {
@@ -253,7 +288,7 @@ async createActivityWorkinstruction() {
       description: '',
       focusPoints: '',
       time: '',
-      visualAid: '',
+      file: '',
       workinstructionId: this.global.workInstructionSelected.id,
       technicalId: this.global.workInstructionSelected.technicalId,
       supervisorId: this.global.workInstructionSelected.supervisorId,
@@ -512,20 +547,21 @@ hasDefects(defects: any[]): boolean {
       }
     }
   }
- /*  onImageSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.length) {
-      this.selectedImageFile = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.imagePreview = e.target.result; // For preview
-      };
-      reader.readAsDataURL(this.selectedImageFile);
-    }
-  } */
-    onImageSelect(event: any) {
+
+    /* onImageSelect(event: any) {
       this.selectedFile = event.target.files[0];
-    }
+    } */
+      onImageSelect(event: any) {
+        const input = event.target as HTMLInputElement;
+        if (input?.files?.length) {
+          this.selectedFile = input.files[0];
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            this.imagePreview = e.target.result; // For preview
+          };
+          reader.readAsDataURL(this.selectedFile);
+        }
+      }
 
   async uploadImageToServer(): Promise<{ url: string }> {
     try {
